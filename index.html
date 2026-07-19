@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#647660">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Key Collective">
+<meta name="description" content="The Key Collective OS — a luxury personal operating system for intentional living.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<link rel="icon" href="./assets/icon-192.png">
+<link rel="stylesheet" href="./styles.css">
+<title>The Key Collective OS</title>
+</head>
+<body>
+<div id="app">
+  <aside class="sidebar" aria-label="Primary navigation">
+    <div class="brand">
+      <div class="brand-emblem">K</div>
+      <div>
+        <div class="brand-name">The Key Collective</div>
+        <div class="brand-edition">PERSONAL OS</div>
+      </div>
+    </div>
+    <p class="brand-mantra">One percent better.<br>One intentional day at a time.</p>
+    <nav id="desktopNav" class="nav"></nav>
+    <button class="quick-add" id="quickAddBtn">＋ Quick add</button>
+    <div class="sidebar-footer">Designed for Key ♡</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open navigation">☰</button>
+      <div>
+        <div class="kicker">THE KEY COLLECTIVE OS</div>
+        <div id="todayText" class="today-text"></div>
+      </div>
+      <button class="icon-button" id="settingsBtn" aria-label="Open settings">⚙︎</button>
+    </header>
+
+    <section id="page-dashboard" class="page active">
+      <div class="hero-grid">
+        <article class="hero card">
+          <div class="kicker">WELCOME HOME</div>
+          <h1 id="greeting">Good afternoon, Key.</h1>
+          <p>You are building the life you promised yourself. Today does not need to be perfect—it just needs to be intentional.</p>
+          <div class="hero-actions">
+            <button class="primary" data-go="today">Open today’s plan</button>
+            <button class="ghost" data-go="journal">Write it out</button>
+          </div>
+          <div class="botanical" aria-hidden="true">❧</div>
+        </article>
+
+        <article class="card focus-card">
+          <div class="row-between">
+            <div class="kicker">FOCUS OF THE WEEK</div>
+            <span class="pill">Editable</span>
+          </div>
+          <input class="display-input" id="weeklyFocus" value="A softer life, built with discipline">
+          <div class="focus-list">
+            <label><input type="checkbox" data-store-check="focus1"> <input data-store-text="focus1Text" value="Finish the next meaningful step"></label>
+            <label><input type="checkbox" data-store-check="focus2"> <input data-store-text="focus2Text" value="Protect my peace and energy"></label>
+            <label><input type="checkbox" data-store-check="focus3"> <input data-store-text="focus3Text" value="Use my money intentionally"></label>
+          </div>
+        </article>
+      </div>
+
+      <article class="clock-ribbon card">
+        <div class="row-between clock-title-row">
+          <div>
+            <div class="kicker">GLOBAL CLOCK BAR</div>
+            <div class="muted">Live local time for the people and places that matter.</div>
+          </div>
+          <span class="live-pill"><i></i> LIVE</span>
+        </div>
+        <div class="clock-grid" id="clockGrid"></div>
+      </article>
+
+      <div class="dashboard-grid">
+        <article class="card span-2">
+          <div class="row-between">
+            <div>
+              <div class="kicker">TODAY’S COMMAND CENTER</div>
+              <h2>Keep the promises you made to yourself.</h2>
+            </div>
+            <span id="todayProgressPill" class="pill">0% complete</span>
+          </div>
+          <div class="progress"><span id="todayProgressBar"></span></div>
+          <div id="todayChecklist" class="checklist"></div>
+          <div class="inline-add">
+            <input id="newTodayTask" placeholder="Add a task for today">
+            <button class="primary" id="addTodayTask">Add</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="kicker">HYDRATION</div>
+          <h2>Water check</h2>
+          <div class="water-ring" id="waterRing"><span id="waterNumber">0</span><small>/ 8</small></div>
+          <div class="button-pair">
+            <button class="primary" id="addWater">+ Glass</button>
+            <button class="ghost" id="resetWater">Reset</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="kicker">A GENTLE REMINDER</div>
+          <h2>Choose tomorrow, too.</h2>
+          <p class="quote">You do not need alcohol to celebrate, have fun, cope, or reward yourself. Peace still counts as a good time.</p>
+          <textarea data-store-text="wellnessReminderNote" placeholder="What support do you need today?"></textarea>
+        </article>
+
+        <article class="card">
+          <div class="kicker">UPCOMING BILLS</div>
+          <h2>Know what’s next.</h2>
+          <div id="dashboardBills"></div>
+          <button class="text-button" data-go="money">Open Money Center →</button>
+        </article>
+
+        <article class="card">
+          <div class="kicker">LANI’S CORNER</div>
+          <h2>Today’s little memory</h2>
+          <textarea data-store-text="laniDailyMemory" placeholder="What made Lani smile today?"></textarea>
+          <button class="text-button" data-go="lani">Open Lani’s Corner →</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="page-today" class="page"></section>
+    <section id="page-calendar" class="page"></section>
+    <section id="page-lani" class="page"></section>
+    <section id="page-career" class="page"></section>
+    <section id="page-business" class="page"></section>
+    <section id="page-money" class="page"></section>
+    <section id="page-wellness" class="page"></section>
+    <section id="page-home" class="page"></section>
+    <section id="page-journal" class="page"></section>
+    <section id="page-goals" class="page"></section>
+    <section id="page-progress" class="page"></section>
+    <section id="page-vision" class="page"></section>
+  </main>
+</div>
+
+<nav class="mobile-nav" id="mobileNav"></nav>
+
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="row-between">
+      <h2 id="modalTitle">Quick add</h2>
+      <button class="icon-button" id="closeModal">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="./app.js"></script>
+</body>
+</html>
