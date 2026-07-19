@@ -55,7 +55,7 @@
         <h1 id="greeting">Good day, Keyona.</h1>
       </div>
       <div class="top-actions">
-        <span class="status-pill">v2.0</span>
+        <span class="status-pill">v2.1</span>
         <button class="avatar" data-view="jay" aria-label="Open Jay's Workspace">J</button>
       </div>
     </header>
@@ -90,21 +90,19 @@
           <small id="dailyCount">0 of 6 complete</small>
         </article>
         <article class="metric-card">
+          <span>Available this week</span>
+          <strong id="dashboardWeeklyMoney">$0</strong>
+          <small>Money without a job</small>
+        </article>
+        <article class="metric-card">
+          <span>Upcoming bills</span>
+          <strong id="upcomingBillsCount">0</strong>
+          <small id="upcomingBillsText">Nothing due soon</small>
+        </article>
+        <article class="metric-card">
           <span>Water</span>
           <strong><span id="waterCount">0</span>/8</strong>
           <div class="button-row"><button class="small-btn" id="waterAdd">+ Glass</button><button class="ghost-btn" id="waterReset">Reset</button></div>
-        </article>
-        <article class="metric-card">
-          <span>Current mood</span>
-          <strong id="moodDisplay">Steady</strong>
-          <select id="moodSelect">
-            <option>Steady</option><option>Energized</option><option>Peaceful</option><option>Tired</option><option>Overwhelmed</option>
-          </select>
-        </article>
-        <article class="metric-card">
-          <span>Next milestone</span>
-          <strong>Keep moving</strong>
-          <small>Small wins count. Quiet progress still counts.</small>
         </article>
       </div>
 
@@ -122,6 +120,17 @@
             <label><input type="checkbox" data-daily="lani"> Prepare Lani's items for tomorrow</label>
             <label><input type="checkbox" data-daily="reflection"> Complete an end-of-day reflection</label>
           </div>
+        </article>
+
+        <article class="panel">
+          <div class="eyebrow">FINANCIAL SNAPSHOT</div>
+          <h3>Money at a glance</h3>
+          <div class="mini-stats">
+            <div><span>Monthly bills</span><strong id="monthlyBillsTotal">$0</strong></div>
+            <div><span>Total debt</span><strong id="dashboardDebtTotal">$0</strong></div>
+            <div><span>Savings</span><strong id="dashboardSavingsTotal">$0</strong></div>
+          </div>
+          <button class="primary-btn" data-view="money">Open Money Center</button>
         </article>
 
         <article class="panel">
@@ -164,9 +173,18 @@
       <div class="content-grid">
         <article class="panel span-2">
           <div class="panel-heading"><div><div class="eyebrow">BUILD QUEUE</div><h3>Next updates</h3></div>
-            <select id="workspaceFilter"><option value="all">All items</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option><option value="Completed">Completed</option></select>
+            <div class="workspace-tools">
+              <input id="workspaceSearch" placeholder="Search workspace">
+              <select id="workspaceFilter"><option value="all">All items</option><option value="favorites">Favorites</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option><option value="Completed">Completed</option></select>
+            </div>
           </div>
           <div id="workspaceItems" class="workspace-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="eyebrow">NEXT CONVERSATION</div>
+          <h3>Bring this back to Jay</h3>
+          <textarea id="nextConversation" rows="7" placeholder="Questions, decisions, or updates for our next chat..."></textarea>
         </article>
 
         <article class="panel">
@@ -179,6 +197,12 @@
           <div class="eyebrow">KNOWLEDGE VAULT</div>
           <h3>Important links & resources</h3>
           <textarea id="knowledgeVault" rows="14" placeholder="Templates, links, scripts, instructions, and resources..."></textarea>
+        </article>
+
+        <article class="panel span-2">
+          <div class="eyebrow">BUILD HISTORY</div>
+          <h3>Completed milestones</h3>
+          <div id="buildHistory" class="history-list"></div>
         </article>
 
         <article class="panel span-2">
@@ -207,11 +231,89 @@
     </section>
 
     <section class="view" id="money">
-      <div class="page-intro"><div><div class="eyebrow">EVERY DOLLAR GETS A JOB</div><h2>Money Center</h2><p>Milestone 1 foundation. Full paycheck planning arrives in v2.1.</p></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>Available this week</h3><input type="number" id="weeklyMoney" min="0" step=".01" placeholder="0.00"><small>Bills money is not spending money.</small></article>
-        <article class="panel"><h3>Money focus</h3><textarea data-text="moneyFocus" rows="6" placeholder="The most important money move right now..."></textarea></article>
-        <article class="panel span-2"><h3>Upcoming bills & notes</h3><textarea data-text="billNotes" rows="10" placeholder="Track what is due, reserved, or paid..."></textarea></article>
+      <div class="page-intro">
+        <div><div class="eyebrow">EVERY DOLLAR GETS A JOB</div><h2>Money Center 2.1</h2><p>Plan your paychecks, track bills, watch debt shrink, and protect the money you need.</p></div>
+        <button class="primary-btn" id="addBillBtn">+ Add bill</button>
+      </div>
+
+      <div class="money-summary-grid">
+        <article><span>Available this week</span><strong id="moneyAvailable">$0</strong><small>Money without a job</small></article>
+        <article><span>Monthly bills</span><strong id="moneyMonthlyBills">$0</strong><small>Recurring obligations</small></article>
+        <article><span>Total debt</span><strong id="moneyDebtTotal">$0</strong><small>Tracked balances</small></article>
+        <article><span>Total savings</span><strong id="moneySavingsTotal">$0</strong><small>Across savings goals</small></article>
+      </div>
+
+      <div class="money-tabs">
+        <button class="money-tab active" data-moneytab="paycheck">Paycheck Planner</button>
+        <button class="money-tab" data-moneytab="bills">Bills</button>
+        <button class="money-tab" data-moneytab="debts">Debt</button>
+        <button class="money-tab" data-moneytab="savings">Savings</button>
+        <button class="money-tab" data-moneytab="subscriptions">Subscriptions</button>
+      </div>
+
+      <div class="money-pane active" id="money-paycheck">
+        <div class="content-grid">
+          <article class="panel">
+            <h3>Paycheck planner</h3>
+            <label>Paycheck amount<input type="number" id="paycheckAmount" min="0" step=".01" placeholder="0.00"></label>
+            <label>Bills reserved<input type="number" id="paycheckBills" min="0" step=".01" placeholder="0.00"></label>
+            <label>Savings reserved<input type="number" id="paycheckSavings" min="0" step=".01" placeholder="0.00"></label>
+            <label>Debt payments<input type="number" id="paycheckDebt" min="0" step=".01" placeholder="0.00"></label>
+            <label>Weekly living money<input type="number" id="paycheckLiving" min="0" step=".01" placeholder="0.00"></label>
+          </article>
+          <article class="panel paycheck-result">
+            <div class="eyebrow">MONEY WITHOUT A JOB</div>
+            <h3 id="unassignedMoney">$0.00</h3>
+            <p id="unassignedMessage">Give every dollar a purpose before it disappears.</p>
+            <div class="allocation-bar"><span id="allocatedBar"></span></div>
+            <small id="allocationText">0% allocated</small>
+          </article>
+          <article class="panel span-2">
+            <h3>Paycheck notes</h3>
+            <textarea data-text="paycheckNotes" rows="8" placeholder="What must this paycheck cover? What can wait?"></textarea>
+          </article>
+        </div>
+      </div>
+
+      <div class="money-pane" id="money-bills">
+        <article class="panel">
+          <div class="panel-heading"><div><div class="eyebrow">BILL CALENDAR</div><h3>Recurring bills</h3></div><select id="billFilter"><option value="all">All bills</option><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select></div>
+          <div id="billsList" class="finance-list"></div>
+        </article>
+      </div>
+
+      <div class="money-pane" id="money-debts">
+        <div class="content-grid">
+          <article class="panel span-2">
+            <div class="panel-heading"><div><div class="eyebrow">DEBT PAYOFF</div><h3>Balances</h3></div><button class="small-btn" id="addDebtBtn">+ Add debt</button></div>
+            <div id="debtsList" class="finance-list"></div>
+          </article>
+          <article class="panel">
+            <h3>Payoff strategy</h3>
+            <select id="debtStrategy"><option>Debt snowball</option><option>Debt avalanche</option><option>Custom priority</option></select>
+            <textarea data-text="debtPlan" rows="10" placeholder="Your current payoff plan..."></textarea>
+          </article>
+        </div>
+      </div>
+
+      <div class="money-pane" id="money-savings">
+        <div class="content-grid">
+          <article class="panel span-2">
+            <div class="panel-heading"><div><div class="eyebrow">SINKING FUNDS</div><h3>Savings goals</h3></div><button class="small-btn" id="addSavingsBtn">+ Add goal</button></div>
+            <div id="savingsList" class="finance-list"></div>
+          </article>
+          <article class="panel">
+            <h3>Savings focus</h3>
+            <textarea data-text="savingsFocus" rows="10" placeholder="What are you protecting or preparing for?"></textarea>
+          </article>
+        </div>
+      </div>
+
+      <div class="money-pane" id="money-subscriptions">
+        <article class="panel">
+          <div class="panel-heading"><div><div class="eyebrow">SUBSCRIPTIONS</div><h3>Recurring services</h3></div><button class="small-btn" id="addSubscriptionBtn">+ Add subscription</button></div>
+          <div id="subscriptionsList" class="finance-list"></div>
+        </article>
       </div>
     </section>
 
@@ -264,6 +366,19 @@
     <label>Priority<select id="itemPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
     <label>Notes<textarea id="itemNotes" rows="5" placeholder="Details, decisions, or next steps..."></textarea></label>
     <button class="primary-btn" type="submit">Save to workspace</button>
+  </form>
+</div>
+
+
+<div class="modal-backdrop" id="financeModal" hidden>
+  <form class="modal" id="financeForm">
+    <div class="panel-heading"><div><div class="eyebrow">MONEY CENTER</div><h3 id="financeModalTitle">Add item</h3></div><button type="button" class="icon-button" id="closeFinanceModal">×</button></div>
+    <input type="hidden" id="financeType">
+    <label>Name<input id="financeName" required placeholder="Name"></label>
+    <label id="financeAmountLabel">Amount<input id="financeAmount" type="number" min="0" step=".01" required placeholder="0.00"></label>
+    <label id="financeExtraLabel">Due day<input id="financeExtra" type="number" min="1" max="31" placeholder="1"></label>
+    <label>Notes<textarea id="financeNotes" rows="4" placeholder="Optional notes"></textarea></label>
+    <button class="primary-btn" type="submit">Save</button>
   </form>
 </div>
 

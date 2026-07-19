@@ -1,7 +1,7 @@
 {
   "name": "The Key Collective OS",
   "short_name": "Key OS",
-  "description": "A personal operating system for life, family, finances, career, wellness, and business.",
+  "description": "The Key Collective OS v2.1 with Money Center, paycheck planning, debt and savings tracking, and Jay's Workspace.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8f4ec",
