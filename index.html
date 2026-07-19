@@ -10,7 +10,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
-  <title>The Key Collective OS v2.3</title>
+  <title>The Key Collective OS v2.4</title>
 </head>
 <body>
 <div class="app-shell">
@@ -28,6 +28,8 @@
       <button class="nav-item" data-view="today"><span>✓</span>Today</button>
       <button class="nav-item" data-view="calendar"><span>□</span>Calendar</button>
       <button class="nav-item" data-view="goals"><span>◎</span>Goals</button>
+      <button class="nav-item" data-view="progress"><span>★</span>Progress</button>
+      <button class="nav-item" data-view="vision"><span>◈</span>Vision Board</button>
       <button class="nav-item" data-view="money"><span>$</span>Money Center</button>
       <button class="nav-item" data-view="journal"><span>✎</span>Journal</button>
       <button class="nav-item" data-view="wellness"><span>♧</span>Wellness</button>
@@ -35,6 +37,9 @@
       <button class="nav-item" data-view="book"><span>▤</span>Book HQ</button>
       <button class="nav-item" data-view="business"><span>✦</span>Business</button>
       <button class="nav-item" data-view="home"><span>⌂</span>Home</button>
+      <button class="nav-item" data-view="relationships"><span>♡</span>Relationships</button>
+      <button class="nav-item" data-view="travel"><span>✈</span>Travel</button>
+      <button class="nav-item" data-view="documents"><span>▣</span>Documents</button>
       <button class="nav-item" data-view="lani"><span>♡</span>Lani's Corner</button>
       <button class="nav-item" data-view="integrations"><span>↗</span>Integrations</button>
       <button class="nav-item jay-link" data-view="jay"><span>J</span>Jay's Workspace</button>
@@ -58,7 +63,7 @@
         <h1 id="greeting">Good day, Keyona.</h1>
       </div>
       <div class="top-actions">
-        <span class="status-pill">v2.3</span>
+        <span class="status-pill">v2.4</span>
         <button class="avatar" data-view="jay" aria-label="Open Jay's Workspace">J</button>
       </div>
     </header>
@@ -198,6 +203,31 @@
           </div>
         </article>
 
+
+        <article class="panel span-2">
+          <div class="panel-heading">
+            <div><div class="eyebrow">YOUR OS</div><h3>Module directory</h3></div>
+            <span class="soft-pill">15 modules</span>
+          </div>
+          <div class="module-grid">
+            <button data-view="money"><span>$</span><strong>Money</strong><small>Budget, bills, debt</small></button>
+            <button data-view="career"><span>◇</span><strong>Career</strong><small>Training and growth</small></button>
+            <button data-view="book"><span>▤</span><strong>Book HQ</strong><small>Write and launch</small></button>
+            <button data-view="business"><span>✦</span><strong>Business HQ</strong><small>Build the brand</small></button>
+            <button data-view="home"><span>⌂</span><strong>Home</strong><small>Meals and resets</small></button>
+            <button data-view="relationships"><span>♡</span><strong>Relationships</strong><small>People and connection</small></button>
+            <button data-view="wellness"><span>♧</span><strong>Wellness</strong><small>Care and sobriety</small></button>
+            <button data-view="lani"><span>♡</span><strong>Lani’s Corner</strong><small>School and memories</small></button>
+            <button data-view="jay"><span>J</span><strong>Jay</strong><small>Ideas and strategy</small></button>
+            <button data-view="travel"><span>✈</span><strong>Travel</strong><small>Trips and packing</small></button>
+            <button data-view="calendar"><span>□</span><strong>Calendar</strong><small>Dates and agenda</small></button>
+            <button data-view="documents"><span>▣</span><strong>Documents</strong><small>Important records</small></button>
+            <button data-view="goals"><span>◎</span><strong>Goals</strong><small>90-day and annual</small></button>
+            <button data-view="progress"><span>★</span><strong>Progress</strong><small>Wins and momentum</small></button>
+            <button data-view="vision"><span>◈</span><strong>Vision Board</strong><small>Dreams and direction</small></button>
+          </div>
+        </article>
+
         <article class="panel span-2">
           <div class="panel-heading">
             <div><div class="eyebrow">HABIT PULSE</div><h3>Consistency at a glance</h3></div>
@@ -328,6 +358,54 @@
     </section>
 
 
+
+    <section class="view" id="relationships">
+      <div class="page-intro"><div><div class="eyebrow">PEOPLE WHO MATTER</div><h2>Relationships</h2><p>Make room for connection, communication, and meaningful moments.</p></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>People to check in with</h3><textarea data-text="relationshipCheckins" rows="11" placeholder="Who have you been meaning to call, text, or spend time with?"></textarea></article>
+        <article class="panel"><h3>Important dates</h3><textarea data-text="relationshipDates" rows="11" placeholder="Birthdays, anniversaries, celebrations, and reminders..."></textarea></article>
+        <article class="panel span-2"><h3>Connection notes</h3><textarea data-text="relationshipNotes" rows="8" placeholder="Plans, memories, boundaries, or conversations to revisit..."></textarea></article>
+      </div>
+    </section>
+
+    <section class="view" id="travel">
+      <div class="page-intro"><div><div class="eyebrow">GO SOMEWHERE BEAUTIFUL</div><h2>Travel</h2><p>Plan trips without letting the details live in twelve different places.</p></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>Trip ideas</h3><textarea data-text="tripIdeas" rows="11" placeholder="Where do you want to go and why?"></textarea></article>
+        <article class="panel"><h3>Upcoming itinerary</h3><textarea data-text="travelItinerary" rows="11" placeholder="Flights, hotel, dates, reservations, activities..."></textarea></article>
+        <article class="panel"><h3>Packing list</h3><textarea data-text="packingList" rows="10" placeholder="Clothes, toiletries, documents, chargers..."></textarea></article>
+        <article class="panel"><h3>Travel budget</h3><textarea data-text="travelBudget" rows="10" placeholder="Transportation, stay, meals, fun, and savings target..."></textarea></article>
+      </div>
+    </section>
+
+    <section class="view" id="documents">
+      <div class="page-intro"><div><div class="eyebrow">IMPORTANT, ORGANIZED</div><h2>Documents</h2><p>A private index of where important records live. Do not enter sensitive account numbers.</p></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>Personal records</h3><textarea data-text="personalDocuments" rows="11" placeholder="Birth certificates, IDs, passport locations, insurance records..."></textarea></article>
+        <article class="panel"><h3>Career documents</h3><textarea data-text="careerDocuments" rows="11" placeholder="Resume versions, offer letters, certifications, onboarding records..."></textarea></article>
+        <article class="panel"><h3>Financial documents</h3><textarea data-text="financialDocuments" rows="11" placeholder="Tax folders, statements, policies, loan paperwork..."></textarea></article>
+        <article class="panel"><h3>Lani’s documents</h3><textarea data-text="laniDocuments" rows="11" placeholder="School, medical, childcare, and activity records..."></textarea></article>
+      </div>
+    </section>
+
+    <section class="view" id="progress">
+      <div class="page-intro"><div><div class="eyebrow">PROOF OVER PERFECTION</div><h2>Progress</h2><p>Track evidence that your effort is turning into change.</p></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>This month’s wins</h3><textarea data-text="monthlyWins" rows="11" placeholder="What moved forward this month?"></textarea></article>
+        <article class="panel"><h3>Lessons learned</h3><textarea data-text="lessonsLearned" rows="11" placeholder="What worked? What needs to change?"></textarea></article>
+        <article class="panel span-2"><h3>Before and after</h3><textarea data-text="beforeAfter" rows="8" placeholder="What feels different now compared with where you started?"></textarea></article>
+      </div>
+    </section>
+
+    <section class="view" id="vision">
+      <div class="page-intro"><div><div class="eyebrow">SEE IT BEFORE YOU LIVE IT</div><h2>Vision Board</h2><p>Words, links, and images that keep your direction visible.</p></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>Life vision</h3><textarea data-text="lifeVision" rows="11" placeholder="What does the life you want look and feel like?"></textarea></article>
+        <article class="panel"><h3>Dream list</h3><textarea data-text="dreamList" rows="11" placeholder="Places, experiences, milestones, and beautiful things..."></textarea></article>
+        <article class="panel span-2"><h3>Inspiration links</h3><textarea data-text="visionLinks" rows="8" placeholder="Pinterest boards, Canva designs, images, homes, travel, style..."></textarea></article>
+      </div>
+    </section>
+
     <section class="view" id="integrations">
       <div class="page-intro">
         <div><div class="eyebrow">CONNECTED SHORTCUTS</div><h2>Integrations</h2><p>Open the apps and services you use without hunting through your phone.</p></div>
@@ -344,6 +422,35 @@
           <div><div class="eyebrow">COMING NEXT</div><h3>More shortcuts</h3><p>Future milestones can add launchers for the services you use most.</p><span>Ready when you are</span></div>
         </article>
       </div>
+
+
+      <article class="panel appearance-settings">
+        <div class="eyebrow">APPEARANCE</div>
+        <h3>Automatic day and evening themes</h3>
+        <p>Modern Coastal displays from 7:00 AM through 6:59 PM. Dark Luxury turns on from 7:00 PM through 6:59 AM.</p>
+        <label>Theme mode
+          <select id="themeMode">
+            <option value="auto">Automatic</option>
+            <option value="coastal">Modern Coastal</option>
+            <option value="dark">Dark Luxury</option>
+          </select>
+        </label>
+        <div class="theme-preview-grid">
+          <button type="button" class="theme-preview coastal-preview" data-theme-choice="coastal">
+            <span class="theme-swatches">
+              <i style="background:#7EB7AE"></i><i style="background:#FAF8F4"></i><i style="background:#B79D82"></i><i style="background:#24384D"></i><i style="background:#D4B46A"></i>
+            </span>
+            <strong>Modern Coastal</strong><small>Daytime theme</small>
+          </button>
+          <button type="button" class="theme-preview dark-preview" data-theme-choice="dark">
+            <span class="theme-swatches">
+              <i style="background:#121212"></i><i style="background:#1E3329"></i><i style="background:#2F6F58"></i><i style="background:#C8A15A"></i><i style="background:#F5F1E8"></i>
+            </span>
+            <strong>Dark Luxury</strong><small>Evening theme</small>
+          </button>
+        </div>
+        <div class="theme-status"><span>Current theme</span><strong id="currentThemeLabel">Modern Coastal</strong></div>
+      </article>
 
       <article class="panel integration-settings">
         <div class="eyebrow">WEATHER LOCATION</div>

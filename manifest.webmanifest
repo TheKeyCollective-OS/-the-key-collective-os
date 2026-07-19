@@ -1,11 +1,11 @@
 {
   "name": "The Key Collective OS",
   "short_name": "Key OS",
-  "description": "The Key Collective OS v2.3 with an integrations hub and Weather Channel access.",
+  "description": "The Key Collective OS v2.4 with automatic day/night themes and a complete life module directory.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f8f4ec",
-  "theme_color": "#667a65",
+  "background_color": "#FAF8F4",
+  "theme_color": "#7EB7AE",
   "icons": [
     {
       "src": "icon-192.png",

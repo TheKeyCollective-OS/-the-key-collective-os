@@ -1,4 +1,4 @@
-const STORE = "KeyCollectiveOS_v2_3";
+const STORE = "KeyCollectiveOS_v2_4";
 const defaults = {
   weeklyFocus: "Build a calm, intentional week",
   water: 0, mood: "Steady", daily: {}, roadmap: {}, wellness: {},
@@ -35,7 +35,8 @@ const defaults = {
     {title:"Milestone 1 — v2.0",date:"July 2026",notes:"Luxury dashboard, expanded navigation, Jay's Workspace, and core app foundations."},
     {title:"Milestone 2 — v2.1",date:"July 2026",notes:"Money Center, paycheck planner, debt and savings tools, dashboard financial snapshot, and smarter workspace."},
     {title:"Milestone 3 — v2.2",date:"July 2026",notes:"Daily briefing, Today view, habit rings, agenda, wins, workspace board, cash-flow insights, net worth, and visual timelines."},
-    {title:"Milestone 4 — v2.3",date:"July 2026",notes:"Integrations hub and Weather Channel access from Dashboard and Today."}
+    {title:"Milestone 4 — v2.3",date:"July 2026",notes:"Integrations hub and Weather Channel access from Dashboard and Today."},
+    {title:"Themes & Modules — v2.4",date:"July 2026",notes:"Automatic Modern Coastal and Dark Luxury themes, plus Relationships, Travel, Documents, Progress, and Vision Board modules."}
   ],
   agenda:[],
   wins:[],
@@ -43,6 +44,7 @@ const defaults = {
   today:{focus:"",energy:"Grounded",checkin:""},
   cashflow:{income:0,flexible:0,other:0,cash:0,assets:0},
   integrations:{weatherShortcut:true},
+  appearance:{mode:"auto"},
   workspace: [
     {id: crypto.randomUUID(), title:"Launch The Key Collective OS v2.0", category:"App Update", priority:"High", notes:"Redesigned dashboard, expanded navigation, and Jay's Workspace.", status:"Completed", created:Date.now()},
     {id: crypto.randomUUID(), title:"Build Money Center v2.1", category:"Budget", priority:"High", notes:"Paycheck planner, bills, debt, savings, and subscription tools.", status:"Open", created:Date.now()},
@@ -52,7 +54,7 @@ const defaults = {
 
 function migrate(){
   let incoming = {};
-  for (const key of ["KeyCollectiveOS_v2_2","KeyCollectiveOS_v2_1","KeyCollectiveOS_v2","keyCollectiveStateV2","KeyCollectivePersonalEdition_v1","KeyCollectiveOSv1"]) {
+  for (const key of ["KeyCollectiveOS_v2_3","KeyCollectiveOS_v2_2","KeyCollectiveOS_v2_1","KeyCollectiveOS_v2","keyCollectiveStateV2","KeyCollectivePersonalEdition_v1","KeyCollectiveOSv1"]) {
     try { incoming = {...incoming, ...(JSON.parse(localStorage.getItem(key)||"{}"))}; } catch {}
   }
   const current = JSON.parse(localStorage.getItem(STORE)||"null");
@@ -70,7 +72,7 @@ function migrate(){
   state.text.contentIdeas = incoming.businessIdea ?? "";
   state.daily = incoming.tasks ?? {};
   state.progress = {...state.progress, ...(incoming.progress||{})};
-  for (const key of ["paycheck","bills","debts","savingsGoals","subscriptions","buildHistory","workspace","agenda","wins","weather","today","cashflow","integrations"]) {
+  for (const key of ["paycheck","bills","debts","savingsGoals","subscriptions","buildHistory","workspace","agenda","wins","weather","today","cashflow","integrations","appearance"]) {
     if (incoming[key]) state[key] = incoming[key];
   }
   if(incoming.nextConversation) state.text.nextConversation = incoming.nextConversation;
@@ -431,3 +433,27 @@ weatherShortcutConfirm.onchange=()=>{
   save();applyWeatherShortcutVisibility();toast(weatherShortcutConfirm.checked?"Weather shortcut enabled.":"Weather shortcut hidden.");
 };
 applyWeatherShortcutVisibility();
+
+
+const themeMode=$("themeMode");
+themeMode.value=S.appearance?.mode||"auto";
+
+function resolvedTheme(){
+  const mode=S.appearance?.mode||"auto";
+  if(mode==="coastal"||mode==="dark") return mode;
+  const hour=new Date().getHours();
+  return hour>=19||hour<7 ? "dark" : "coastal";
+}
+function applyTheme(){
+  const theme=resolvedTheme();
+  document.body.classList.toggle("theme-dark",theme==="dark");
+  document.documentElement.style.colorScheme=theme==="dark"?"dark":"light";
+  $("currentThemeLabel").textContent=theme==="dark"?"Dark Luxury":"Modern Coastal";
+  document.querySelectorAll("[data-theme-choice]").forEach(b=>b.classList.toggle("active",b.dataset.themeChoice===theme));
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(meta)meta.setAttribute("content",theme==="dark"?"#1E3329":"#7EB7AE");
+}
+themeMode.onchange=e=>{S.appearance.mode=e.target.value;save();applyTheme();toast(e.target.value==="auto"?"Automatic themes enabled.":"Theme changed.")};
+document.querySelectorAll("[data-theme-choice]").forEach(b=>b.onclick=()=>{S.appearance.mode=b.dataset.themeChoice;themeMode.value=b.dataset.themeChoice;save();applyTheme();toast("Theme changed.")});
+applyTheme();
+setInterval(()=>{if((S.appearance?.mode||"auto")==="auto")applyTheme()},60000);
