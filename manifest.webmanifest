@@ -1,11 +1,11 @@
 {
   "name": "The Key Collective OS",
   "short_name": "Key OS",
-  "description": "The Key Collective OS v2.4 with automatic day/night themes and a complete life module directory.",
+  "description": "Reference-first redesign of The Key Collective OS.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#FAF8F4",
-  "theme_color": "#7EB7AE",
+  "background_color": "#f7f1e7",
+  "theme_color": "#f7f1e7",
   "icons": [
     {
       "src": "icon-192.png",

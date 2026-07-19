@@ -3,668 +3,251 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#667a65">
+  <meta name="theme-color" content="#f7f1e7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Key OS">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
-  <title>The Key Collective OS v2.4</title>
+  <title>The Key Collective OS — Reference Design Rebuild</title>
 </head>
 <body>
-<div class="app-shell">
-  <aside class="sidebar" id="sidebar">
-    <div class="brand-lockup">
-      <div class="brand-mark">K</div>
-      <div>
-        <div class="eyebrow">THE KEY COLLECTIVE</div>
-        <strong>Personal OS</strong>
-      </div>
+<div class="app">
+  <aside class="brand-rail">
+    <div class="logo-seal">
+      <div class="key-flower">⚘</div>
     </div>
+    <div class="brand-name">THE KEY<br>COLLECTIVE</div>
+    <div class="brand-tagline">ONE PERCENT BETTER.<br>ONE INTENTIONAL DAY<br>AT A TIME.</div>
 
-    <nav class="side-nav" aria-label="Primary navigation">
-      <button class="nav-item active" data-view="dashboard"><span>⌂</span>Dashboard</button>
-      <button class="nav-item" data-view="today"><span>✓</span>Today</button>
-      <button class="nav-item" data-view="calendar"><span>□</span>Calendar</button>
-      <button class="nav-item" data-view="goals"><span>◎</span>Goals</button>
-      <button class="nav-item" data-view="progress"><span>★</span>Progress</button>
-      <button class="nav-item" data-view="vision"><span>◈</span>Vision Board</button>
-      <button class="nav-item" data-view="money"><span>$</span>Money Center</button>
-      <button class="nav-item" data-view="journal"><span>✎</span>Journal</button>
-      <button class="nav-item" data-view="wellness"><span>♧</span>Wellness</button>
-      <button class="nav-item" data-view="career"><span>◇</span>Career</button>
-      <button class="nav-item" data-view="book"><span>▤</span>Book HQ</button>
-      <button class="nav-item" data-view="business"><span>✦</span>Business</button>
-      <button class="nav-item" data-view="home"><span>⌂</span>Home</button>
-      <button class="nav-item" data-view="relationships"><span>♡</span>Relationships</button>
-      <button class="nav-item" data-view="travel"><span>✈</span>Travel</button>
-      <button class="nav-item" data-view="documents"><span>▣</span>Documents</button>
-      <button class="nav-item" data-view="lani"><span>♡</span>Lani's Corner</button>
-      <button class="nav-item" data-view="integrations"><span>↗</span>Integrations</button>
-      <button class="nav-item jay-link" data-view="jay"><span>J</span>Jay's Workspace</button>
-    </nav>
+    <section class="rail-card completion-card">
+      <div class="rail-label">DAILY COMPLETION</div>
+      <div class="completion-ring" id="completionRing"><span id="completionPercent">0%</span></div>
+      <strong id="completionMessage">You’re building momentum.</strong>
+      <small>Every completed step is proof.</small>
+      <span class="tiny-heart">♡</span>
+    </section>
 
-    <div class="sidebar-footer">
-      <p>One percent better.<br>One intentional day at a time.</p>
-      <button class="text-button" id="exportBtn">Export backup</button>
-      <label class="text-button import-label">Import backup
-        <input type="file" id="importInput" accept=".json,application/json">
-      </label>
-    </div>
+    <section class="rail-card quick-stats">
+      <div class="rail-label">QUICK STATS</div>
+      <div><span>Tasks Completed</span><strong id="statTasks">0 / 6</strong></div>
+      <div><span>Events Today</span><strong id="statEvents">0</strong></div>
+      <div><span>Focus Time</span><strong id="statFocus">0m</strong></div>
+      <div><span>Water</span><strong id="statWater">0 / 8 cups</strong></div>
+      <div><span>Streak</span><strong id="statStreak">1 day</strong></div>
+    </section>
+
+    <div class="rail-quote">Progress isn’t perfect,<br>but it is powerful.</div>
   </aside>
-  <button class="menu-backdrop" id="menuBackdrop" aria-label="Close navigation"></button>
 
-  <main class="main">
-    <header class="topbar">
-      <button id="menuBtn" class="icon-button mobile-only" aria-label="Open navigation">☰</button>
-      <div>
-        <div class="eyebrow" id="todayLabel"></div>
-        <h1 id="greeting">Good day, Keyona.</h1>
-      </div>
-      <div class="top-actions">
-        <span class="status-pill">v2.4</span>
-        <button class="avatar" data-view="jay" aria-label="Open Jay's Workspace">J</button>
+  <main class="workspace">
+    <header class="top-nav">
+      <button class="mobile-menu" id="mobileMenu">☰</button>
+      <div class="nav-scroll" id="navScroll">
+        <button class="nav-link active" data-view="dashboard"><span>⌂</span><small>DASHBOARD</small></button>
+        <button class="nav-link" data-view="calendar"><span>▦</span><small>CALENDAR</small></button>
+        <button class="nav-link" data-view="lani"><span>☺</span><small>LANI</small></button>
+        <button class="nav-link" data-view="career"><span>▣</span><small>CAREER</small></button>
+        <button class="nav-link" data-view="business"><span>✦</span><small>BUSINESS</small></button>
+        <button class="nav-link" data-view="money"><span>$</span><small>MONEY</small></button>
+        <button class="nav-link" data-view="wellness"><span>♧</span><small>WELLNESS</small></button>
+        <button class="nav-link" data-view="home"><span>⌂</span><small>HOME</small></button>
+        <button class="nav-link" data-view="journal"><span>▤</span><small>JOURNAL</small></button>
+        <button class="nav-link" data-view="goals"><span>◎</span><small>GOALS</small></button>
+        <button class="nav-link" data-view="progress"><span>▥</span><small>PROGRESS</small></button>
+        <button class="nav-link" data-view="vision"><span>☆</span><small>VISION BOARD</small></button>
+        <button class="nav-link" data-view="jay"><span>J</span><small>JAY</small></button>
       </div>
     </header>
 
-    <section class="clock-ribbon">
-      <div class="clock" data-zone="America/Phoenix"><span>Goodyear</span><strong>--:--</strong><small>Arizona</small></div>
-      <div class="clock" data-zone="Africa/Johannesburg"><span>Cape Town</span><strong>--:--</strong><small>South Africa</small></div>
-      <div class="clock" data-zone="America/Chicago"><span>Houston</span><strong>--:--</strong><small>Texas</small></div>
-      <div class="clock" data-zone="America/New_York"><span>New York</span><strong>--:--</strong><small>New York</small></div>
-    </section>
-
-    <div id="toast" class="toast" role="status"></div>
-
     <section class="view active" id="dashboard">
-      <article class="daily-briefing">
-        <div>
-          <div class="eyebrow">YOUR DAILY BRIEFING</div>
-          <h2 id="briefingHeadline">Here’s where to begin.</h2>
-          <p id="briefingText">Your most important information will appear here.</p>
-        </div>
-        <button class="briefing-action" data-view="today">Open Today</button>
-      </article>
-      <div class="hero-card">
-        <div>
-          <div class="eyebrow">TODAY'S INTENTION</div>
-          <h2>Build a life that feels as good as it looks.</h2>
-          <p>Your command center for your family, finances, future, and peace.</p>
-        </div>
-        <div class="hero-focus">
-          <label for="weeklyFocus">Focus of the week</label>
-          <input id="weeklyFocus" placeholder="What matters most this week?">
-        </div>
-      </div>
-
-      <div class="metric-grid">
-        <article class="metric-card">
-          <span>Daily progress</span>
-          <strong id="dailyPercent">0%</strong>
-          <div class="progress"><div id="dailyBar"></div></div>
-          <small id="dailyCount">0 of 6 complete</small>
-        </article>
-        <article class="metric-card">
-          <span>Available this week</span>
-          <strong id="dashboardWeeklyMoney">$0</strong>
-          <small>Money without a job</small>
-        </article>
-        <article class="metric-card">
-          <span>Upcoming bills</span>
-          <strong id="upcomingBillsCount">0</strong>
-          <small id="upcomingBillsText">Nothing due soon</small>
-        </article>
-        <article class="metric-card">
-          <span>Water</span>
-          <strong><span id="waterCount">0</span>/8</strong>
-          <div class="button-row"><button class="small-btn" id="waterAdd">+ Glass</button><button class="ghost-btn" id="waterReset">Reset</button></div>
-        </article>
-      </div>
-
-      <div class="content-grid">
-        <article class="panel span-2">
-          <div class="panel-heading">
-            <div><div class="eyebrow">DAILY COMMAND CENTER</div><h3>Today's priorities</h3></div>
-            <span class="soft-pill" id="priorityBadge">0 complete</span>
+      <div class="dashboard-grid">
+        <article class="card greeting-card">
+          <div>
+            <div class="mini-title">GOOD <span id="dayPart">MORNING</span>, KEY! <span class="sun">☀</span></div>
+            <p>Today is a new opportunity<br>to grow, create and align.</p>
+            <em>Let’s make it count.</em>
           </div>
-          <div class="task-list" id="dashboardTasks">
-            <label><input type="checkbox" data-daily="priorities"> Choose today's top three priorities</label>
-            <label><input type="checkbox" data-daily="work"> Review work schedule and follow-ups</label>
-            <label><input type="checkbox" data-daily="collective"> Complete one Key Collective task</label>
-            <label><input type="checkbox" data-daily="money"> Check upcoming bills and available money</label>
-            <label><input type="checkbox" data-daily="lani"> Prepare Lani's items for tomorrow</label>
-            <label><input type="checkbox" data-daily="reflection"> Complete an end-of-day reflection</label>
+          <div class="leaf-stem"></div>
+        </article>
+
+        <article class="card focus-card">
+          <div class="mini-title">⚘ &nbsp; FOCUS OF THE WEEK</div>
+          <h2 id="focusDisplay">Book Week</h2>
+          <p id="focusSub">Finish Chapter 2 · Stay Consistent<br>· Make Progress</p>
+          <button class="pill-button" id="editFocus">VIEW WEEK PLAN</button>
+        </article>
+
+        <article class="card time-card span-2">
+          <div class="card-header"><div class="mini-title">◉ &nbsp; GLOBAL TIME CENTER</div><button class="text-link" id="editClocks">Edit</button></div>
+          <div class="clock-grid">
+            <div class="time-tile" data-zone="America/Phoenix"><small>GOODYEAR<br>ARIZONA</small><span>☀</span><strong>--:--</strong><em>Local</em></div>
+            <div class="time-tile" data-zone="Africa/Johannesburg"><small>JOHANNESBURG<br>SOUTH AFRICA</small><span>☀</span><strong>--:--</strong><em>Local</em></div>
+            <div class="time-tile" data-zone="America/New_York"><small>NEW YORK<br>USA</small><span>⛅</span><strong>--:--</strong><em>Local</em></div>
+            <div class="time-tile" data-zone="America/Chicago"><small>TEXAS<br>CENTRAL TIME</small><span>☀</span><strong>--:--</strong><em>Local</em></div>
+            <div class="time-tile" data-zone="America/Los_Angeles"><small>CALIFORNIA<br>PACIFIC TIME</small><span>⛅</span><strong>--:--</strong><em>Local</em></div>
           </div>
         </article>
 
-        <article class="panel">
-          <div class="eyebrow">FINANCIAL SNAPSHOT</div>
-          <h3>Money at a glance</h3>
-          <div class="mini-stats">
-            <div><span>Monthly bills</span><strong id="monthlyBillsTotal">$0</strong></div>
-            <div><span>Total debt</span><strong id="dashboardDebtTotal">$0</strong></div>
-            <div><span>Savings</span><strong id="dashboardSavingsTotal">$0</strong></div>
+        <article class="card bills-card">
+          <div class="mini-title coral">BILLS DUE (NEXT 7 DAYS)</div>
+          <h2><span id="billCount">0</span> Bills</h2>
+          <div class="bill-total" id="billTotal">$0.00</div>
+          <div id="dashboardBills" class="mini-list"></div>
+          <button class="pill-button coral-btn" data-view="money">VIEW ALL BILLS</button>
+        </article>
+
+        <article class="card calendar-card">
+          <div class="card-header"><div class="mini-title" id="monthLabel">MONTH</div><div class="calendar-actions"><button id="prevMonth">‹</button><button id="todayMonth">TODAY</button></div></div>
+          <div class="mini-calendar" id="miniCalendar"></div>
+          <div class="calendar-footer"><span id="calendarEventsCount">0 Events Today</span><button class="pill-button blue-btn" data-view="calendar">VIEW CALENDAR</button></div>
+        </article>
+
+        <article class="card goals-card">
+          <div class="card-header"><div class="mini-title">GOAL TRACKER</div><button class="text-link" id="addGoal">+ ADD GOAL</button></div>
+          <div id="goalList" class="goal-list"></div>
+        </article>
+
+        <article class="card progress-card">
+          <div class="card-header"><div class="mini-title">PROGRESS OVERVIEW</div><button class="text-link" data-view="progress">See All</button></div>
+          <div id="progressOverview" class="progress-overview"></div>
+        </article>
+
+        <article class="card lani-card">
+          <div class="card-header">
+            <div class="mini-title">LANI'S CORNER</div>
+            <div class="lani-avatar" id="laniAvatar">L</div>
           </div>
-          <button class="primary-btn" data-view="money">Open Money Center</button>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">QUICK CAPTURE</div>
-          <h3>Brain dump</h3>
-          <textarea id="quickCapture" rows="8" placeholder="Get it out of your head and into the system..."></textarea>
-          <button class="primary-btn" id="sendToJay">Send to Jay's Workspace</button>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">ONE PERCENT BETTER</div>
-          <h3>Proof I'm growing</h3>
-          <textarea id="growthProof" rows="8" placeholder="What did you do today that your future self will thank you for?"></textarea>
-        </article>
-
-        <article class="panel span-2">
-          <div class="panel-heading"><div><div class="eyebrow">PROJECT PULSE</div><h3>What you're building</h3></div></div>
-          <div class="project-pulse">
-            <div><span>From Aspirations to Offers</span><input type="range" min="0" max="100" data-progress="book"><strong id="bookProgressLabel">25%</strong></div>
-            <div><span>The Key Collective</span><input type="range" min="0" max="100" data-progress="business"><strong id="businessProgressLabel">20%</strong></div>
-            <div><span>Financial reset</span><input type="range" min="0" max="100" data-progress="money"><strong id="moneyProgressLabel">15%</strong></div>
-            <div><span>Wellness consistency</span><input type="range" min="0" max="100" data-progress="wellness"><strong id="wellnessProgressLabel">10%</strong></div>
-          </div>
-        </article>
-
-        <article class="panel weather-panel">
-          <div class="panel-heading">
-            <div><div class="eyebrow">WEATHER</div><h3>Today outside</h3></div>
-            <a class="weather-launch-icon" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener" aria-label="Open The Weather Channel">↗</a>
-          </div>
-          <div class="weather-card">
-            <strong id="weatherTemp">--°</strong>
-            <span id="weatherCondition">Add today’s weather</span>
-          </div>
-          <div class="weather-inputs">
-            <input id="weatherTempInput" type="number" placeholder="Temperature">
-            <input id="weatherConditionInput" placeholder="Sunny, cloudy, rainy...">
-          </div>
-          <a class="weather-channel-btn" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener">
-            <span class="weather-channel-mark">☀</span>
-            <span><strong>Open The Weather Channel</strong><small>Goodyear, Arizona forecast</small></span>
-            <b>↗</b>
-          </a>
-          <small class="weather-note">Your manual weather note remains available offline.</small>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">TODAY'S WINS</div>
-          <h3>Proof you moved forward</h3>
-          <div id="winsList" class="wins-list"></div>
-          <div class="inline-add">
-            <input id="winInput" placeholder="Add a win, no matter how small">
-            <button class="small-btn" id="addWinBtn">Add</button>
-          </div>
-        </article>
-
-
-        <article class="panel span-2">
-          <div class="panel-heading">
-            <div><div class="eyebrow">YOUR OS</div><h3>Module directory</h3></div>
-            <span class="soft-pill">15 modules</span>
-          </div>
-          <div class="module-grid">
-            <button data-view="money"><span>$</span><strong>Money</strong><small>Budget, bills, debt</small></button>
-            <button data-view="career"><span>◇</span><strong>Career</strong><small>Training and growth</small></button>
-            <button data-view="book"><span>▤</span><strong>Book HQ</strong><small>Write and launch</small></button>
-            <button data-view="business"><span>✦</span><strong>Business HQ</strong><small>Build the brand</small></button>
-            <button data-view="home"><span>⌂</span><strong>Home</strong><small>Meals and resets</small></button>
-            <button data-view="relationships"><span>♡</span><strong>Relationships</strong><small>People and connection</small></button>
-            <button data-view="wellness"><span>♧</span><strong>Wellness</strong><small>Care and sobriety</small></button>
-            <button data-view="lani"><span>♡</span><strong>Lani’s Corner</strong><small>School and memories</small></button>
-            <button data-view="jay"><span>J</span><strong>Jay</strong><small>Ideas and strategy</small></button>
-            <button data-view="travel"><span>✈</span><strong>Travel</strong><small>Trips and packing</small></button>
-            <button data-view="calendar"><span>□</span><strong>Calendar</strong><small>Dates and agenda</small></button>
-            <button data-view="documents"><span>▣</span><strong>Documents</strong><small>Important records</small></button>
-            <button data-view="goals"><span>◎</span><strong>Goals</strong><small>90-day and annual</small></button>
-            <button data-view="progress"><span>★</span><strong>Progress</strong><small>Wins and momentum</small></button>
-            <button data-view="vision"><span>◈</span><strong>Vision Board</strong><small>Dreams and direction</small></button>
-          </div>
-        </article>
-
-        <article class="panel span-2">
-          <div class="panel-heading">
-            <div><div class="eyebrow">HABIT PULSE</div><h3>Consistency at a glance</h3></div>
-          </div>
-          <div class="habit-rings">
-            <div class="habit-ring" id="ringWater"><span>0%</span><small>Water</small></div>
-            <div class="habit-ring" id="ringTasks"><span>0%</span><small>Tasks</small></div>
-            <div class="habit-ring" id="ringWellness"><span>0%</span><small>Wellness</small></div>
-            <div class="habit-ring" id="ringMoney"><span>0%</span><small>Money plan</small></div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="today">
-      <div class="page-intro">
-        <div><div class="eyebrow">YOUR DAY, IN ONE PLACE</div><h2>Today</h2><p>A calm view of what deserves your attention right now.</p></div>
-        <button class="primary-btn" id="addAgendaBtn">+ Add agenda item</button>
-      </div>
-
-      <a class="today-weather-strip" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener">
-        <span class="weather-channel-mark">☀</span>
-        <span><strong>Check today’s full forecast</strong><small>Open The Weather Channel for Goodyear</small></span>
-        <b>Open ↗</b>
-      </a>
-
-      <div class="today-layout">
-        <article class="panel today-focus-card">
-          <div class="eyebrow">TOP FOCUS</div>
-          <textarea id="todayFocus" rows="4" placeholder="What is the one thing that would make today feel successful?"></textarea>
-        </article>
-        <article class="panel">
-          <div class="eyebrow">DAILY QUOTE</div>
-          <h3 id="dailyQuote"></h3>
-        </article>
-      </div>
-
-      <div class="content-grid">
-        <article class="panel span-2">
-          <div class="panel-heading"><div><div class="eyebrow">AGENDA</div><h3>Today’s schedule</h3></div></div>
-          <div id="agendaList" class="agenda-list"></div>
-        </article>
-        <article class="panel">
-          <div class="eyebrow">QUICK CHECK-IN</div>
-          <h3>How are you arriving today?</h3>
-          <select id="todayEnergy">
-            <option>Grounded</option><option>Energized</option><option>Focused</option><option>Tired</option><option>Overwhelmed</option>
-          </select>
-          <textarea id="todayCheckin" rows="7" placeholder="What do you need from yourself today?"></textarea>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="jay">
-      <div class="page-intro">
-        <div><div class="eyebrow">YOUR STRATEGY ROOM</div><h2>Jay's Workspace</h2><p>A permanent home for our ideas, decisions, build plans, and next moves.</p></div>
-        <div class="page-actions"><button class="ghost-btn" id="workspaceViewToggle">Board view</button><button class="primary-btn" id="addWorkspaceItem">+ Add item</button></div>
-      </div>
-
-      <div class="workspace-stats">
-        <article><span>Open ideas</span><strong id="ideaCount">0</strong></article>
-        <article><span>Build queue</span><strong id="queueCount">0</strong></article>
-        <article><span>Completed</span><strong id="completedCount">0</strong></article>
-      </div>
-
-      <div id="workspaceListView" class="content-grid">
-        <article class="panel span-2">
-          <div class="panel-heading"><div><div class="eyebrow">BUILD QUEUE</div><h3>Next updates</h3></div>
-            <div class="workspace-tools">
-              <input id="workspaceSearch" placeholder="Search workspace">
-              <select id="workspaceFilter"><option value="all">All items</option><option value="favorites">Favorites</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option><option value="Completed">Completed</option></select>
+          <div class="lani-main">
+            <div>
+              <strong>SWIM LESSONS</strong>
+              <small id="laniDates">Now – July 30, 2026</small>
+              <label><input type="checkbox" data-lani-task="swimsuit"> Swimsuit</label>
+              <label><input type="checkbox" data-lani-task="goggles"> Goggles</label>
+              <label><input type="checkbox" data-lani-task="towel"> Towel</label>
+              <label><input type="checkbox" data-lani-task="bottle"> Water Bottle</label>
+              <label><input type="checkbox" data-lani-task="hair"> Hair</label>
             </div>
+            <div class="lani-art">🎒🩱🕶️</div>
           </div>
-          <div id="workspaceItems" class="workspace-list"></div>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">NEXT CONVERSATION</div>
-          <h3>Bring this back to Jay</h3>
-          <textarea id="nextConversation" rows="7" placeholder="Questions, decisions, or updates for our next chat..."></textarea>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">AI NOTES</div>
-          <h3>Conversation summary</h3>
-          <textarea id="aiNotes" rows="14" placeholder="Paste important recommendations, decisions, or summaries here..."></textarea>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">KNOWLEDGE VAULT</div>
-          <h3>Important links & resources</h3>
-          <textarea id="knowledgeVault" rows="14" placeholder="Templates, links, scripts, instructions, and resources..."></textarea>
-        </article>
-
-        <article class="panel span-2">
-          <div class="eyebrow">BUILD HISTORY</div>
-          <h3>Completed milestones</h3>
-          <div id="buildHistory" class="history-list"></div>
-        </article>
-
-        <article class="panel span-2">
-          <div class="eyebrow">PROJECT ROADMAP</div>
-          <h3>Active projects</h3>
-          <div class="roadmap-grid">
-            <label><input type="checkbox" data-roadmap="v2"> Launch The Key Collective OS v2.0</label>
-            <label><input type="checkbox" data-roadmap="book"> Complete From Aspirations to Offers</label>
-            <label><input type="checkbox" data-roadmap="budget"> Strengthen the budget system</label>
-            <label><input type="checkbox" data-roadmap="brand"> Build The Key Collective brand foundation</label>
-            <label><input type="checkbox" data-roadmap="career"> Grow in the new career role</label>
-            <label><input type="checkbox" data-roadmap="wellness"> Protect wellness and sobriety</label>
+          <div class="lani-note">
+            <span id="laniStart">Starting July 31, 2026</span>
+            <strong>School routine & backpack checklist will appear here!</strong>
           </div>
         </article>
-      </div>
 
-      <div id="workspaceBoardView" class="workspace-board-view" hidden>
-        <div class="kanban-board">
-          <section><h3>Ideas</h3><div class="kanban-column" data-kanban="Idea"></div></section>
-          <section><h3>Next</h3><div class="kanban-column" data-kanban="Next"></div></section>
-          <section><h3>In Progress</h3><div class="kanban-column" data-kanban="In Progress"></div></section>
-          <section><h3>Completed</h3><div class="kanban-column" data-kanban="Completed"></div></section>
-        </div>
-        <article class="panel timeline-panel">
-          <div class="eyebrow">TIMELINE</div>
-          <h3>Recent movement</h3>
-          <div id="workspaceTimeline" class="workspace-timeline"></div>
+        <article class="card module-card money-module">
+          <div class="mini-title coral">▣ MONEY CENTER</div>
+          <div class="module-line"><span>Budget Overview</span><strong id="budgetLeft">$0 left</strong></div>
+          <div class="module-line"><span>Savings Goal</span><div class="tiny-bar"><i id="savingsBar"></i></div><strong id="savingsPct">0%</strong></div>
+          <div class="module-line"><span>Debt Payoff</span><div class="tiny-bar"><i id="debtBar"></i></div><strong id="debtPct">0%</strong></div>
+          <div class="module-line"><span>Emergency Fund</span><div class="tiny-bar"><i id="emergencyBar"></i></div><strong id="emergencyPct">0%</strong></div>
+          <button class="module-view" data-view="money">VIEW ALL</button>
+        </article>
+
+        <article class="card module-card career-module">
+          <div class="mini-title blue">✈ CAREER HQ</div>
+          <div class="module-line"><span>Top Priority</span><strong>Complete Certification</strong></div>
+          <div class="module-line"><span>Learning</span><strong>Data Analytics Course</strong></div>
+          <div class="module-line"><span>This Week's Focus</span><strong>Skill + Visibility</strong></div>
+          <div class="module-line"><span>Recent Win</span><strong>Great Feedback!</strong></div>
+          <button class="module-view" data-view="career">VIEW ALL</button>
+        </article>
+
+        <article class="card module-card business-module">
+          <div class="mini-title blue">▣ BUSINESS HQ</div>
+          <div class="module-line"><span>Book Draft</span><div class="tiny-bar"><i style="width:35%"></i></div><strong>35%</strong></div>
+          <div class="module-line"><span>Website</span><div class="tiny-bar"><i style="width:60%"></i></div><strong>60%</strong></div>
+          <div class="module-line"><span>Brand Kit</span><div class="tiny-bar"><i style="width:75%"></i></div><strong>75%</strong></div>
+          <div class="module-line"><span>Revenue Goal</span><strong>$4,200 / $10,000</strong></div>
+          <button class="module-view" data-view="business">VIEW ALL</button>
+        </article>
+
+        <article class="card module-card wellness-module">
+          <div class="mini-title green">♧ WELLNESS</div>
+          <div class="module-line"><span>Water</span><strong id="wellnessWater">0 / 8 cups</strong></div>
+          <div class="module-line"><span>Sleep</span><strong>6.5 / 8 hrs</strong></div>
+          <div class="module-line"><span>Movement</span><strong>3 / 5 days</strong></div>
+          <div class="module-line"><span>Self-Care</span><strong>2 / 5</strong></div>
+          <div class="module-line"><span>Sobriety Streak</span><strong id="sobrietyStreak">1 day</strong></div>
+          <button class="module-view" data-view="wellness">VIEW ALL</button>
+        </article>
+
+        <article class="card module-card home-module">
+          <div class="mini-title green">⌂ HOME</div>
+          <div class="module-line"><span>Cleaning</span><strong>3 / 6</strong></div>
+          <div class="module-line"><span>Laundry</span><strong>2 / 4</strong></div>
+          <div class="module-line"><span>Meal Prep</span><strong>2 / 3</strong></div>
+          <div class="module-line"><span>Groceries</span><strong>Done</strong></div>
+          <div class="module-line"><span>Weekly Reset</span><strong>In Progress</strong></div>
+          <button class="module-view" data-view="home">VIEW ALL</button>
+        </article>
+
+        <article class="card journal-card">
+          <div class="mini-title">✎ JOURNAL</div>
+          <blockquote id="journalQuote">“Today I choose growth over comfort and faith over fear.”</blockquote>
+          <div class="journal-art">⚘</div>
+          <button class="pill-button gold-btn" data-view="journal">START JOURNALING</button>
+        </article>
+
+        <article class="card badges-card span-2">
+          <div class="card-header"><div class="mini-title">ACHIEVEMENT BADGES</div><button class="text-link">See All</button></div>
+          <div class="badge-row">
+            <div><span>☆</span><small>Consistency<br>Champion</small></div>
+            <div><span>▣</span><small>Budget<br>Boss</small></div>
+            <div><span>▤</span><small>Book<br>Builder</small></div>
+            <div><span>◉</span><small>Hydration<br>Hero</small></div>
+            <div><span>⚘</span><small>Growth<br>Mindset</small></div>
+            <div><span>✦</span><small>CEO<br>Energy</small></div>
+          </div>
+        </article>
+
+        <article class="card quote-card">
+          <div class="watercolor-cloud"></div>
+          <em>Every small step<br>creates big changes.</em>
+        </article>
+
+        <article class="card reflection-card">
+          <div class="mini-title">REFLECTION</div>
+          <label>What went well today?<textarea data-text="reflectionGood" rows="2"></textarea></label>
+          <label>What can I improve tomorrow?<textarea data-text="reflectionImprove" rows="2"></textarea></label>
+        </article>
+
+        <article class="card notes-card">
+          <div class="card-header"><div class="mini-title">NOTES</div><button class="text-link" id="addNote">+</button></div>
+          <textarea data-text="dashboardNotes" rows="7" placeholder="Quick notes..."></textarea>
         </article>
       </div>
     </section>
 
-
-
-    <section class="view" id="relationships">
-      <div class="page-intro"><div><div class="eyebrow">PEOPLE WHO MATTER</div><h2>Relationships</h2><p>Make room for connection, communication, and meaningful moments.</p></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>People to check in with</h3><textarea data-text="relationshipCheckins" rows="11" placeholder="Who have you been meaning to call, text, or spend time with?"></textarea></article>
-        <article class="panel"><h3>Important dates</h3><textarea data-text="relationshipDates" rows="11" placeholder="Birthdays, anniversaries, celebrations, and reminders..."></textarea></article>
-        <article class="panel span-2"><h3>Connection notes</h3><textarea data-text="relationshipNotes" rows="8" placeholder="Plans, memories, boundaries, or conversations to revisit..."></textarea></article>
-      </div>
-    </section>
-
-    <section class="view" id="travel">
-      <div class="page-intro"><div><div class="eyebrow">GO SOMEWHERE BEAUTIFUL</div><h2>Travel</h2><p>Plan trips without letting the details live in twelve different places.</p></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>Trip ideas</h3><textarea data-text="tripIdeas" rows="11" placeholder="Where do you want to go and why?"></textarea></article>
-        <article class="panel"><h3>Upcoming itinerary</h3><textarea data-text="travelItinerary" rows="11" placeholder="Flights, hotel, dates, reservations, activities..."></textarea></article>
-        <article class="panel"><h3>Packing list</h3><textarea data-text="packingList" rows="10" placeholder="Clothes, toiletries, documents, chargers..."></textarea></article>
-        <article class="panel"><h3>Travel budget</h3><textarea data-text="travelBudget" rows="10" placeholder="Transportation, stay, meals, fun, and savings target..."></textarea></article>
-      </div>
-    </section>
-
-    <section class="view" id="documents">
-      <div class="page-intro"><div><div class="eyebrow">IMPORTANT, ORGANIZED</div><h2>Documents</h2><p>A private index of where important records live. Do not enter sensitive account numbers.</p></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>Personal records</h3><textarea data-text="personalDocuments" rows="11" placeholder="Birth certificates, IDs, passport locations, insurance records..."></textarea></article>
-        <article class="panel"><h3>Career documents</h3><textarea data-text="careerDocuments" rows="11" placeholder="Resume versions, offer letters, certifications, onboarding records..."></textarea></article>
-        <article class="panel"><h3>Financial documents</h3><textarea data-text="financialDocuments" rows="11" placeholder="Tax folders, statements, policies, loan paperwork..."></textarea></article>
-        <article class="panel"><h3>Lani’s documents</h3><textarea data-text="laniDocuments" rows="11" placeholder="School, medical, childcare, and activity records..."></textarea></article>
-      </div>
-    </section>
-
-    <section class="view" id="progress">
-      <div class="page-intro"><div><div class="eyebrow">PROOF OVER PERFECTION</div><h2>Progress</h2><p>Track evidence that your effort is turning into change.</p></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>This month’s wins</h3><textarea data-text="monthlyWins" rows="11" placeholder="What moved forward this month?"></textarea></article>
-        <article class="panel"><h3>Lessons learned</h3><textarea data-text="lessonsLearned" rows="11" placeholder="What worked? What needs to change?"></textarea></article>
-        <article class="panel span-2"><h3>Before and after</h3><textarea data-text="beforeAfter" rows="8" placeholder="What feels different now compared with where you started?"></textarea></article>
-      </div>
-    </section>
-
-    <section class="view" id="vision">
-      <div class="page-intro"><div><div class="eyebrow">SEE IT BEFORE YOU LIVE IT</div><h2>Vision Board</h2><p>Words, links, and images that keep your direction visible.</p></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>Life vision</h3><textarea data-text="lifeVision" rows="11" placeholder="What does the life you want look and feel like?"></textarea></article>
-        <article class="panel"><h3>Dream list</h3><textarea data-text="dreamList" rows="11" placeholder="Places, experiences, milestones, and beautiful things..."></textarea></article>
-        <article class="panel span-2"><h3>Inspiration links</h3><textarea data-text="visionLinks" rows="8" placeholder="Pinterest boards, Canva designs, images, homes, travel, style..."></textarea></article>
-      </div>
-    </section>
-
-    <section class="view" id="integrations">
-      <div class="page-intro">
-        <div><div class="eyebrow">CONNECTED SHORTCUTS</div><h2>Integrations</h2><p>Open the apps and services you use without hunting through your phone.</p></div>
-      </div>
-
-      <div class="integration-grid">
-        <a class="integration-card weather-integration" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener">
-          <div class="integration-icon">☀</div>
-          <div><div class="eyebrow">WEATHER</div><h3>The Weather Channel</h3><p>Open the current Goodyear forecast, hourly outlook, radar, and alerts.</p><span>Open forecast ↗</span></div>
-        </a>
-
-        <article class="integration-card muted-integration">
-          <div class="integration-icon">＋</div>
-          <div><div class="eyebrow">COMING NEXT</div><h3>More shortcuts</h3><p>Future milestones can add launchers for the services you use most.</p><span>Ready when you are</span></div>
-        </article>
-      </div>
-
-
-      <article class="panel appearance-settings">
-        <div class="eyebrow">APPEARANCE</div>
-        <h3>Automatic day and evening themes</h3>
-        <p>Modern Coastal displays from 7:00 AM through 6:59 PM. Dark Luxury turns on from 7:00 PM through 6:59 AM.</p>
-        <label>Theme mode
-          <select id="themeMode">
-            <option value="auto">Automatic</option>
-            <option value="coastal">Modern Coastal</option>
-            <option value="dark">Dark Luxury</option>
-          </select>
-        </label>
-        <div class="theme-preview-grid">
-          <button type="button" class="theme-preview coastal-preview" data-theme-choice="coastal">
-            <span class="theme-swatches">
-              <i style="background:#7EB7AE"></i><i style="background:#FAF8F4"></i><i style="background:#B79D82"></i><i style="background:#24384D"></i><i style="background:#D4B46A"></i>
-            </span>
-            <strong>Modern Coastal</strong><small>Daytime theme</small>
-          </button>
-          <button type="button" class="theme-preview dark-preview" data-theme-choice="dark">
-            <span class="theme-swatches">
-              <i style="background:#121212"></i><i style="background:#1E3329"></i><i style="background:#2F6F58"></i><i style="background:#C8A15A"></i><i style="background:#F5F1E8"></i>
-            </span>
-            <strong>Dark Luxury</strong><small>Evening theme</small>
-          </button>
-        </div>
-        <div class="theme-status"><span>Current theme</span><strong id="currentThemeLabel">Modern Coastal</strong></div>
-      </article>
-
-      <article class="panel integration-settings">
-        <div class="eyebrow">WEATHER LOCATION</div>
-        <h3>Default forecast location</h3>
-        <p>Milestone 4 is set to Goodyear, Arizona 85338. The link can be changed later if you want a different location.</p>
-        <label><input type="checkbox" id="weatherShortcutConfirm"> Keep The Weather Channel shortcut visible on Dashboard and Today</label>
-      </article>
-    </section>
-
-    <section class="view" id="calendar">
-      <div class="page-intro"><div><div class="eyebrow">PLAN WITH INTENTION</div><h2>Calendar</h2></div></div>
-      <article class="panel"><div class="calendar-toolbar"><button id="prevMonth">←</button><h3 id="calendarTitle"></h3><button id="nextMonth">→</button></div><div class="calendar-grid" id="calendarGrid"></div></article>
-    </section>
-
-    <section class="view" id="goals">
-      <div class="page-intro"><div><div class="eyebrow">YOUR NEXT CHAPTER</div><h2>Goals</h2></div></div>
-      <div class="content-grid"><article class="panel"><h3>90-day goals</h3><textarea data-text="goals90" rows="12" placeholder="What must be true 90 days from now?"></textarea></article><article class="panel"><h3>Annual vision</h3><textarea data-text="annualVision" rows="12" placeholder="Describe the year you're creating..."></textarea></article><article class="panel span-2"><h3>Milestones</h3><textarea data-text="milestones" rows="8" placeholder="Break the big goals into visible wins..."></textarea></article></div>
-    </section>
-
-    <section class="view" id="money">
-      <div class="page-intro">
-        <div><div class="eyebrow">EVERY DOLLAR GETS A JOB</div><h2>Money Center 2.1</h2><p>Plan your paychecks, track bills, watch debt shrink, and protect the money you need.</p></div>
-        <button class="primary-btn" id="addBillBtn">+ Add bill</button>
-      </div>
-
-      <div class="money-summary-grid">
-        <article><span>Available this week</span><strong id="moneyAvailable">$0</strong><small>Money without a job</small></article>
-        <article><span>Monthly bills</span><strong id="moneyMonthlyBills">$0</strong><small>Recurring obligations</small></article>
-        <article><span>Total debt</span><strong id="moneyDebtTotal">$0</strong><small>Tracked balances</small></article>
-        <article><span>Total savings</span><strong id="moneySavingsTotal">$0</strong><small>Across savings goals</small></article>
-      </div>
-
-      <div class="money-tabs">
-        <button class="money-tab active" data-moneytab="paycheck">Paycheck Planner</button>
-        <button class="money-tab" data-moneytab="bills">Bills</button>
-        <button class="money-tab" data-moneytab="debts">Debt</button>
-        <button class="money-tab" data-moneytab="savings">Savings</button>
-        <button class="money-tab" data-moneytab="subscriptions">Subscriptions</button>
-        <button class="money-tab" data-moneytab="insights">Insights</button>
-      </div>
-
-      <div class="money-pane active" id="money-paycheck">
-        <div class="content-grid">
-          <article class="panel">
-            <h3>Paycheck planner</h3>
-            <label>Paycheck amount<input type="number" id="paycheckAmount" min="0" step=".01" placeholder="0.00"></label>
-            <label>Bills reserved<input type="number" id="paycheckBills" min="0" step=".01" placeholder="0.00"></label>
-            <label>Savings reserved<input type="number" id="paycheckSavings" min="0" step=".01" placeholder="0.00"></label>
-            <label>Debt payments<input type="number" id="paycheckDebt" min="0" step=".01" placeholder="0.00"></label>
-            <label>Weekly living money<input type="number" id="paycheckLiving" min="0" step=".01" placeholder="0.00"></label>
-          </article>
-          <article class="panel paycheck-result">
-            <div class="eyebrow">MONEY WITHOUT A JOB</div>
-            <h3 id="unassignedMoney">$0.00</h3>
-            <p id="unassignedMessage">Give every dollar a purpose before it disappears.</p>
-            <div class="allocation-bar"><span id="allocatedBar"></span></div>
-            <small id="allocationText">0% allocated</small>
-          </article>
-          <article class="panel span-2">
-            <h3>Paycheck notes</h3>
-            <textarea data-text="paycheckNotes" rows="8" placeholder="What must this paycheck cover? What can wait?"></textarea>
-          </article>
-        </div>
-      </div>
-
-      <div class="money-pane" id="money-bills">
-        <article class="panel">
-          <div class="panel-heading"><div><div class="eyebrow">BILL CALENDAR</div><h3>Recurring bills</h3></div><select id="billFilter"><option value="all">All bills</option><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select></div>
-          <div id="billsList" class="finance-list"></div>
-        </article>
-      </div>
-
-      <div class="money-pane" id="money-debts">
-        <div class="content-grid">
-          <article class="panel span-2">
-            <div class="panel-heading"><div><div class="eyebrow">DEBT PAYOFF</div><h3>Balances</h3></div><button class="small-btn" id="addDebtBtn">+ Add debt</button></div>
-            <div id="debtsList" class="finance-list"></div>
-          </article>
-          <article class="panel">
-            <h3>Payoff strategy</h3>
-            <select id="debtStrategy"><option>Debt snowball</option><option>Debt avalanche</option><option>Custom priority</option></select>
-            <textarea data-text="debtPlan" rows="10" placeholder="Your current payoff plan..."></textarea>
-          </article>
-        </div>
-      </div>
-
-      <div class="money-pane" id="money-savings">
-        <div class="content-grid">
-          <article class="panel span-2">
-            <div class="panel-heading"><div><div class="eyebrow">SINKING FUNDS</div><h3>Savings goals</h3></div><button class="small-btn" id="addSavingsBtn">+ Add goal</button></div>
-            <div id="savingsList" class="finance-list"></div>
-          </article>
-          <article class="panel">
-            <h3>Savings focus</h3>
-            <textarea data-text="savingsFocus" rows="10" placeholder="What are you protecting or preparing for?"></textarea>
-          </article>
-        </div>
-      </div>
-
-      <div class="money-pane" id="money-subscriptions">
-        <article class="panel">
-          <div class="panel-heading"><div><div class="eyebrow">SUBSCRIPTIONS</div><h3>Recurring services</h3></div><button class="small-btn" id="addSubscriptionBtn">+ Add subscription</button></div>
-          <div id="subscriptionsList" class="finance-list"></div>
-        </article>
-      </div>
-
-      <div class="money-pane" id="money-insights">
-        <div class="content-grid">
-          <article class="panel">
-            <div class="eyebrow">MONTHLY CASH FLOW</div>
-            <h3>Income and spending</h3>
-            <label>Monthly income<input id="monthlyIncome" type="number" min="0" step=".01" placeholder="0.00"></label>
-            <label>Flexible spending<input id="monthlyFlexible" type="number" min="0" step=".01" placeholder="0.00"></label>
-            <label>Other expenses<input id="monthlyOther" type="number" min="0" step=".01" placeholder="0.00"></label>
-            <div class="cashflow-result"><span>Estimated remainder</span><strong id="cashflowRemainder">$0.00</strong></div>
-          </article>
-
-          <article class="panel">
-            <div class="eyebrow">NET WORTH SNAPSHOT</div>
-            <h3>Assets minus debt</h3>
-            <label>Cash and checking<input id="assetCash" type="number" min="0" step=".01" placeholder="0.00"></label>
-            <label>Other assets<input id="assetOther" type="number" min="0" step=".01" placeholder="0.00"></label>
-            <div class="networth-result"><span>Estimated net worth</span><strong id="netWorthTotal">$0.00</strong></div>
-          </article>
-
-          <article class="panel span-2">
-            <div class="eyebrow">DEBT PAYOFF VISUAL</div>
-            <h3>Where your balances stand</h3>
-            <div id="debtChart" class="debt-chart"></div>
-          </article>
-
-          <article class="panel span-2">
-            <div class="eyebrow">BILL TIMELINE</div>
-            <h3>What’s coming up</h3>
-            <div id="billTimeline" class="bill-timeline"></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="view" id="journal">
-      <div class="page-intro"><div><div class="eyebrow">MAKE SPACE FOR YOURSELF</div><h2>Journal</h2></div></div>
-      <div class="content-grid"><article class="panel span-2"><h3>Today's reflection</h3><textarea data-text="journal" rows="16" placeholder="Write what you need to say..."></textarea></article><article class="panel"><h3>Gratitude</h3><textarea data-text="gratitude" rows="9" placeholder="Three things that held you today..."></textarea></article><article class="panel"><h3>Tomorrow</h3><textarea data-text="tomorrow" rows="9" placeholder="What would make tomorrow feel successful?"></textarea></article></div>
-    </section>
-
-    <section class="view" id="wellness">
-      <div class="page-intro"><div><div class="eyebrow">PROTECT YOUR PEACE</div><h2>Wellness</h2></div></div>
-      <div class="content-grid">
-        <article class="panel"><h3>Daily care</h3><div class="task-list"><label><input type="checkbox" data-wellness="meds"> Take medications</label><label><input type="checkbox" data-wellness="water"> Drink water</label><label><input type="checkbox" data-wellness="skin"> Skincare</label><label><input type="checkbox" data-wellness="move"> Movement or stretching</label></div></article>
-        <article class="panel affirmation"><div class="eyebrow">SOBRIETY REMINDER</div><h3>You do not need alcohol to celebrate, cope, relax, or have fun.</h3><p>Choosing yourself is worth celebrating.</p><label><input type="checkbox" data-wellness="sober"> Today, I chose the life I want.</label></article>
-        <article class="panel span-2"><h3>Wellness notes</h3><textarea data-text="wellnessNotes" rows="9" placeholder="Mood, sleep, symptoms, wins, or what your body needs..."></textarea></article>
-      </div>
-    </section>
-
-    <section class="view" id="career">
-      <div class="page-intro"><div><div class="eyebrow">BUILD THE CAREER, NOT JUST THE JOB</div><h2>Career Center</h2></div></div>
-      <div class="content-grid"><article class="panel"><h3>Training tracker</h3><textarea data-text="training" rows="11" placeholder="Modules, systems, questions, and takeaways..."></textarea></article><article class="panel"><h3>Professional wins</h3><textarea data-text="careerWins" rows="11" placeholder="Document your proof. Metrics, praise, breakthroughs..."></textarea></article><article class="panel span-2"><h3>Promotion roadmap</h3><textarea data-text="promotion" rows="8" placeholder="Skills, visibility, milestones, and next-level opportunities..."></textarea></article></div>
-    </section>
-
-    <section class="view" id="book">
-      <div class="page-intro"><div><div class="eyebrow">FROM ASPIRATIONS TO OFFERS</div><h2>Book HQ</h2></div></div>
-      <div class="content-grid"><article class="panel"><h3>Chapter tracker</h3><textarea data-text="chapters" rows="12" placeholder="Sourcing, materials, ATS, recruiter calls, interviews, offers..."></textarea></article><article class="panel"><h3>Research vault</h3><textarea data-text="bookResearch" rows="12" placeholder="Sources, examples, quotes, and ideas..."></textarea></article><article class="panel"><h3>Illustration checklist</h3><textarea data-text="illustrations" rows="9" placeholder="Which visuals still need to be created?"></textarea></article><article class="panel"><h3>Launch checklist</h3><textarea data-text="bookLaunch" rows="9" placeholder="Editing, formatting, storefront, marketing..."></textarea></article></div>
-    </section>
-
-    <section class="view" id="business">
-      <div class="page-intro"><div><div class="eyebrow">THE KEY COLLECTIVE</div><h2>Business Headquarters</h2></div></div>
-      <div class="content-grid"><article class="panel"><h3>Product roadmap</h3><textarea data-text="productRoadmap" rows="11" placeholder="Products, versions, launches, and revenue ideas..."></textarea></article><article class="panel"><h3>Content ideas</h3><textarea data-text="contentIdeas" rows="11" placeholder="TikTok, Instagram, email, website..."></textarea></article><article class="panel span-2"><h3>Brand decisions</h3><textarea data-text="brandDecisions" rows="8" placeholder="Voice, palette, audience, promises, and non-negotiables..."></textarea></article></div>
-    </section>
-
-    <section class="view" id="home">
-      <div class="page-intro"><div><div class="eyebrow">CALM STARTS AT HOME</div><h2>Home</h2></div></div>
-      <div class="content-grid"><article class="panel"><h3>Home reset</h3><textarea data-text="homeReset" rows="10" placeholder="Rooms, laundry, cleaning, maintenance..."></textarea></article><article class="panel"><h3>Meal plan</h3><textarea data-text="mealPlan" rows="10" placeholder="Meals and prep for the week..."></textarea></article><article class="panel span-2"><h3>Grocery list</h3><textarea data-text="groceryList" rows="8" placeholder="Add groceries here..."></textarea></article></div>
-    </section>
-
-    <section class="view" id="lani">
-      <div class="page-intro"><div><div class="eyebrow">LITTLE LOVE, BIG MEMORIES</div><h2>Lani's Corner</h2></div></div>
-      <div class="content-grid"><article class="panel"><h3>School & activities</h3><textarea data-text="laniSchedule" rows="11" placeholder="School, swim, appointments, and activities..."></textarea></article><article class="panel"><h3>Meals & prep</h3><textarea data-text="laniMeals" rows="11" placeholder="Meals, outfits, hair, backpack, supplies..."></textarea></article><article class="panel span-2"><h3>Memory of the day</h3><textarea data-text="laniMemory" rows="8" placeholder="What made Lani smile today?"></textarea></article></div>
-    </section>
+    <section class="view" id="calendar"><div class="page-shell"><h1>Calendar</h1><textarea data-text="calendarNotes" rows="18" placeholder="Appointments, deadlines, events..."></textarea></div></section>
+    <section class="view" id="lani"><div class="page-shell"><h1>Lani's Corner</h1><div class="photo-upload"><div class="lani-avatar large" id="laniAvatarLarge">L</div><div><strong>Jelani’s profile photo</strong><p>Upload her photo in this chat for the next build. The random AI child has been removed.</p></div></div><textarea data-text="laniPage" rows="18" placeholder="School, swim, meals, outfits, memories..."></textarea></div></section>
+    <section class="view" id="career"><div class="page-shell"><h1>Career HQ</h1><textarea data-text="careerPage" rows="18" placeholder="Training, wins, goals, certifications..."></textarea></div></section>
+    <section class="view" id="business"><div class="page-shell"><h1>Business HQ</h1><textarea data-text="businessPage" rows="18" placeholder="Products, content, revenue, launches..."></textarea></div></section>
+    <section class="view" id="money"><div class="page-shell"><h1>Money Center</h1><div id="moneyPageBills" class="simple-list"></div><textarea data-text="moneyPage" rows="12" placeholder="Budget notes and paycheck plans..."></textarea></div></section>
+    <section class="view" id="wellness"><div class="page-shell"><h1>Wellness</h1><p class="affirmation">You do not need alcohol to celebrate, cope, relax, or have fun. Choosing yourself is worth celebrating.</p><textarea data-text="wellnessPage" rows="16" placeholder="Mood, sleep, movement, hydration, reflections..."></textarea></div></section>
+    <section class="view" id="home"><div class="page-shell"><h1>Home</h1><textarea data-text="homePage" rows="18" placeholder="Cleaning, laundry, groceries, meal prep..."></textarea></div></section>
+    <section class="view" id="journal"><div class="page-shell"><h1>Journal</h1><textarea data-text="journalPage" rows="22" placeholder="Write what you need to say..."></textarea></div></section>
+    <section class="view" id="goals"><div class="page-shell"><h1>Goals</h1><textarea data-text="goalsPage" rows="18" placeholder="90-day goals, annual goals, milestones..."></textarea></div></section>
+    <section class="view" id="progress"><div class="page-shell"><h1>Progress</h1><textarea data-text="progressPage" rows="18" placeholder="Wins, lessons, before and after..."></textarea></div></section>
+    <section class="view" id="vision"><div class="page-shell"><h1>Vision Board</h1><textarea data-text="visionPage" rows="18" placeholder="Dreams, inspiration links, visual direction..."></textarea></div></section>
+    <section class="view" id="jay"><div class="page-shell"><h1>Jay's Workspace</h1><textarea data-text="jayWorkspace" rows="18" placeholder="Ideas, build queue, next conversation notes..."></textarea></div></section>
   </main>
 </div>
 
-<div class="modal-backdrop" id="workspaceModal" hidden>
-  <form class="modal" id="workspaceForm">
-    <div class="panel-heading"><div><div class="eyebrow">JAY'S WORKSPACE</div><h3>Add a new item</h3></div><button type="button" class="icon-button" id="closeModal">×</button></div>
-    <label>Title<input id="itemTitle" required placeholder="What should we remember or build?"></label>
-    <label>Category<select id="itemCategory"><option>App Update</option><option>Book</option><option>Business</option><option>Budget</option><option>Career</option><option>Life</option></select></label>
-    <label>Priority<select id="itemPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
-<label>Status<select id="itemStatus"><option>Idea</option><option selected>Next</option><option>In Progress</option><option>Completed</option></select></label>
-    <label>Notes<textarea id="itemNotes" rows="5" placeholder="Details, decisions, or next steps..."></textarea></label>
-    <button class="primary-btn" type="submit">Save to workspace</button>
-  </form>
+<div class="mobile-drawer" id="mobileDrawer">
+  <button id="closeDrawer">×</button>
+  <div id="drawerLinks"></div>
 </div>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
 
-
-<div class="modal-backdrop" id="financeModal" hidden>
-  <form class="modal" id="financeForm">
-    <div class="panel-heading"><div><div class="eyebrow">MONEY CENTER</div><h3 id="financeModalTitle">Add item</h3></div><button type="button" class="icon-button" id="closeFinanceModal">×</button></div>
-    <input type="hidden" id="financeType">
-    <label>Name<input id="financeName" required placeholder="Name"></label>
-    <label id="financeAmountLabel">Amount<input id="financeAmount" type="number" min="0" step=".01" required placeholder="0.00"></label>
-    <label id="financeExtraLabel">Due day<input id="financeExtra" type="number" min="1" max="31" placeholder="1"></label>
-    <label>Notes<textarea id="financeNotes" rows="4" placeholder="Optional notes"></textarea></label>
-    <button class="primary-btn" type="submit">Save</button>
-  </form>
-</div>
-
-
-<div class="modal-backdrop" id="agendaModal" hidden>
-  <form class="modal" id="agendaForm">
-    <div class="panel-heading"><div><div class="eyebrow">TODAY</div><h3>Add agenda item</h3></div><button type="button" class="icon-button" id="closeAgendaModal">×</button></div>
-    <label>Time<input id="agendaTime" type="time" required></label>
-    <label>Item<input id="agendaTitle" required placeholder="What is happening?"></label>
-    <label>Category<select id="agendaCategory"><option>Personal</option><option>Work</option><option>Lani</option><option>Money</option><option>Wellness</option><option>Business</option></select></label>
-    <button class="primary-btn" type="submit">Add to today</button>
+<div class="modal-backdrop" id="goalModal" hidden>
+  <form class="modal" id="goalForm">
+    <div class="modal-head"><h3>Add goal</h3><button type="button" id="closeGoalModal">×</button></div>
+    <label>Goal<input id="goalTitle" required></label>
+    <label>Progress<input id="goalProgress" type="number" min="0" max="100" value="0"></label>
+    <button type="submit" class="pill-button">Save goal</button>
   </form>
 </div>
 
