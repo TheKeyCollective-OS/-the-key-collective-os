@@ -1,4 +1,4 @@
-const STORE = "KeyCollectiveOS_v2_1";
+const STORE = "KeyCollectiveOS_v2_3";
 const defaults = {
   weeklyFocus: "Build a calm, intentional week",
   water: 0, mood: "Steady", daily: {}, roadmap: {}, wellness: {},
@@ -33,8 +33,16 @@ const defaults = {
   ],
   buildHistory:[
     {title:"Milestone 1 — v2.0",date:"July 2026",notes:"Luxury dashboard, expanded navigation, Jay's Workspace, and core app foundations."},
-    {title:"Milestone 2 — v2.1",date:"July 2026",notes:"Money Center, paycheck planner, debt and savings tools, dashboard financial snapshot, and smarter workspace."}
+    {title:"Milestone 2 — v2.1",date:"July 2026",notes:"Money Center, paycheck planner, debt and savings tools, dashboard financial snapshot, and smarter workspace."},
+    {title:"Milestone 3 — v2.2",date:"July 2026",notes:"Daily briefing, Today view, habit rings, agenda, wins, workspace board, cash-flow insights, net worth, and visual timelines."},
+    {title:"Milestone 4 — v2.3",date:"July 2026",notes:"Integrations hub and Weather Channel access from Dashboard and Today."}
   ],
+  agenda:[],
+  wins:[],
+  weather:{temp:"",condition:""},
+  today:{focus:"",energy:"Grounded",checkin:""},
+  cashflow:{income:0,flexible:0,other:0,cash:0,assets:0},
+  integrations:{weatherShortcut:true},
   workspace: [
     {id: crypto.randomUUID(), title:"Launch The Key Collective OS v2.0", category:"App Update", priority:"High", notes:"Redesigned dashboard, expanded navigation, and Jay's Workspace.", status:"Completed", created:Date.now()},
     {id: crypto.randomUUID(), title:"Build Money Center v2.1", category:"Budget", priority:"High", notes:"Paycheck planner, bills, debt, savings, and subscription tools.", status:"Open", created:Date.now()},
@@ -44,7 +52,7 @@ const defaults = {
 
 function migrate(){
   let incoming = {};
-  for (const key of ["KeyCollectiveOS_v2","keyCollectiveStateV2","KeyCollectivePersonalEdition_v1","KeyCollectiveOSv1"]) {
+  for (const key of ["KeyCollectiveOS_v2_2","KeyCollectiveOS_v2_1","KeyCollectiveOS_v2","keyCollectiveStateV2","KeyCollectivePersonalEdition_v1","KeyCollectiveOSv1"]) {
     try { incoming = {...incoming, ...(JSON.parse(localStorage.getItem(key)||"{}"))}; } catch {}
   }
   const current = JSON.parse(localStorage.getItem(STORE)||"null");
@@ -62,7 +70,7 @@ function migrate(){
   state.text.contentIdeas = incoming.businessIdea ?? "";
   state.daily = incoming.tasks ?? {};
   state.progress = {...state.progress, ...(incoming.progress||{})};
-  for (const key of ["paycheck","bills","debts","savingsGoals","subscriptions","buildHistory","workspace"]) {
+  for (const key of ["paycheck","bills","debts","savingsGoals","subscriptions","buildHistory","workspace","agenda","wins","weather","today","cashflow","integrations"]) {
     if (incoming[key]) state[key] = incoming[key];
   }
   if(incoming.nextConversation) state.text.nextConversation = incoming.nextConversation;
@@ -77,11 +85,25 @@ const toast = msg => { const el=$("toast"); el.textContent=msg; el.classList.add
 function switchView(id){
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
   document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.dataset.view===id));
-  $("sidebar").classList.remove("open");
+  closeMenu();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
-$("menuBtn").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+
+function openMenu(){
+  $("sidebar").classList.add("open");
+  $("menuBackdrop").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function closeMenu(){
+  $("sidebar").classList.remove("open");
+  $("menuBackdrop").classList.remove("show");
+  document.body.style.overflow="";
+}
+$("menuBtn").addEventListener("click",()=>{
+  $("sidebar").classList.contains("open") ? closeMenu() : openMenu();
+});
+$("menuBackdrop").addEventListener("click",closeMenu);
 
 function updateTime(){
   const now = new Date();
@@ -136,13 +158,13 @@ $("addWorkspaceItem").onclick=()=>modal.hidden=false;$("closeModal").onclick=()=
 modal.addEventListener("click",e=>{if(e.target===modal)modal.hidden=true});
 $("workspaceForm").onsubmit=e=>{
   e.preventDefault();
-  S.workspace.unshift({id:crypto.randomUUID(),title:$("itemTitle").value.trim(),category:$("itemCategory").value,priority:$("itemPriority").value,notes:$("itemNotes").value.trim(),status:"Open",created:Date.now()});
+  S.workspace.unshift({id:crypto.randomUUID(),title:$("itemTitle").value.trim(),category:$("itemCategory").value,priority:$("itemPriority").value,notes:$("itemNotes").value.trim(),status:$("itemStatus").value,created:Date.now(),updated:Date.now()});
   save();e.target.reset();modal.hidden=true;renderWorkspace();toast("Saved to Jay's Workspace.");
 };
 $("workspaceFilter").onchange=renderWorkspace; $("workspaceSearch").oninput=renderWorkspace;
 function renderWorkspace(){
   const filter=$("workspaceFilter").value, q=$("workspaceSearch").value.trim().toLowerCase();
-  const items=S.workspace.filter(i=>(filter==="all"||i.priority===filter||i.status===filter||(filter==="favorites"&&i.favorite)) && (!q || `${i.title} ${i.category} ${i.notes}`.toLowerCase().includes(q)));
+  const items=S.workspace.map(i=>({...i,status:i.status==="Open"?"Next":i.status})).filter(i=>(filter==="all"||i.priority===filter||i.status===filter||(filter==="favorites"&&i.favorite)) && (!q || `${i.title} ${i.category} ${i.notes}`.toLowerCase().includes(q)));
   $("workspaceItems").innerHTML=items.length?items.map(i=>`
     <div class="workspace-item">
       <div class="workspace-item-head"><h4>${escapeHtml(i.title)}</h4><div class="workspace-actions">
@@ -154,7 +176,7 @@ function renderWorkspace(){
       ${i.notes?`<small>${escapeHtml(i.notes)}</small>`:""}
     </div>`).join(""):`<p>No workspace items match this filter.</p>`;
   document.querySelectorAll("[data-favorite]").forEach(b=>b.onclick=()=>{const i=S.workspace.find(x=>x.id===b.dataset.favorite);i.favorite=!i.favorite;save();renderWorkspace()});
-  document.querySelectorAll("[data-complete]").forEach(b=>b.onclick=()=>{const i=S.workspace.find(x=>x.id===b.dataset.complete);i.status=i.status==="Completed"?"Open":"Completed";save();renderWorkspace()});
+  document.querySelectorAll("[data-complete]").forEach(b=>b.onclick=()=>{const i=S.workspace.find(x=>x.id===b.dataset.complete);i.status=i.status==="Completed"?"Next":"Completed";i.updated=Date.now();save();renderWorkspace();renderKanban()});
   document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>{S.workspace=S.workspace.filter(x=>x.id!==b.dataset.delete);save();renderWorkspace()});
   $("ideaCount").textContent=S.workspace.filter(i=>i.status!=="Completed").length;
   $("queueCount").textContent=S.workspace.filter(i=>i.status!=="Completed"&&i.category==="App Update").length;
@@ -272,3 +294,140 @@ $("financeForm").onsubmit=e=>{
 $("buildHistory").innerHTML=(S.buildHistory||[]).map(h=>`<div class="history-item"><strong>${escapeHtml(h.title)}</strong><small>${escapeHtml(h.date)} · ${escapeHtml(h.notes)}</small></div>`).join("");
 
 renderBills();renderDebts();renderSavings();renderSubscriptions();updateMoneySummary();
+
+
+const quotes = [
+  "You do not have to do everything today. You only have to do the next right thing.",
+  "Small, consistent choices become a life you can trust.",
+  "Your pace is allowed to be peaceful.",
+  "Discipline can be gentle and still change everything.",
+  "You are building proof that you can count on yourself."
+];
+
+function safeDateTime(ts){return new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}).format(new Date(ts||Date.now()))}
+function todayKey(){return new Date().toISOString().slice(0,10)}
+
+function renderBriefing(){
+  const up=upcomingBills();
+  const taskTotal=document.querySelectorAll("[data-daily]").length;
+  const taskDone=[...document.querySelectorAll("[data-daily]")].filter(x=>x.checked).length;
+  const agenda=(S.agenda||[]).length;
+  const pieces=[];
+  if(up.length) pieces.push(`${up.length} bill${up.length===1?" is":"s are"} due soon`);
+  if(agenda) pieces.push(`${agenda} agenda item${agenda===1?"":"s"} planned`);
+  pieces.push(`${taskDone} of ${taskTotal} priorities complete`);
+  $("briefingHeadline").textContent=taskDone===taskTotal&&taskTotal?"You handled today beautifully.":"Here’s where to begin.";
+  $("briefingText").textContent=pieces.join(" · ")+".";
+}
+function setRing(id,pct){
+  pct=Math.max(0,Math.min(100,Math.round(pct)));
+  const el=$(id);el.style.setProperty("--pct",pct);el.querySelector("span").textContent=pct+"%";
+}
+function updateHabitRings(){
+  const tasks=[...document.querySelectorAll("[data-daily]")], wellness=[...document.querySelectorAll("[data-wellness]")];
+  setRing("ringWater",(S.water/8)*100);
+  setRing("ringTasks",tasks.length?tasks.filter(x=>x.checked).length/tasks.length*100:0);
+  setRing("ringWellness",wellness.length?wellness.filter(x=>x.checked).length/wellness.length*100:0);
+  const p=S.paycheck,total=Number(p.amount)||0,used=["bills","savings","debt","living"].reduce((t,k)=>t+(Number(p[k])||0),0);
+  setRing("ringMoney",total?Math.min(100,used/total*100):0);
+}
+
+$("weatherTempInput").value=S.weather?.temp||"";
+$("weatherConditionInput").value=S.weather?.condition||"";
+function renderWeather(){
+  $("weatherTemp").textContent=(S.weather?.temp!==""&&S.weather?.temp!=null)?`${S.weather.temp}°`:"--°";
+  $("weatherCondition").textContent=S.weather?.condition||"Add today’s weather";
+}
+$("weatherTempInput").oninput=e=>{S.weather.temp=e.target.value;save();renderWeather()};
+$("weatherConditionInput").oninput=e=>{S.weather.condition=e.target.value;save();renderWeather()};
+renderWeather();
+
+function renderWins(){
+  $("winsList").innerHTML=(S.wins||[]).map(w=>`<div class="win-item"><span>${escapeHtml(w.text)}</span><button data-delwin="${w.id}">×</button></div>`).join("")||"<small>No wins added yet. Start with something small.</small>";
+  document.querySelectorAll("[data-delwin]").forEach(b=>b.onclick=()=>{S.wins=S.wins.filter(w=>w.id!==b.dataset.delwin);save();renderWins()});
+}
+$("addWinBtn").onclick=()=>{
+  const value=$("winInput").value.trim();if(!value)return;
+  S.wins.unshift({id:crypto.randomUUID(),text:value,date:todayKey()});$("winInput").value="";save();renderWins();
+};
+renderWins();
+
+$("todayFocus").value=S.today?.focus||"";
+$("todayEnergy").value=S.today?.energy||"Grounded";
+$("todayCheckin").value=S.today?.checkin||"";
+$("todayFocus").oninput=e=>{S.today.focus=e.target.value;save()};
+$("todayEnergy").onchange=e=>{S.today.energy=e.target.value;save()};
+$("todayCheckin").oninput=e=>{S.today.checkin=e.target.value;save()};
+$("dailyQuote").textContent=quotes[new Date().getDate()%quotes.length];
+
+const agendaModal=$("agendaModal");
+$("addAgendaBtn").onclick=()=>agendaModal.hidden=false;
+$("closeAgendaModal").onclick=()=>agendaModal.hidden=true;
+agendaModal.addEventListener("click",e=>{if(e.target===agendaModal)agendaModal.hidden=true});
+$("agendaForm").onsubmit=e=>{
+  e.preventDefault();
+  S.agenda.push({id:crypto.randomUUID(),time:$("agendaTime").value,title:$("agendaTitle").value.trim(),category:$("agendaCategory").value,done:false});
+  S.agenda.sort((a,b)=>a.time.localeCompare(b.time));save();e.target.reset();agendaModal.hidden=true;renderAgenda();renderBriefing();
+};
+function renderAgenda(){
+  $("agendaList").innerHTML=(S.agenda||[]).map(a=>`<div class="agenda-item"><time>${new Date(`1970-01-01T${a.time}`).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</time><div><strong>${escapeHtml(a.title)}</strong><small>${escapeHtml(a.category)}</small></div><button data-delagenda="${a.id}">×</button></div>`).join("")||"<p>Your agenda is open. Add only what truly belongs today.</p>";
+  document.querySelectorAll("[data-delagenda]").forEach(b=>b.onclick=()=>{S.agenda=S.agenda.filter(a=>a.id!==b.dataset.delagenda);save();renderAgenda();renderBriefing()});
+}
+renderAgenda();
+
+let boardMode=false;
+$("workspaceViewToggle").onclick=()=>{
+  boardMode=!boardMode;
+  $("workspaceListView").hidden=boardMode;
+  $("workspaceBoardView").hidden=!boardMode;
+  $("workspaceViewToggle").textContent=boardMode?"List view":"Board view";
+  if(boardMode)renderKanban();
+};
+function renderKanban(){
+  const normalized=S.workspace.map(i=>{if(i.status==="Open")i.status="Next";return i});
+  document.querySelectorAll("[data-kanban]").forEach(col=>{
+    const status=col.dataset.kanban;
+    const items=normalized.filter(i=>i.status===status);
+    col.innerHTML=items.map(i=>`<div class="kanban-card"><strong>${escapeHtml(i.title)}</strong><small>${escapeHtml(i.category)} · ${escapeHtml(i.priority)}</small><select data-kanbanmove="${i.id}"><option ${status==="Idea"?"selected":""}>Idea</option><option ${status==="Next"?"selected":""}>Next</option><option ${status==="In Progress"?"selected":""}>In Progress</option><option ${status==="Completed"?"selected":""}>Completed</option></select></div>`).join("")||"<small>Nothing here yet.</small>";
+  });
+  document.querySelectorAll("[data-kanbanmove]").forEach(s=>s.onchange=()=>{const i=S.workspace.find(x=>x.id===s.dataset.kanbanmove);i.status=s.value;i.updated=Date.now();save();renderKanban();renderWorkspace();renderTimeline()});
+  renderTimeline();
+}
+function renderTimeline(){
+  const items=[...S.workspace].sort((a,b)=>(b.updated||b.created)-(a.updated||a.created)).slice(0,8);
+  $("workspaceTimeline").innerHTML=items.map(i=>`<div class="timeline-entry"><span class="timeline-dot"></span><div><strong>${escapeHtml(i.title)}</strong><small>${escapeHtml(i.status==="Open"?"Next":i.status)} · ${safeDateTime(i.updated||i.created)}</small></div></div>`).join("")||"<p>No movement recorded yet.</p>";
+}
+renderKanban();
+
+for(const [id,key] of [["monthlyIncome","income"],["monthlyFlexible","flexible"],["monthlyOther","other"],["assetCash","cash"],["assetOther","assets"]]){
+  $(id).value=S.cashflow?.[key]||"";
+  $(id).oninput=e=>{S.cashflow[key]=Number(e.target.value)||0;save();renderInsights()};
+}
+function renderInsights(){
+  const c=S.cashflow||{}, remainder=(Number(c.income)||0)-monthBillTotal()-(Number(c.flexible)||0)-(Number(c.other)||0);
+  $("cashflowRemainder").textContent=currency(remainder);
+  $("netWorthTotal").textContent=currency((Number(c.cash)||0)+(Number(c.assets)||0)+savingsTotal()-debtTotal());
+  const max=Math.max(...S.debts.map(d=>Number(d.balance)||0),1);
+  $("debtChart").innerHTML=S.debts.map(d=>`<div class="debt-bar-row"><span>${escapeHtml(d.name)}</span><div class="debt-bar"><span style="width:${((Number(d.balance)||0)/max)*100}%"></span></div><strong>${currency(d.balance)}</strong></div>`).join("");
+  $("billTimeline").innerHTML=[...S.bills].sort((a,b)=>a.due-b.due).map(b=>`<div class="bill-chip"><small>Due ${b.due}${ordinal(b.due)}</small><strong>${escapeHtml(b.name)}</strong><span>${currency(b.amount)}</span></div>`).join("");
+}
+renderInsights();
+
+const oldUpdateDaily=updateDaily;
+updateDaily=function(){oldUpdateDaily();updateHabitRings();renderBriefing()};
+const oldMoneySummary=updateMoneySummary;
+updateMoneySummary=function(){oldMoneySummary();updateHabitRings();renderBriefing();renderInsights()};
+updateHabitRings();renderBriefing();
+
+
+const weatherShortcutConfirm=$("weatherShortcutConfirm");
+weatherShortcutConfirm.checked=S.integrations?.weatherShortcut!==false;
+function applyWeatherShortcutVisibility(){
+  const visible=S.integrations?.weatherShortcut!==false;
+  document.querySelectorAll(".weather-channel-btn,.today-weather-strip,.weather-launch-icon").forEach(el=>el.style.display=visible?"flex":"none");
+}
+weatherShortcutConfirm.onchange=()=>{
+  S.integrations.weatherShortcut=weatherShortcutConfirm.checked;
+  save();applyWeatherShortcutVisibility();toast(weatherShortcutConfirm.checked?"Weather shortcut enabled.":"Weather shortcut hidden.");
+};
+applyWeatherShortcutVisibility();

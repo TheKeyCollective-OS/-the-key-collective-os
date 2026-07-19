@@ -10,7 +10,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
-  <title>The Key Collective OS v2.0</title>
+  <title>The Key Collective OS v2.3</title>
 </head>
 <body>
 <div class="app-shell">
@@ -25,6 +25,7 @@
 
     <nav class="side-nav" aria-label="Primary navigation">
       <button class="nav-item active" data-view="dashboard"><span>⌂</span>Dashboard</button>
+      <button class="nav-item" data-view="today"><span>✓</span>Today</button>
       <button class="nav-item" data-view="calendar"><span>□</span>Calendar</button>
       <button class="nav-item" data-view="goals"><span>◎</span>Goals</button>
       <button class="nav-item" data-view="money"><span>$</span>Money Center</button>
@@ -35,6 +36,7 @@
       <button class="nav-item" data-view="business"><span>✦</span>Business</button>
       <button class="nav-item" data-view="home"><span>⌂</span>Home</button>
       <button class="nav-item" data-view="lani"><span>♡</span>Lani's Corner</button>
+      <button class="nav-item" data-view="integrations"><span>↗</span>Integrations</button>
       <button class="nav-item jay-link" data-view="jay"><span>J</span>Jay's Workspace</button>
     </nav>
 
@@ -46,6 +48,7 @@
       </label>
     </div>
   </aside>
+  <button class="menu-backdrop" id="menuBackdrop" aria-label="Close navigation"></button>
 
   <main class="main">
     <header class="topbar">
@@ -55,7 +58,7 @@
         <h1 id="greeting">Good day, Keyona.</h1>
       </div>
       <div class="top-actions">
-        <span class="status-pill">v2.1</span>
+        <span class="status-pill">v2.3</span>
         <button class="avatar" data-view="jay" aria-label="Open Jay's Workspace">J</button>
       </div>
     </header>
@@ -70,6 +73,14 @@
     <div id="toast" class="toast" role="status"></div>
 
     <section class="view active" id="dashboard">
+      <article class="daily-briefing">
+        <div>
+          <div class="eyebrow">YOUR DAILY BRIEFING</div>
+          <h2 id="briefingHeadline">Here’s where to begin.</h2>
+          <p id="briefingText">Your most important information will appear here.</p>
+        </div>
+        <button class="briefing-action" data-view="today">Open Today</button>
+      </article>
       <div class="hero-card">
         <div>
           <div class="eyebrow">TODAY'S INTENTION</div>
@@ -155,13 +166,95 @@
             <div><span>Wellness consistency</span><input type="range" min="0" max="100" data-progress="wellness"><strong id="wellnessProgressLabel">10%</strong></div>
           </div>
         </article>
+
+        <article class="panel weather-panel">
+          <div class="panel-heading">
+            <div><div class="eyebrow">WEATHER</div><h3>Today outside</h3></div>
+            <a class="weather-launch-icon" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener" aria-label="Open The Weather Channel">↗</a>
+          </div>
+          <div class="weather-card">
+            <strong id="weatherTemp">--°</strong>
+            <span id="weatherCondition">Add today’s weather</span>
+          </div>
+          <div class="weather-inputs">
+            <input id="weatherTempInput" type="number" placeholder="Temperature">
+            <input id="weatherConditionInput" placeholder="Sunny, cloudy, rainy...">
+          </div>
+          <a class="weather-channel-btn" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener">
+            <span class="weather-channel-mark">☀</span>
+            <span><strong>Open The Weather Channel</strong><small>Goodyear, Arizona forecast</small></span>
+            <b>↗</b>
+          </a>
+          <small class="weather-note">Your manual weather note remains available offline.</small>
+        </article>
+
+        <article class="panel">
+          <div class="eyebrow">TODAY'S WINS</div>
+          <h3>Proof you moved forward</h3>
+          <div id="winsList" class="wins-list"></div>
+          <div class="inline-add">
+            <input id="winInput" placeholder="Add a win, no matter how small">
+            <button class="small-btn" id="addWinBtn">Add</button>
+          </div>
+        </article>
+
+        <article class="panel span-2">
+          <div class="panel-heading">
+            <div><div class="eyebrow">HABIT PULSE</div><h3>Consistency at a glance</h3></div>
+          </div>
+          <div class="habit-rings">
+            <div class="habit-ring" id="ringWater"><span>0%</span><small>Water</small></div>
+            <div class="habit-ring" id="ringTasks"><span>0%</span><small>Tasks</small></div>
+            <div class="habit-ring" id="ringWellness"><span>0%</span><small>Wellness</small></div>
+            <div class="habit-ring" id="ringMoney"><span>0%</span><small>Money plan</small></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="today">
+      <div class="page-intro">
+        <div><div class="eyebrow">YOUR DAY, IN ONE PLACE</div><h2>Today</h2><p>A calm view of what deserves your attention right now.</p></div>
+        <button class="primary-btn" id="addAgendaBtn">+ Add agenda item</button>
+      </div>
+
+      <a class="today-weather-strip" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener">
+        <span class="weather-channel-mark">☀</span>
+        <span><strong>Check today’s full forecast</strong><small>Open The Weather Channel for Goodyear</small></span>
+        <b>Open ↗</b>
+      </a>
+
+      <div class="today-layout">
+        <article class="panel today-focus-card">
+          <div class="eyebrow">TOP FOCUS</div>
+          <textarea id="todayFocus" rows="4" placeholder="What is the one thing that would make today feel successful?"></textarea>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">DAILY QUOTE</div>
+          <h3 id="dailyQuote"></h3>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <article class="panel span-2">
+          <div class="panel-heading"><div><div class="eyebrow">AGENDA</div><h3>Today’s schedule</h3></div></div>
+          <div id="agendaList" class="agenda-list"></div>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">QUICK CHECK-IN</div>
+          <h3>How are you arriving today?</h3>
+          <select id="todayEnergy">
+            <option>Grounded</option><option>Energized</option><option>Focused</option><option>Tired</option><option>Overwhelmed</option>
+          </select>
+          <textarea id="todayCheckin" rows="7" placeholder="What do you need from yourself today?"></textarea>
+        </article>
       </div>
     </section>
 
     <section class="view" id="jay">
       <div class="page-intro">
         <div><div class="eyebrow">YOUR STRATEGY ROOM</div><h2>Jay's Workspace</h2><p>A permanent home for our ideas, decisions, build plans, and next moves.</p></div>
-        <button class="primary-btn" id="addWorkspaceItem">+ Add item</button>
+        <div class="page-actions"><button class="ghost-btn" id="workspaceViewToggle">Board view</button><button class="primary-btn" id="addWorkspaceItem">+ Add item</button></div>
       </div>
 
       <div class="workspace-stats">
@@ -170,7 +263,7 @@
         <article><span>Completed</span><strong id="completedCount">0</strong></article>
       </div>
 
-      <div class="content-grid">
+      <div id="workspaceListView" class="content-grid">
         <article class="panel span-2">
           <div class="panel-heading"><div><div class="eyebrow">BUILD QUEUE</div><h3>Next updates</h3></div>
             <div class="workspace-tools">
@@ -218,6 +311,46 @@
           </div>
         </article>
       </div>
+
+      <div id="workspaceBoardView" class="workspace-board-view" hidden>
+        <div class="kanban-board">
+          <section><h3>Ideas</h3><div class="kanban-column" data-kanban="Idea"></div></section>
+          <section><h3>Next</h3><div class="kanban-column" data-kanban="Next"></div></section>
+          <section><h3>In Progress</h3><div class="kanban-column" data-kanban="In Progress"></div></section>
+          <section><h3>Completed</h3><div class="kanban-column" data-kanban="Completed"></div></section>
+        </div>
+        <article class="panel timeline-panel">
+          <div class="eyebrow">TIMELINE</div>
+          <h3>Recent movement</h3>
+          <div id="workspaceTimeline" class="workspace-timeline"></div>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="view" id="integrations">
+      <div class="page-intro">
+        <div><div class="eyebrow">CONNECTED SHORTCUTS</div><h2>Integrations</h2><p>Open the apps and services you use without hunting through your phone.</p></div>
+      </div>
+
+      <div class="integration-grid">
+        <a class="integration-card weather-integration" href="https://weather.com/weather/today/l/85338%3A4%3AUS" target="_blank" rel="noopener">
+          <div class="integration-icon">☀</div>
+          <div><div class="eyebrow">WEATHER</div><h3>The Weather Channel</h3><p>Open the current Goodyear forecast, hourly outlook, radar, and alerts.</p><span>Open forecast ↗</span></div>
+        </a>
+
+        <article class="integration-card muted-integration">
+          <div class="integration-icon">＋</div>
+          <div><div class="eyebrow">COMING NEXT</div><h3>More shortcuts</h3><p>Future milestones can add launchers for the services you use most.</p><span>Ready when you are</span></div>
+        </article>
+      </div>
+
+      <article class="panel integration-settings">
+        <div class="eyebrow">WEATHER LOCATION</div>
+        <h3>Default forecast location</h3>
+        <p>Milestone 4 is set to Goodyear, Arizona 85338. The link can be changed later if you want a different location.</p>
+        <label><input type="checkbox" id="weatherShortcutConfirm"> Keep The Weather Channel shortcut visible on Dashboard and Today</label>
+      </article>
     </section>
 
     <section class="view" id="calendar">
@@ -249,6 +382,7 @@
         <button class="money-tab" data-moneytab="debts">Debt</button>
         <button class="money-tab" data-moneytab="savings">Savings</button>
         <button class="money-tab" data-moneytab="subscriptions">Subscriptions</button>
+        <button class="money-tab" data-moneytab="insights">Insights</button>
       </div>
 
       <div class="money-pane active" id="money-paycheck">
@@ -315,6 +449,39 @@
           <div id="subscriptionsList" class="finance-list"></div>
         </article>
       </div>
+
+      <div class="money-pane" id="money-insights">
+        <div class="content-grid">
+          <article class="panel">
+            <div class="eyebrow">MONTHLY CASH FLOW</div>
+            <h3>Income and spending</h3>
+            <label>Monthly income<input id="monthlyIncome" type="number" min="0" step=".01" placeholder="0.00"></label>
+            <label>Flexible spending<input id="monthlyFlexible" type="number" min="0" step=".01" placeholder="0.00"></label>
+            <label>Other expenses<input id="monthlyOther" type="number" min="0" step=".01" placeholder="0.00"></label>
+            <div class="cashflow-result"><span>Estimated remainder</span><strong id="cashflowRemainder">$0.00</strong></div>
+          </article>
+
+          <article class="panel">
+            <div class="eyebrow">NET WORTH SNAPSHOT</div>
+            <h3>Assets minus debt</h3>
+            <label>Cash and checking<input id="assetCash" type="number" min="0" step=".01" placeholder="0.00"></label>
+            <label>Other assets<input id="assetOther" type="number" min="0" step=".01" placeholder="0.00"></label>
+            <div class="networth-result"><span>Estimated net worth</span><strong id="netWorthTotal">$0.00</strong></div>
+          </article>
+
+          <article class="panel span-2">
+            <div class="eyebrow">DEBT PAYOFF VISUAL</div>
+            <h3>Where your balances stand</h3>
+            <div id="debtChart" class="debt-chart"></div>
+          </article>
+
+          <article class="panel span-2">
+            <div class="eyebrow">BILL TIMELINE</div>
+            <h3>What’s coming up</h3>
+            <div id="billTimeline" class="bill-timeline"></div>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section class="view" id="journal">
@@ -364,6 +531,7 @@
     <label>Title<input id="itemTitle" required placeholder="What should we remember or build?"></label>
     <label>Category<select id="itemCategory"><option>App Update</option><option>Book</option><option>Business</option><option>Budget</option><option>Career</option><option>Life</option></select></label>
     <label>Priority<select id="itemPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
+<label>Status<select id="itemStatus"><option>Idea</option><option selected>Next</option><option>In Progress</option><option>Completed</option></select></label>
     <label>Notes<textarea id="itemNotes" rows="5" placeholder="Details, decisions, or next steps..."></textarea></label>
     <button class="primary-btn" type="submit">Save to workspace</button>
   </form>
@@ -379,6 +547,17 @@
     <label id="financeExtraLabel">Due day<input id="financeExtra" type="number" min="1" max="31" placeholder="1"></label>
     <label>Notes<textarea id="financeNotes" rows="4" placeholder="Optional notes"></textarea></label>
     <button class="primary-btn" type="submit">Save</button>
+  </form>
+</div>
+
+
+<div class="modal-backdrop" id="agendaModal" hidden>
+  <form class="modal" id="agendaForm">
+    <div class="panel-heading"><div><div class="eyebrow">TODAY</div><h3>Add agenda item</h3></div><button type="button" class="icon-button" id="closeAgendaModal">×</button></div>
+    <label>Time<input id="agendaTime" type="time" required></label>
+    <label>Item<input id="agendaTitle" required placeholder="What is happening?"></label>
+    <label>Category<select id="agendaCategory"><option>Personal</option><option>Work</option><option>Lani</option><option>Money</option><option>Wellness</option><option>Business</option></select></label>
+    <button class="primary-btn" type="submit">Add to today</button>
   </form>
 </div>
 

@@ -1,7 +1,7 @@
 {
   "name": "The Key Collective OS",
   "short_name": "Key OS",
-  "description": "The Key Collective OS v2.1 with Money Center, paycheck planning, debt and savings tracking, and Jay's Workspace.",
+  "description": "The Key Collective OS v2.3 with an integrations hub and Weather Channel access.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8f4ec",
