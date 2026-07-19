@@ -1,160 +1,272 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#647660">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Key Collective">
-<meta name="description" content="The Key Collective OS — a luxury personal operating system for intentional living.">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
-<link rel="icon" href="./assets/icon-192.png">
-<link rel="stylesheet" href="./styles.css">
-<title>The Key Collective OS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#667a65">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Key OS">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>The Key Collective OS v2.0</title>
 </head>
 <body>
-<div id="app">
-  <aside class="sidebar" aria-label="Primary navigation">
-    <div class="brand">
-      <div class="brand-emblem">K</div>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-lockup">
+      <div class="brand-mark">K</div>
       <div>
-        <div class="brand-name">The Key Collective</div>
-        <div class="brand-edition">PERSONAL OS</div>
+        <div class="eyebrow">THE KEY COLLECTIVE</div>
+        <strong>Personal OS</strong>
       </div>
     </div>
-    <p class="brand-mantra">One percent better.<br>One intentional day at a time.</p>
-    <nav id="desktopNav" class="nav"></nav>
-    <button class="quick-add" id="quickAddBtn">＋ Quick add</button>
-    <div class="sidebar-footer">Designed for Key ♡</div>
+
+    <nav class="side-nav" aria-label="Primary navigation">
+      <button class="nav-item active" data-view="dashboard"><span>⌂</span>Dashboard</button>
+      <button class="nav-item" data-view="calendar"><span>□</span>Calendar</button>
+      <button class="nav-item" data-view="goals"><span>◎</span>Goals</button>
+      <button class="nav-item" data-view="money"><span>$</span>Money Center</button>
+      <button class="nav-item" data-view="journal"><span>✎</span>Journal</button>
+      <button class="nav-item" data-view="wellness"><span>♧</span>Wellness</button>
+      <button class="nav-item" data-view="career"><span>◇</span>Career</button>
+      <button class="nav-item" data-view="book"><span>▤</span>Book HQ</button>
+      <button class="nav-item" data-view="business"><span>✦</span>Business</button>
+      <button class="nav-item" data-view="home"><span>⌂</span>Home</button>
+      <button class="nav-item" data-view="lani"><span>♡</span>Lani's Corner</button>
+      <button class="nav-item jay-link" data-view="jay"><span>J</span>Jay's Workspace</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p>One percent better.<br>One intentional day at a time.</p>
+      <button class="text-button" id="exportBtn">Export backup</button>
+      <label class="text-button import-label">Import backup
+        <input type="file" id="importInput" accept=".json,application/json">
+      </label>
+    </div>
   </aside>
 
   <main class="main">
     <header class="topbar">
-      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open navigation">☰</button>
+      <button id="menuBtn" class="icon-button mobile-only" aria-label="Open navigation">☰</button>
       <div>
-        <div class="kicker">THE KEY COLLECTIVE OS</div>
-        <div id="todayText" class="today-text"></div>
+        <div class="eyebrow" id="todayLabel"></div>
+        <h1 id="greeting">Good day, Keyona.</h1>
       </div>
-      <button class="icon-button" id="settingsBtn" aria-label="Open settings">⚙︎</button>
+      <div class="top-actions">
+        <span class="status-pill">v2.0</span>
+        <button class="avatar" data-view="jay" aria-label="Open Jay's Workspace">J</button>
+      </div>
     </header>
 
-    <section id="page-dashboard" class="page active">
-      <div class="hero-grid">
-        <article class="hero card">
-          <div class="kicker">WELCOME HOME</div>
-          <h1 id="greeting">Good afternoon, Key.</h1>
-          <p>You are building the life you promised yourself. Today does not need to be perfect—it just needs to be intentional.</p>
-          <div class="hero-actions">
-            <button class="primary" data-go="today">Open today’s plan</button>
-            <button class="ghost" data-go="journal">Write it out</button>
-          </div>
-          <div class="botanical" aria-hidden="true">❧</div>
-        </article>
+    <section class="clock-ribbon">
+      <div class="clock" data-zone="America/Phoenix"><span>Goodyear</span><strong>--:--</strong><small>Arizona</small></div>
+      <div class="clock" data-zone="Africa/Johannesburg"><span>Cape Town</span><strong>--:--</strong><small>South Africa</small></div>
+      <div class="clock" data-zone="America/Chicago"><span>Houston</span><strong>--:--</strong><small>Texas</small></div>
+      <div class="clock" data-zone="America/New_York"><span>New York</span><strong>--:--</strong><small>New York</small></div>
+    </section>
 
-        <article class="card focus-card">
-          <div class="row-between">
-            <div class="kicker">FOCUS OF THE WEEK</div>
-            <span class="pill">Editable</span>
-          </div>
-          <input class="display-input" id="weeklyFocus" value="A softer life, built with discipline">
-          <div class="focus-list">
-            <label><input type="checkbox" data-store-check="focus1"> <input data-store-text="focus1Text" value="Finish the next meaningful step"></label>
-            <label><input type="checkbox" data-store-check="focus2"> <input data-store-text="focus2Text" value="Protect my peace and energy"></label>
-            <label><input type="checkbox" data-store-check="focus3"> <input data-store-text="focus3Text" value="Use my money intentionally"></label>
-          </div>
+    <div id="toast" class="toast" role="status"></div>
+
+    <section class="view active" id="dashboard">
+      <div class="hero-card">
+        <div>
+          <div class="eyebrow">TODAY'S INTENTION</div>
+          <h2>Build a life that feels as good as it looks.</h2>
+          <p>Your command center for your family, finances, future, and peace.</p>
+        </div>
+        <div class="hero-focus">
+          <label for="weeklyFocus">Focus of the week</label>
+          <input id="weeklyFocus" placeholder="What matters most this week?">
+        </div>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric-card">
+          <span>Daily progress</span>
+          <strong id="dailyPercent">0%</strong>
+          <div class="progress"><div id="dailyBar"></div></div>
+          <small id="dailyCount">0 of 6 complete</small>
+        </article>
+        <article class="metric-card">
+          <span>Water</span>
+          <strong><span id="waterCount">0</span>/8</strong>
+          <div class="button-row"><button class="small-btn" id="waterAdd">+ Glass</button><button class="ghost-btn" id="waterReset">Reset</button></div>
+        </article>
+        <article class="metric-card">
+          <span>Current mood</span>
+          <strong id="moodDisplay">Steady</strong>
+          <select id="moodSelect">
+            <option>Steady</option><option>Energized</option><option>Peaceful</option><option>Tired</option><option>Overwhelmed</option>
+          </select>
+        </article>
+        <article class="metric-card">
+          <span>Next milestone</span>
+          <strong>Keep moving</strong>
+          <small>Small wins count. Quiet progress still counts.</small>
         </article>
       </div>
 
-      <article class="clock-ribbon card">
-        <div class="row-between clock-title-row">
-          <div>
-            <div class="kicker">GLOBAL CLOCK BAR</div>
-            <div class="muted">Live local time for the people and places that matter.</div>
+      <div class="content-grid">
+        <article class="panel span-2">
+          <div class="panel-heading">
+            <div><div class="eyebrow">DAILY COMMAND CENTER</div><h3>Today's priorities</h3></div>
+            <span class="soft-pill" id="priorityBadge">0 complete</span>
           </div>
-          <span class="live-pill"><i></i> LIVE</span>
-        </div>
-        <div class="clock-grid" id="clockGrid"></div>
-      </article>
-
-      <div class="dashboard-grid">
-        <article class="card span-2">
-          <div class="row-between">
-            <div>
-              <div class="kicker">TODAY’S COMMAND CENTER</div>
-              <h2>Keep the promises you made to yourself.</h2>
-            </div>
-            <span id="todayProgressPill" class="pill">0% complete</span>
-          </div>
-          <div class="progress"><span id="todayProgressBar"></span></div>
-          <div id="todayChecklist" class="checklist"></div>
-          <div class="inline-add">
-            <input id="newTodayTask" placeholder="Add a task for today">
-            <button class="primary" id="addTodayTask">Add</button>
+          <div class="task-list" id="dashboardTasks">
+            <label><input type="checkbox" data-daily="priorities"> Choose today's top three priorities</label>
+            <label><input type="checkbox" data-daily="work"> Review work schedule and follow-ups</label>
+            <label><input type="checkbox" data-daily="collective"> Complete one Key Collective task</label>
+            <label><input type="checkbox" data-daily="money"> Check upcoming bills and available money</label>
+            <label><input type="checkbox" data-daily="lani"> Prepare Lani's items for tomorrow</label>
+            <label><input type="checkbox" data-daily="reflection"> Complete an end-of-day reflection</label>
           </div>
         </article>
 
-        <article class="card">
-          <div class="kicker">HYDRATION</div>
-          <h2>Water check</h2>
-          <div class="water-ring" id="waterRing"><span id="waterNumber">0</span><small>/ 8</small></div>
-          <div class="button-pair">
-            <button class="primary" id="addWater">+ Glass</button>
-            <button class="ghost" id="resetWater">Reset</button>
+        <article class="panel">
+          <div class="eyebrow">QUICK CAPTURE</div>
+          <h3>Brain dump</h3>
+          <textarea id="quickCapture" rows="8" placeholder="Get it out of your head and into the system..."></textarea>
+          <button class="primary-btn" id="sendToJay">Send to Jay's Workspace</button>
+        </article>
+
+        <article class="panel">
+          <div class="eyebrow">ONE PERCENT BETTER</div>
+          <h3>Proof I'm growing</h3>
+          <textarea id="growthProof" rows="8" placeholder="What did you do today that your future self will thank you for?"></textarea>
+        </article>
+
+        <article class="panel span-2">
+          <div class="panel-heading"><div><div class="eyebrow">PROJECT PULSE</div><h3>What you're building</h3></div></div>
+          <div class="project-pulse">
+            <div><span>From Aspirations to Offers</span><input type="range" min="0" max="100" data-progress="book"><strong id="bookProgressLabel">25%</strong></div>
+            <div><span>The Key Collective</span><input type="range" min="0" max="100" data-progress="business"><strong id="businessProgressLabel">20%</strong></div>
+            <div><span>Financial reset</span><input type="range" min="0" max="100" data-progress="money"><strong id="moneyProgressLabel">15%</strong></div>
+            <div><span>Wellness consistency</span><input type="range" min="0" max="100" data-progress="wellness"><strong id="wellnessProgressLabel">10%</strong></div>
           </div>
-        </article>
-
-        <article class="card">
-          <div class="kicker">A GENTLE REMINDER</div>
-          <h2>Choose tomorrow, too.</h2>
-          <p class="quote">You do not need alcohol to celebrate, have fun, cope, or reward yourself. Peace still counts as a good time.</p>
-          <textarea data-store-text="wellnessReminderNote" placeholder="What support do you need today?"></textarea>
-        </article>
-
-        <article class="card">
-          <div class="kicker">UPCOMING BILLS</div>
-          <h2>Know what’s next.</h2>
-          <div id="dashboardBills"></div>
-          <button class="text-button" data-go="money">Open Money Center →</button>
-        </article>
-
-        <article class="card">
-          <div class="kicker">LANI’S CORNER</div>
-          <h2>Today’s little memory</h2>
-          <textarea data-store-text="laniDailyMemory" placeholder="What made Lani smile today?"></textarea>
-          <button class="text-button" data-go="lani">Open Lani’s Corner →</button>
         </article>
       </div>
     </section>
 
-    <section id="page-today" class="page"></section>
-    <section id="page-calendar" class="page"></section>
-    <section id="page-lani" class="page"></section>
-    <section id="page-career" class="page"></section>
-    <section id="page-business" class="page"></section>
-    <section id="page-money" class="page"></section>
-    <section id="page-wellness" class="page"></section>
-    <section id="page-home" class="page"></section>
-    <section id="page-journal" class="page"></section>
-    <section id="page-goals" class="page"></section>
-    <section id="page-progress" class="page"></section>
-    <section id="page-vision" class="page"></section>
+    <section class="view" id="jay">
+      <div class="page-intro">
+        <div><div class="eyebrow">YOUR STRATEGY ROOM</div><h2>Jay's Workspace</h2><p>A permanent home for our ideas, decisions, build plans, and next moves.</p></div>
+        <button class="primary-btn" id="addWorkspaceItem">+ Add item</button>
+      </div>
+
+      <div class="workspace-stats">
+        <article><span>Open ideas</span><strong id="ideaCount">0</strong></article>
+        <article><span>Build queue</span><strong id="queueCount">0</strong></article>
+        <article><span>Completed</span><strong id="completedCount">0</strong></article>
+      </div>
+
+      <div class="content-grid">
+        <article class="panel span-2">
+          <div class="panel-heading"><div><div class="eyebrow">BUILD QUEUE</div><h3>Next updates</h3></div>
+            <select id="workspaceFilter"><option value="all">All items</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option><option value="Completed">Completed</option></select>
+          </div>
+          <div id="workspaceItems" class="workspace-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="eyebrow">AI NOTES</div>
+          <h3>Conversation summary</h3>
+          <textarea id="aiNotes" rows="14" placeholder="Paste important recommendations, decisions, or summaries here..."></textarea>
+        </article>
+
+        <article class="panel">
+          <div class="eyebrow">KNOWLEDGE VAULT</div>
+          <h3>Important links & resources</h3>
+          <textarea id="knowledgeVault" rows="14" placeholder="Templates, links, scripts, instructions, and resources..."></textarea>
+        </article>
+
+        <article class="panel span-2">
+          <div class="eyebrow">PROJECT ROADMAP</div>
+          <h3>Active projects</h3>
+          <div class="roadmap-grid">
+            <label><input type="checkbox" data-roadmap="v2"> Launch The Key Collective OS v2.0</label>
+            <label><input type="checkbox" data-roadmap="book"> Complete From Aspirations to Offers</label>
+            <label><input type="checkbox" data-roadmap="budget"> Strengthen the budget system</label>
+            <label><input type="checkbox" data-roadmap="brand"> Build The Key Collective brand foundation</label>
+            <label><input type="checkbox" data-roadmap="career"> Grow in the new career role</label>
+            <label><input type="checkbox" data-roadmap="wellness"> Protect wellness and sobriety</label>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="calendar">
+      <div class="page-intro"><div><div class="eyebrow">PLAN WITH INTENTION</div><h2>Calendar</h2></div></div>
+      <article class="panel"><div class="calendar-toolbar"><button id="prevMonth">←</button><h3 id="calendarTitle"></h3><button id="nextMonth">→</button></div><div class="calendar-grid" id="calendarGrid"></div></article>
+    </section>
+
+    <section class="view" id="goals">
+      <div class="page-intro"><div><div class="eyebrow">YOUR NEXT CHAPTER</div><h2>Goals</h2></div></div>
+      <div class="content-grid"><article class="panel"><h3>90-day goals</h3><textarea data-text="goals90" rows="12" placeholder="What must be true 90 days from now?"></textarea></article><article class="panel"><h3>Annual vision</h3><textarea data-text="annualVision" rows="12" placeholder="Describe the year you're creating..."></textarea></article><article class="panel span-2"><h3>Milestones</h3><textarea data-text="milestones" rows="8" placeholder="Break the big goals into visible wins..."></textarea></article></div>
+    </section>
+
+    <section class="view" id="money">
+      <div class="page-intro"><div><div class="eyebrow">EVERY DOLLAR GETS A JOB</div><h2>Money Center</h2><p>Milestone 1 foundation. Full paycheck planning arrives in v2.1.</p></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>Available this week</h3><input type="number" id="weeklyMoney" min="0" step=".01" placeholder="0.00"><small>Bills money is not spending money.</small></article>
+        <article class="panel"><h3>Money focus</h3><textarea data-text="moneyFocus" rows="6" placeholder="The most important money move right now..."></textarea></article>
+        <article class="panel span-2"><h3>Upcoming bills & notes</h3><textarea data-text="billNotes" rows="10" placeholder="Track what is due, reserved, or paid..."></textarea></article>
+      </div>
+    </section>
+
+    <section class="view" id="journal">
+      <div class="page-intro"><div><div class="eyebrow">MAKE SPACE FOR YOURSELF</div><h2>Journal</h2></div></div>
+      <div class="content-grid"><article class="panel span-2"><h3>Today's reflection</h3><textarea data-text="journal" rows="16" placeholder="Write what you need to say..."></textarea></article><article class="panel"><h3>Gratitude</h3><textarea data-text="gratitude" rows="9" placeholder="Three things that held you today..."></textarea></article><article class="panel"><h3>Tomorrow</h3><textarea data-text="tomorrow" rows="9" placeholder="What would make tomorrow feel successful?"></textarea></article></div>
+    </section>
+
+    <section class="view" id="wellness">
+      <div class="page-intro"><div><div class="eyebrow">PROTECT YOUR PEACE</div><h2>Wellness</h2></div></div>
+      <div class="content-grid">
+        <article class="panel"><h3>Daily care</h3><div class="task-list"><label><input type="checkbox" data-wellness="meds"> Take medications</label><label><input type="checkbox" data-wellness="water"> Drink water</label><label><input type="checkbox" data-wellness="skin"> Skincare</label><label><input type="checkbox" data-wellness="move"> Movement or stretching</label></div></article>
+        <article class="panel affirmation"><div class="eyebrow">SOBRIETY REMINDER</div><h3>You do not need alcohol to celebrate, cope, relax, or have fun.</h3><p>Choosing yourself is worth celebrating.</p><label><input type="checkbox" data-wellness="sober"> Today, I chose the life I want.</label></article>
+        <article class="panel span-2"><h3>Wellness notes</h3><textarea data-text="wellnessNotes" rows="9" placeholder="Mood, sleep, symptoms, wins, or what your body needs..."></textarea></article>
+      </div>
+    </section>
+
+    <section class="view" id="career">
+      <div class="page-intro"><div><div class="eyebrow">BUILD THE CAREER, NOT JUST THE JOB</div><h2>Career Center</h2></div></div>
+      <div class="content-grid"><article class="panel"><h3>Training tracker</h3><textarea data-text="training" rows="11" placeholder="Modules, systems, questions, and takeaways..."></textarea></article><article class="panel"><h3>Professional wins</h3><textarea data-text="careerWins" rows="11" placeholder="Document your proof. Metrics, praise, breakthroughs..."></textarea></article><article class="panel span-2"><h3>Promotion roadmap</h3><textarea data-text="promotion" rows="8" placeholder="Skills, visibility, milestones, and next-level opportunities..."></textarea></article></div>
+    </section>
+
+    <section class="view" id="book">
+      <div class="page-intro"><div><div class="eyebrow">FROM ASPIRATIONS TO OFFERS</div><h2>Book HQ</h2></div></div>
+      <div class="content-grid"><article class="panel"><h3>Chapter tracker</h3><textarea data-text="chapters" rows="12" placeholder="Sourcing, materials, ATS, recruiter calls, interviews, offers..."></textarea></article><article class="panel"><h3>Research vault</h3><textarea data-text="bookResearch" rows="12" placeholder="Sources, examples, quotes, and ideas..."></textarea></article><article class="panel"><h3>Illustration checklist</h3><textarea data-text="illustrations" rows="9" placeholder="Which visuals still need to be created?"></textarea></article><article class="panel"><h3>Launch checklist</h3><textarea data-text="bookLaunch" rows="9" placeholder="Editing, formatting, storefront, marketing..."></textarea></article></div>
+    </section>
+
+    <section class="view" id="business">
+      <div class="page-intro"><div><div class="eyebrow">THE KEY COLLECTIVE</div><h2>Business Headquarters</h2></div></div>
+      <div class="content-grid"><article class="panel"><h3>Product roadmap</h3><textarea data-text="productRoadmap" rows="11" placeholder="Products, versions, launches, and revenue ideas..."></textarea></article><article class="panel"><h3>Content ideas</h3><textarea data-text="contentIdeas" rows="11" placeholder="TikTok, Instagram, email, website..."></textarea></article><article class="panel span-2"><h3>Brand decisions</h3><textarea data-text="brandDecisions" rows="8" placeholder="Voice, palette, audience, promises, and non-negotiables..."></textarea></article></div>
+    </section>
+
+    <section class="view" id="home">
+      <div class="page-intro"><div><div class="eyebrow">CALM STARTS AT HOME</div><h2>Home</h2></div></div>
+      <div class="content-grid"><article class="panel"><h3>Home reset</h3><textarea data-text="homeReset" rows="10" placeholder="Rooms, laundry, cleaning, maintenance..."></textarea></article><article class="panel"><h3>Meal plan</h3><textarea data-text="mealPlan" rows="10" placeholder="Meals and prep for the week..."></textarea></article><article class="panel span-2"><h3>Grocery list</h3><textarea data-text="groceryList" rows="8" placeholder="Add groceries here..."></textarea></article></div>
+    </section>
+
+    <section class="view" id="lani">
+      <div class="page-intro"><div><div class="eyebrow">LITTLE LOVE, BIG MEMORIES</div><h2>Lani's Corner</h2></div></div>
+      <div class="content-grid"><article class="panel"><h3>School & activities</h3><textarea data-text="laniSchedule" rows="11" placeholder="School, swim, appointments, and activities..."></textarea></article><article class="panel"><h3>Meals & prep</h3><textarea data-text="laniMeals" rows="11" placeholder="Meals, outfits, hair, backpack, supplies..."></textarea></article><article class="panel span-2"><h3>Memory of the day</h3><textarea data-text="laniMemory" rows="8" placeholder="What made Lani smile today?"></textarea></article></div>
+    </section>
   </main>
 </div>
 
-<nav class="mobile-nav" id="mobileNav"></nav>
-
-<div class="modal-backdrop" id="modalBackdrop" hidden>
-  <div class="modal" role="dialog" aria-modal="true">
-    <div class="row-between">
-      <h2 id="modalTitle">Quick add</h2>
-      <button class="icon-button" id="closeModal">×</button>
-    </div>
-    <div id="modalBody"></div>
-  </div>
+<div class="modal-backdrop" id="workspaceModal" hidden>
+  <form class="modal" id="workspaceForm">
+    <div class="panel-heading"><div><div class="eyebrow">JAY'S WORKSPACE</div><h3>Add a new item</h3></div><button type="button" class="icon-button" id="closeModal">×</button></div>
+    <label>Title<input id="itemTitle" required placeholder="What should we remember or build?"></label>
+    <label>Category<select id="itemCategory"><option>App Update</option><option>Book</option><option>Business</option><option>Budget</option><option>Career</option><option>Life</option></select></label>
+    <label>Priority<select id="itemPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
+    <label>Notes<textarea id="itemNotes" rows="5" placeholder="Details, decisions, or next steps..."></textarea></label>
+    <button class="primary-btn" type="submit">Save to workspace</button>
+  </form>
 </div>
-<div class="toast" id="toast"></div>
-<script src="./app.js"></script>
+
+<script src="app.js"></script>
 </body>
 </html>
