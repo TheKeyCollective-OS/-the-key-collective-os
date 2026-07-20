@@ -1,310 +1,328 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f7f1e7">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Key OS">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css">
-  <title>The Key Collective OS — Sprint 4 Premium Edition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#b89242">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="The Key Collective">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>The Key Collective OS — Luxury Interactive Edition</title>
+<style>
+:root{
+ --ivory:#fbf6ed;--cream:#f4eadc;--paper:#fffdf8;--ink:#191714;--muted:#736b61;
+ --gold:#b89242;--gold2:#e2c675;--gold3:#7f5f20;--sage:#7f9277;--sage2:#465746;
+ --rose:#d9b3aa;--wine:#6c2f3c;--line:#dfd2bd;--shadow:0 18px 45px rgba(68,45,11,.13);
+ --radius:24px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:
+radial-gradient(circle at 15% 0%,rgba(226,198,117,.22),transparent 30%),
+radial-gradient(circle at 90% 20%,rgba(127,146,119,.15),transparent 25%),
+linear-gradient(180deg,var(--ivory),var(--cream));min-height:100vh}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:18px 16px;background:linear-gradient(180deg,#1a1916,#2a241b);color:white;overflow:auto}
+.brandmark{display:flex;align-items:center;gap:12px}.brandmark img{width:62px;height:62px;border-radius:18px;object-fit:cover;border:1px solid #d4b45d}
+.brandname{font-family:Georgia,serif;font-size:21px;line-height:1.1}.tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#d9c89e}
+.sidequote{margin:20px 0;padding:14px;border:1px solid #ffffff1f;border-radius:18px;background:#ffffff0c;font-family:Georgia,serif;color:#f3e8ce}
+.sidenav{display:grid;gap:6px}.sidenav button{border:0;border-radius:14px;padding:11px 12px;text-align:left;background:transparent;color:#e9e1d2;font-weight:700}
+.sidenav button:hover,.sidenav button.active{background:linear-gradient(90deg,#b8924250,#ffffff10);color:#fff;border-left:3px solid var(--gold2)}
+.main{padding:12px}.topbar{position:sticky;top:8px;z-index:15;display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--line);border-radius:20px;background:#fffaf1e9;backdrop-filter:blur(16px);box-shadow:var(--shadow)}
+.iconbtn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-weight:900}
+.backbtn,.homebtn{display:none}.crumb{font-size:12px;color:var(--muted);font-weight:800}.topspacer{flex:1}
+.profile{width:44px;height:44px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 0 3px #fff}
+.profile img{width:100%;height:100%;object-fit:cover}
+.content{max-width:1450px;margin:auto;padding:24px 2px 60px}.view{display:none}.view.active{display:block}
+.pagehead{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:6px 4px 20px}
+.pagehead h1{font-family:Georgia,serif;font-size:clamp(34px,5vw,58px);margin:2px 0}.eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold3);font-weight:900}
+.sub{color:var(--muted);margin:0}.datepill,.pill{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;background:#fff9ee;border:1px solid var(--line);font-size:12px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:linear-gradient(145deg,#fffdf8,#fff9ef);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;width:120px;height:120px;border:1px solid #d8bd7544;border-radius:50%;right:-60px;top:-60px}
+.card h2,.card h3{font-family:Georgia,serif;margin:0 0 10px}.card p{color:var(--muted)}
+.hero{background:linear-gradient(125deg,#fffdf8 55%,#f1dfb9);min-height:230px}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;align-items:center}
+.hero h2{font-size:38px}.founder{display:flex;justify-content:center}.founder img{width:190px;height:190px;object-fit:cover;border-radius:50%;border:6px solid #fff;box-shadow:0 0 0 3px var(--gold),var(--shadow)}
+.btn{border:0;border-radius:14px;padding:11px 14px;font-weight:800;background:linear-gradient(135deg,var(--gold3),var(--gold));color:white}
+.btn.secondary{background:var(--sage2)}.btn.ghost{background:#f5ecdd;color:var(--ink);border:1px solid var(--line)}.btn.danger{background:#7a3131}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stack{display:grid;gap:10px}
+.input,textarea,select{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:#fffdf9;color:var(--ink)}textarea{resize:vertical}
+.metric{font-family:Georgia,serif;font-size:31px}.mini{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.bar{height:10px;background:#eee5d8;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold3),var(--gold2));border-radius:99px}
+.task{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid #eee4d7}.task input{accent-color:var(--gold3)}
+.quick{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;margin-bottom:14px}.quick button{padding:12px 8px;border-radius:15px;border:1px solid var(--line);background:#fffaf0;font-weight:800}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.dow{text-align:center;font-size:11px;font-weight:900;color:var(--muted)}
+.day{min-height:88px;border:1px solid var(--line);border-radius:13px;background:#fffdf8;padding:7px;text-align:left;position:relative}.day:hover{outline:2px solid var(--gold2)}.day.today{background:#f4e4b9}.day.hasdata:after{content:"";width:7px;height:7px;background:var(--sage2);border-radius:50%;position:absolute;right:7px;top:7px}
+.modal{position:fixed;inset:0;background:#16130fb8;display:none;place-items:center;z-index:50;padding:16px}.modal.show{display:grid}.modalbox{width:min(680px,100%);max-height:90vh;overflow:auto;background:var(--paper);border-radius:24px;padding:20px;border:1px solid var(--gold);box-shadow:var(--shadow)}
+.billrow,.newsrow,.goalrow,.entryrow{padding:12px;border:1px solid var(--line);border-radius:15px;background:#fffdf8;margin:8px 0}.billrow{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px}
+.botanical{font-size:34px;color:var(--gold);letter-spacing:.3em}.prompt{padding:18px;border-left:5px solid var(--gold);background:#f8edd7;border-radius:0 18px 18px 0;font-family:Georgia,serif;font-size:20px}
+.badge{display:inline-grid;place-items:center;width:66px;height:66px;border-radius:50%;background:radial-gradient(circle,#f7e4a3,#b89242);color:#3b2d0f;font-weight:900;border:3px solid white;box-shadow:0 0 0 2px var(--gold)}
+.canvaswrap{height:250px}.canvaswrap canvas{width:100%;height:100%}
+.external{display:flex;gap:9px;flex-wrap:wrap}.external a{text-decoration:none}
+.fab{position:fixed;right:22px;bottom:22px;width:58px;height:58px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));color:#fff;font-size:24px;box-shadow:var(--shadow);z-index:20}
+.toast{position:fixed;right:20px;bottom:90px;background:#1e1a14;color:#fff;padding:12px 16px;border-radius:14px;opacity:0;transform:translateY(10px);transition:.2s;z-index:80}.toast.show{opacity:1;transform:none}
+.mobileMenu{display:none}
+@media(max-width:1080px){.shell{grid-template-columns:210px 1fr}.g4{grid-template-columns:repeat(2,1fr)}.quick{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:760px){.shell{display:block}.sidebar{position:fixed;left:-280px;width:260px;z-index:40;transition:.25s}.menuopen .sidebar{left:0}.main{padding:7px}.mobileMenu{display:inline-grid}.backbtn,.homebtn{display:inline-grid}.g2,.g3,.g4,.hero-grid{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}.calendar{gap:4px}.day{min-height:58px;font-size:12px}.gallery{grid-template-columns:repeat(2,1fr)}.founder img{width:155px;height:155px}.pagehead{align-items:flex-start;flex-direction:column}}
+</style>
 </head>
 <body>
-<div class="app">
-  <aside class="brand-rail">
-    <div class="logo-seal">
-      <div class="key-flower">⚘</div>
-    </div>
-    <div class="brand-name">THE KEY<br>COLLECTIVE</div>
-    <div class="brand-tagline">ONE PERCENT BETTER.<br>ONE INTENTIONAL DAY<br>AT A TIME.</div>
+<div class="shell">
+<aside class="sidebar">
+ <div class="brandmark"><img src="key-collective-logo.png" alt="The Key Collective logo"><div><div class="tag">Personal Edition</div><div class="brandname">The Key<br>Collective OS</div></div></div>
+ <div class="sidequote">“Unlock the life you’re building, one intentional choice at a time.”</div>
+ <nav class="sidenav" id="sidenav">
+  <button class="active" data-view="dashboard">⌂ Dashboard</button><button data-view="calendar">▦ Calendar</button><button data-view="lani">♡ Lani’s Corner</button>
+  <button data-view="career">◇ Career HQ</button><button data-view="business">◈ Business Pulse</button><button data-view="money">$ Money</button>
+  <button data-view="wellness">✦ Wellness</button><button data-view="home">⌂ Home</button><button data-view="journal">❧ Journal</button>
+  <button data-view="goals">◎ 25 Hard Goals</button><button data-view="progress">↗ Progress Hub</button><button data-view="premium">♛ Premium Studio</button>
+ </nav>
+</aside>
+<main class="main">
+<header class="topbar">
+ <button class="iconbtn mobileMenu" id="menuBtn">☰</button>
+ <button class="iconbtn backbtn" id="backBtn">←</button>
+ <button class="iconbtn homebtn" id="homeBtn">⌂</button>
+ <span class="crumb" id="crumb">Dashboard</span><span class="topspacer"></span>
+ <button class="iconbtn" id="themeBtn">◐</button>
+ <div class="profile"><img src="key-profile.jpg" alt="Key profile photo"></div>
+</header>
+<div class="content">
 
-    <section class="rail-card completion-card">
-      <div class="rail-label">DAILY COMPLETION</div>
-      <div class="completion-ring" id="completionRing"><span id="completionPercent">0%</span></div>
-      <strong id="completionMessage">You’re building momentum.</strong>
-      <small>Every completed step is proof.</small>
-      <span class="tiny-heart">♡</span>
-    </section>
+<section class="view active" id="dashboard">
+ <div class="pagehead"><div><div class="eyebrow">Your private command center</div><h1 id="greeting">Good evening, Key.</h1><p class="sub">A calm, connected view of the life you’re building.</p></div><span class="datepill" id="todayLabel"></span></div>
+ <div class="quick"><button data-jump="calendar">＋ New Event</button><button id="quickBill">＋ Add Bill</button><button data-jump="journal">❧ Journal</button><button data-jump="wellness">💧 Water</button><button data-jump="goals">◎ Goals</button><button data-jump="progress">↗ Progress</button><button data-jump="lani">♡ Lani</button></div>
+ <div class="card hero"><div class="hero-grid"><div><div class="eyebrow">Founder dashboard</div><h2>Your day, beautifully arranged.</h2><p>Choose your top three, keep an eye on your cash flow, and let every little win count.</p><button class="btn" data-jump="calendar">Start My Day</button></div><div class="founder"><img src="key-profile.jpg" alt="Key"></div></div></div>
+ <div class="grid g4" style="margin-top:14px">
+  <article class="card"><div class="mini">Current cash</div><div class="metric" id="dashCash">$0.00</div><div class="mini">Across entered balances</div></article>
+  <article class="card"><div class="mini">Upcoming bills</div><div class="metric" id="dashBills">$0.00</div><div class="mini">Projected balance: <b id="dashProjected">$0.00</b></div></article>
+  <article class="card"><div class="mini">Water today</div><div class="metric"><span id="dashWater">0</span>/8</div><div class="bar"><span id="dashWaterBar" style="width:0"></span></div></article>
+  <article class="card"><div class="mini">Overall progress</div><div class="metric" id="dashProgress">0%</div><div class="bar"><span id="dashProgressBar" style="width:0"></span></div></article>
+ </div>
+ <div class="grid g2" style="margin-top:14px">
+  <article class="card"><div class="row"><h3>Today’s Top Three</h3><span class="pill" id="top3Count">0/3</span></div><div id="top3List"></div><button class="btn ghost" id="editTop3">Edit priorities</button></article>
+  <article class="card"><h3>Close the Loop</h3><p>What did you finish, and what should roll forward?</p><textarea id="dayClose" rows="5" placeholder="Finished…&#10;Roll forward…"></textarea><button class="btn secondary" id="saveClose">Save reflection</button></article>
+ </div>
+</section>
 
-    <section class="rail-card quick-stats">
-      <div class="rail-label">QUICK STATS</div>
-      <div><span>Tasks Completed</span><strong id="statTasks">0 / 6</strong></div>
-      <div><span>Events Today</span><strong id="statEvents">0</strong></div>
-      <div><span>Focus Time</span><strong id="statFocus">0m</strong></div>
-      <div><span>Water</span><strong id="statWater">0 / 8 cups</strong></div>
-      <div><span>Streak</span><strong id="statStreak">1 day</strong></div>
-    </section>
+<section class="view" id="calendar">
+ <div class="pagehead"><div><div class="eyebrow">Interactive daily planner</div><h1>Calendar</h1><p class="sub">Tap any day to open its subject, tasks, notes, events, and bills.</p></div><div class="row"><button class="btn ghost" id="prevMonth">←</button><span class="datepill" id="monthLabel"></span><button class="btn ghost" id="nextMonth">→</button></div></div>
+ <article class="card"><div class="calendar" id="calendarGrid"></div></article>
+</section>
 
-    <div class="rail-quote">Progress isn’t perfect,<br>but it is powerful.</div>
-  </aside>
+<section class="view" id="lani">
+ <div class="pagehead"><div><div class="eyebrow">Her world, beautifully kept</div><h1>Lani’s Corner</h1><p class="sub">Photos, memories, swim days, and the little moments worth keeping.</p></div></div>
+ <div class="grid g2">
+  <article class="card"><h3>Photo Collage</h3><div class="gallery" id="laniGallery"></div><label class="btn" style="display:inline-block;margin-top:10px">Add Photos<input hidden id="laniUpload" type="file" accept="image/*" multiple></label></article>
+  <article class="card"><h3>Memory Keeper</h3><input class="input" id="laniMemoryTitle" placeholder="Memory title"><textarea id="laniMemory" rows="6" placeholder="Write the moment you never want to forget…"></textarea><button class="btn secondary" id="saveLaniMemory">Save memory</button><div id="laniMemories"></div></article>
+ </div>
+ <div class="grid g2" style="margin-top:14px">
+  <article class="card"><h3>July Swim Checklist</h3><div id="swimChecklist"></div></article>
+  <article class="card"><h3>Weekly Ready List</h3><label class="task"><input type="checkbox" data-lani-check="hair"> Hair prepared</label><label class="task"><input type="checkbox" data-lani-check="bag"> Swim bag packed</label><label class="task"><input type="checkbox" data-lani-check="towel"> Towel and change of clothes</label><label class="task"><input type="checkbox" data-lani-check="snack"> Snack and water ready</label></article>
+ </div>
+</section>
 
-  <main class="workspace">
-    <header class="top-nav">
-      <button class="mobile-menu" id="mobileMenu">☰</button>
-      <div class="nav-scroll" id="navScroll">
-        <button class="nav-link active" data-view="dashboard"><span>⌂</span><small>DASHBOARD</small></button>
-        <button class="nav-link" data-view="calendar"><span>▦</span><small>CALENDAR</small></button>
-        <button class="nav-link" data-view="lani"><span>☺</span><small>LANI</small></button>
-        <button class="nav-link" data-view="career"><span>▣</span><small>CAREER</small></button>
-        <button class="nav-link" data-view="business"><span>✦</span><small>BUSINESS</small></button>
-        <button class="nav-link" data-view="money"><span>$</span><small>MONEY</small></button>
-        <button class="nav-link" data-view="wellness"><span>♧</span><small>WELLNESS</small></button>
-        <button class="nav-link" data-view="home"><span>⌂</span><small>HOME</small></button>
-        <button class="nav-link" data-view="journal"><span>▤</span><small>JOURNAL</small></button>
-        <button class="nav-link" data-view="goals"><span>◎</span><small>GOALS</small></button>
-        <button class="nav-link" data-view="progress"><span>▥</span><small>PROGRESS</small></button>
-        <button class="nav-link" data-view="vision"><span>☆</span><small>VISION BOARD</small></button>
-        <button class="nav-link" data-view="jay"><span>J</span><small>JAY</small></button><button class="nav-link" data-view="premium"><span>⚙</span><small>PREMIUM</small></button>
-      </div>
-    </header>
+<section class="view" id="career">
+ <div class="pagehead"><div><div class="eyebrow">Payments mastery</div><h1>Career HQ</h1><p class="sub">Built for Pay-In, Pay-Out, and PayOps growth.</p></div></div>
+ <div class="grid g3">
+  <article class="card"><h3>Payments Academy</h3><select id="paymentTopic"><option>Authorization vs Capture</option><option>Settlement & Reconciliation</option><option>Pay-In Operations</option><option>Pay-Out Operations</option><option>Chargebacks & Disputes</option><option>Payment Rails</option><option>Risk & Fraud Controls</option></select><div class="prompt" id="paymentLesson" style="margin-top:12px"></div></article>
+  <article class="card"><h3>Glossary Builder</h3><input class="input" id="glossTerm" placeholder="Term or acronym"><textarea id="glossMeaning" rows="4" placeholder="What it means in your own words"></textarea><button class="btn" id="addGloss">Add term</button><div id="glossList"></div></article>
+  <article class="card"><h3>Private Case Journal</h3><input class="input" id="caseSubject" placeholder="Case subject"><textarea id="caseNotes" rows="6" placeholder="What happened, what you checked, resolution, lesson learned…"></textarea><button class="btn secondary" id="addCase">Save case note</button><div id="caseList"></div></article>
+ </div>
+ <article class="card" style="margin-top:14px"><h3>Skill Progress</h3><div class="grid g3" id="careerSkills"></div></article>
+</section>
 
-    <section class="view active" id="dashboard">
-      <div class="dashboard-grid">
-        <article class="card greeting-card">
-          <div>
-            <div class="mini-title">GOOD <span id="dayPart">MORNING</span>, KEY! <span class="sun">☀</span></div>
-            <p>Today is a new opportunity<br>to grow, create and align.</p>
-            <em>Let’s make it count.</em>
-          </div>
-          <div class="leaf-stem"></div>
-        </article>
+<section class="view" id="business">
+ <div class="pagehead"><div><div class="eyebrow">Founder intelligence</div><h1>Business Pulse</h1><p class="sub">A curated workspace for local, statewide, nationwide, and global updates.</p></div></div>
+ <div class="grid g2">
+  <article class="card"><h3>Add an Update</h3><select id="newsScope"><option>Local</option><option>Arizona</option><option>United States</option><option>Global</option></select><input class="input" id="newsTitle" placeholder="Headline or update"><textarea id="newsNotes" rows="4" placeholder="Why this matters to The Key Collective"></textarea><button class="btn" id="addNews">Add update</button></article>
+  <article class="card"><h3>News & Trend Board</h3><div id="newsBoard"></div></article>
+ </div>
+</section>
 
-        <article class="card smart-briefing-card span-2">
-          <div class="card-header">
-            <div>
-              <div class="mini-title">✦ SMART EXECUTIVE BRIEFING</div>
-              <h2 id="smartHeadline">Your day is being analyzed…</h2>
-            </div>
-            <button class="text-link" id="refreshBriefing">Refresh</button>
-          </div>
-          <p id="smartSummary" class="smart-summary"></p>
-          <div class="smart-grid" id="smartInsights"></div>
-          <div class="smart-action-row">
-            <button class="pill-button" id="acceptSmartPriority">Use suggested priority</button>
-            <button class="pill-button blue-btn" data-view="jay">Open Smart Hub</button>
-          </div>
-        </article>
+<section class="view" id="money">
+ <div class="pagehead"><div><div class="eyebrow">Financial clarity</div><h1>Money</h1><p class="sub">See what you have, what is leaving, and whether you’re in surplus or deficit.</p></div></div>
+ <div class="grid g4">
+  <article class="card"><div class="mini">Checking</div><input class="input" type="number" id="checking" step=".01"></article>
+  <article class="card"><div class="mini">Savings</div><input class="input" type="number" id="savings" step=".01"></article>
+  <article class="card"><div class="mini">Upcoming bills</div><div class="metric" id="moneyBills">$0</div></article>
+  <article class="card"><div class="mini">Projected status</div><div class="metric" id="moneyStatus">$0</div><div class="pill" id="surplusLabel">Balanced</div></article>
+ </div>
+ <div class="grid g2" style="margin-top:14px">
+  <article class="card"><div class="row"><h3>Bills</h3><button class="btn" id="addBillBtn">＋ Add Bill</button></div><div id="billList"></div></article>
+  <article class="card"><h3>Savings Goals</h3><input class="input" id="savingName" placeholder="Goal name"><div class="row"><input class="input" id="savingTarget" type="number" placeholder="Target"><input class="input" id="savingCurrent" type="number" placeholder="Current"></div><button class="btn secondary" id="addSaving">Add goal</button><div id="savingList"></div></article>
+ </div>
+</section>
 
-        <article class="card focus-card">
-          <div class="mini-title">⚘ &nbsp; FOCUS OF THE WEEK</div>
-          <h2 id="focusDisplay">Book Week</h2>
-          <p id="focusSub">Finish Chapter 2 · Stay Consistent<br>· Make Progress</p>
-          <button class="pill-button" id="editFocus">VIEW WEEK PLAN</button>
-        </article>
+<section class="view" id="wellness">
+ <div class="pagehead"><div><div class="eyebrow">Strong, nourished, consistent</div><h1>Wellness</h1><p class="sub">Motivation that rewards consistency—not perfection.</p></div></div>
+ <div class="grid g4">
+  <article class="card"><h3>Water</h3><div class="metric"><span id="waterCount">0</span>/8</div><button class="btn" id="waterPlus">＋ Glass</button><button class="btn ghost" id="waterReset">Reset</button></article>
+  <article class="card"><h3>Gym Time</h3><input class="input" id="gymMinutes" type="number" min="0" max="120" placeholder="Minutes today"><button class="btn secondary" id="saveGym">Save workout</button></article>
+  <article class="card"><h3>Nutrition</h3><label class="task"><input type="checkbox" id="proteinGoal"> Protein goal</label><label class="task"><input type="checkbox" id="mealPlanGoal"> Followed meal plan</label><label class="task"><input type="checkbox" id="noAlcoholGoal"> No alcohol today</label></article>
+  <article class="card"><h3>Quick Links</h3><div class="external"><a class="btn" href="myfitnesspal://" target="_blank">MyFitnessPal</a><a class="btn secondary" href="https://www.eosfitness.com/" target="_blank">EOS Fitness</a></div><p class="mini">Links open when supported on your device.</p></article>
+ </div>
+ <div class="grid g2" style="margin-top:14px">
+  <article class="card"><h3>Achievement Cabinet</h3><div id="wellnessBadges" class="row"></div></article>
+  <article class="card"><h3>Goal-Focused Tips</h3><div class="prompt">For glute growth: prioritize progressive overload, controlled hip extension, enough protein, and recovery. For a leaner-looking back: combine strength work, posture, overall fat-loss habits, and patience—spot reduction is not a thing, because bodies are deeply unserious that way.</div></article>
+ </div>
+</section>
 
-        <article class="card time-card span-2">
-          <div class="card-header"><div class="mini-title">◉ &nbsp; GLOBAL TIME CENTER</div><button class="text-link" id="editClocks">Edit</button></div>
-          <div class="clock-grid">
-            <div class="time-tile" data-zone="America/Phoenix"><small>GOODYEAR<br>ARIZONA</small><span>☀</span><strong>--:--</strong><em>Local</em></div>
-            <div class="time-tile" data-zone="Africa/Johannesburg"><small>JOHANNESBURG<br>SOUTH AFRICA</small><span>☀</span><strong>--:--</strong><em>Local</em></div>
-            <div class="time-tile" data-zone="America/New_York"><small>NEW YORK<br>USA</small><span>⛅</span><strong>--:--</strong><em>Local</em></div>
-            <div class="time-tile" data-zone="America/Chicago"><small>TEXAS<br>CENTRAL TIME</small><span>☀</span><strong>--:--</strong><em>Local</em></div>
-            <div class="time-tile" data-zone="America/Los_Angeles"><small>CALIFORNIA<br>PACIFIC TIME</small><span>⛅</span><strong>--:--</strong><em>Local</em></div>
-          </div>
-        </article>
+<section class="view" id="home">
+ <div class="pagehead"><div><div class="eyebrow">A softer place to land</div><h1>Home</h1><p class="sub">Routines, resets, and a peaceful household rhythm.</p></div></div>
+ <div class="grid g3"><article class="card"><h3>Daily Reset</h3><div id="homeChecks"></div></article><article class="card"><h3>Recurring Routines</h3><input class="input" id="routineName" placeholder="Add a recurring routine"><button class="btn" id="addRoutine">Add</button><div id="routineList"></div></article><article class="card"><h3>Home Notes</h3><textarea id="homeNotes" rows="8" placeholder="Repairs, shopping, ideas, reminders…"></textarea></article></div>
+</section>
 
-        <article class="card bills-card">
-          <div class="mini-title coral">BILLS DUE (NEXT 7 DAYS)</div>
-          <h2><span id="billCount">0</span> Bills</h2>
-          <div class="bill-total" id="billTotal">$0.00</div>
-          <div id="dashboardBills" class="mini-list"></div>
-          <button class="pill-button coral-btn" data-view="money">VIEW ALL BILLS</button>
-        </article>
+<section class="view" id="journal">
+ <div class="pagehead"><div><div class="eyebrow">Guided reflection</div><h1>Journal</h1><p class="sub">Self-love, growth, motherhood, gratitude, and dreams—wrapped in a little botanical luxury.</p></div><div class="botanical">❧ ✦ ❧</div></div>
+ <div class="grid g2">
+  <article class="card"><div class="mini">This week’s prompt</div><div class="prompt" id="weeklyPrompt"></div><textarea id="journalText" rows="12" placeholder="Write what feels true today…"></textarea><button class="btn" id="saveJournal">Save entry</button></article>
+  <article class="card"><h3>Prompt Categories</h3><div id="promptButtons" class="stack"></div><h3 style="margin-top:18px">Recent Entries</h3><div id="journalEntries"></div></article>
+ </div>
+</section>
 
-        <article class="card calendar-card">
-          <div class="card-header"><div class="mini-title" id="monthLabel">MONTH</div><div class="calendar-actions"><button id="prevMonth">‹</button><button id="todayMonth">TODAY</button></div></div>
-          <div class="mini-calendar" id="miniCalendar"></div>
-          <div class="calendar-footer"><span id="calendarEventsCount">0 Events Today</span><button class="pill-button blue-btn" data-view="calendar">VIEW CALENDAR</button></div>
-        </article>
+<section class="view" id="goals">
+ <div class="pagehead"><div><div class="eyebrow">Your custom annual challenge</div><h1>25 Hard Goals</h1><p class="sub">Twenty-five meaningful goals. Visible progress. No fake hustle cosplay.</p></div></div>
+ <article class="card"><div class="row"><h3>Add a Goal</h3><span class="pill" id="goalCount">0/25</span></div><div class="row"><input class="input" id="goalName" placeholder="Example: Get my passport"><select id="goalCategory"><option>Life</option><option>Money</option><option>Career</option><option>Wellness</option><option>Family</option><option>Business</option></select><button class="btn" id="addGoal">Add</button></div></article>
+ <div class="grid g2" id="goalBoard" style="margin-top:14px"></div>
+</section>
 
-        <article class="card goals-card">
-          <div class="card-header"><div class="mini-title">GOAL TRACKER</div><button class="text-link" id="addGoal">+ ADD GOAL</button></div>
-          <div id="goalList" class="goal-list"></div>
-        </article>
+<section class="view" id="progress">
+ <div class="pagehead"><div><div class="eyebrow">Everything, in one place</div><h1>Progress Hub</h1><p class="sub">Graphs and summaries pulled from every area of your OS.</p></div></div>
+ <div class="grid g4" id="progressCards"></div>
+ <div class="grid g2" style="margin-top:14px"><article class="card"><h3>Category Progress</h3><div class="canvaswrap"><canvas id="progressChart"></canvas></div></article><article class="card"><h3>Recent Wins</h3><div id="recentWins"></div></article></div>
+</section>
 
-        <article class="card progress-card">
-          <div class="card-header"><div class="mini-title">PROGRESS OVERVIEW</div><button class="text-link" data-view="progress">See All</button></div>
-          <div id="progressOverview" class="progress-overview"></div>
-        </article>
+<section class="view" id="premium">
+ <div class="pagehead"><div><div class="eyebrow">Luxury utilities</div><h1>Premium Studio</h1><p class="sub">Design Studio, Data Vault, recurring routines, achievement cabinet, and Focus Studio.</p></div></div>
+ <div class="grid g3">
+  <article class="card"><h3>Design Studio</h3><p>Choose the atmosphere of your OS.</p><div class="row"><button class="btn themeChoice" data-theme="royal">Royal Ivory</button><button class="btn secondary themeChoice" data-theme="sage">Botanical Sage</button><button class="btn ghost themeChoice" data-theme="night">Onyx Night</button></div></article>
+  <article class="card"><h3>Data Vault</h3><p>Export or restore your local app data.</p><button class="btn" id="exportData">Export Data</button><label class="btn secondary" style="display:inline-block">Import Data<input hidden type="file" id="importData" accept=".json"></label></article>
+  <article class="card"><h3>Focus Studio</h3><input class="input" id="focusTask" placeholder="What are you focusing on?"><select id="focusLength"><option value="25">25 minutes</option><option value="45">45 minutes</option><option value="60">60 minutes</option></select><button class="btn" id="startFocus">Start Focus</button><div class="metric" id="focusTimer">00:00</div></article>
+ </div>
+</section>
 
-        <article class="card lani-card">
-          <div class="card-header">
-            <div class="mini-title">LANI'S CORNER</div>
-            <div class="lani-avatar" id="laniAvatar">L</div>
-          </div>
-          <div class="lani-main">
-            <div>
-              <strong>SWIM LESSONS</strong>
-              <small id="laniDates">Now – July 30, 2026</small>
-              <label><input type="checkbox" data-lani-task="swimsuit"> Swimsuit</label>
-              <label><input type="checkbox" data-lani-task="goggles"> Goggles</label>
-              <label><input type="checkbox" data-lani-task="towel"> Towel</label>
-              <label><input type="checkbox" data-lani-task="bottle"> Water Bottle</label>
-              <label><input type="checkbox" data-lani-task="hair"> Hair</label>
-            </div>
-            <div class="lani-art">🎒🩱🕶️</div>
-          </div>
-          <div class="lani-note">
-            <span id="laniStart">Starting July 31, 2026</span>
-            <strong>School routine & backpack checklist will appear here!</strong>
-          </div>
-        </article>
+</div></main></div>
+<button class="fab" id="fab">＋</button>
+<div class="toast" id="toast"></div>
 
-        <article class="card module-card money-module">
-          <div class="mini-title coral">▣ MONEY CENTER</div>
-          <div class="module-line"><span>Budget Overview</span><strong id="budgetLeft">$0 left</strong></div>
-          <div class="module-line"><span>Savings Goal</span><div class="tiny-bar"><i id="savingsBar"></i></div><strong id="savingsPct">0%</strong></div>
-          <div class="module-line"><span>Debt Payoff</span><div class="tiny-bar"><i id="debtBar"></i></div><strong id="debtPct">0%</strong></div>
-          <div class="module-line"><span>Emergency Fund</span><div class="tiny-bar"><i id="emergencyBar"></i></div><strong id="emergencyPct">0%</strong></div>
-          <button class="module-view" data-view="money">VIEW ALL</button>
-        </article>
+<div class="modal" id="dayModal"><div class="modalbox"><div class="row"><h2 id="dayModalTitle">Day</h2><button class="iconbtn" data-close="dayModal">×</button></div>
+<label>Subject<input class="input" id="daySubject"></label><label>Events<textarea id="dayEvents" rows="3"></textarea></label><label>Tasks<textarea id="dayTasks" rows="4" placeholder="One task per line"></textarea></label><label>Notes<textarea id="dayNotes" rows="5"></textarea></label><button class="btn" id="saveDay">Save day</button></div></div>
 
-        <article class="card module-card career-module">
-          <div class="mini-title blue">✈ CAREER HQ</div>
-          <div class="module-line"><span>Top Priority</span><strong>Complete Certification</strong></div>
-          <div class="module-line"><span>Learning</span><strong>Data Analytics Course</strong></div>
-          <div class="module-line"><span>This Week's Focus</span><strong>Skill + Visibility</strong></div>
-          <div class="module-line"><span>Recent Win</span><strong>Great Feedback!</strong></div>
-          <button class="module-view" data-view="career">VIEW ALL</button>
-        </article>
+<div class="modal" id="billModal"><div class="modalbox"><div class="row"><h2>Add Bill</h2><button class="iconbtn" data-close="billModal">×</button></div>
+<input class="input" id="billName" placeholder="Bill name"><input class="input" id="billAmount" type="number" step=".01" placeholder="Amount"><input class="input" id="billDue" type="date"><button class="btn" id="saveBill">Add bill</button></div></div>
 
-        <article class="card module-card business-module">
-          <div class="mini-title blue">▣ BUSINESS HQ</div>
-          <div class="module-line"><span>Book Draft</span><div class="tiny-bar"><i style="width:35%"></i></div><strong>35%</strong></div>
-          <div class="module-line"><span>Website</span><div class="tiny-bar"><i style="width:60%"></i></div><strong>60%</strong></div>
-          <div class="module-line"><span>Brand Kit</span><div class="tiny-bar"><i style="width:75%"></i></div><strong>75%</strong></div>
-          <div class="module-line"><span>Revenue Goal</span><strong>$4,200 / $10,000</strong></div>
-          <button class="module-view" data-view="business">VIEW ALL</button>
-        </article>
+<div class="modal" id="top3Modal"><div class="modalbox"><div class="row"><h2>Choose Your Top Three</h2><button class="iconbtn" data-close="top3Modal">×</button></div>
+<input class="input top3input" placeholder="Priority 1"><input class="input top3input" placeholder="Priority 2"><input class="input top3input" placeholder="Priority 3"><button class="btn" id="saveTop3">Create checklist</button></div></div>
 
-        <article class="card module-card wellness-module">
-          <div class="mini-title green">♧ WELLNESS</div>
-          <div class="module-line"><span>Water</span><strong id="wellnessWater">0 / 8 cups</strong></div>
-          <div class="module-line"><span>Sleep</span><strong>6.5 / 8 hrs</strong></div>
-          <div class="module-line"><span>Movement</span><strong>3 / 5 days</strong></div>
-          <div class="module-line"><span>Self-Care</span><strong>2 / 5</strong></div>
-          <div class="module-line"><span>Sobriety Streak</span><strong id="sobrietyStreak">1 day</strong></div>
-          <button class="module-view" data-view="wellness">VIEW ALL</button>
-        </article>
+<script>
+const KEY='theKeyCollectiveOS_v4';
+const defaults={
+ theme:'royal',checking:0,savings:0,water:0,gymMinutes:0,bills:[],savingsGoals:[],top3:['','',''],top3Done:[false,false,false],dayClose:'',
+ calendar:{},laniPhotos:[],laniMemories:[],laniChecks:{},swim:{},glossary:[],cases:[],careerSkills:{'Pay-In':20,'Pay-Out':20,'Reconciliation':20},
+ news:[],journalEntries:[],goals:[],homeChecks:{},routines:[],homeNotes:'',wellness:{protein:false,meal:false,noAlcohol:false},wins:[]
+};
+let S=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||'{}'));
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const $=id=>document.getElementById(id);
+const toast=m=>{toast.textContent=m;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)};
+const toast=$('toast'); const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n)||0);
+let historyStack=['dashboard'];
 
-        <article class="card module-card home-module">
-          <div class="mini-title green">⌂ HOME</div>
-          <div class="module-line"><span>Cleaning</span><strong>3 / 6</strong></div>
-          <div class="module-line"><span>Laundry</span><strong>2 / 4</strong></div>
-          <div class="module-line"><span>Meal Prep</span><strong>2 / 3</strong></div>
-          <div class="module-line"><span>Groceries</span><strong>Done</strong></div>
-          <div class="module-line"><span>Weekly Reset</span><strong>In Progress</strong></div>
-          <button class="module-view" data-view="home">VIEW ALL</button>
-        </article>
+function showView(id,push=true){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));$('crumb').textContent=document.querySelector(`[data-view="${id}"]`)?.textContent.trim()||id;if(push&&historyStack.at(-1)!==id)historyStack.push(id);document.body.classList.remove('menuopen');scrollTo(0,0);if(id==='progress')renderProgress()}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>showView(b.dataset.jump));
+$('menuBtn').onclick=()=>document.body.classList.toggle('menuopen');
+$('homeBtn').onclick=()=>{historyStack=['dashboard'];showView('dashboard',false)};
+$('backBtn').onclick=()=>{if(historyStack.length>1)historyStack.pop();showView(historyStack.at(-1),false);else document.body.classList.add('menuopen')};
+$('fab').onclick=()=>openModal('top3Modal');
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove('show'));
+function openModal(id){$(id).classList.add('show')}
+window.onclick=e=>{if(e.target.classList.contains('modal'))e.target.classList.remove('show')};
 
-        <article class="card journal-card">
-          <div class="mini-title">✎ JOURNAL</div>
-          <blockquote id="journalQuote">“Today I choose growth over comfort and faith over fear.”</blockquote>
-          <div class="journal-art">⚘</div>
-          <button class="pill-button gold-btn" data-view="journal">START JOURNALING</button>
-        </article>
+const now=new Date(); $('todayLabel').textContent=new Intl.DateTimeFormat('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).format(now);
+$('greeting').textContent=(now.getHours()<12?'Good morning':now.getHours()<17?'Good afternoon':'Good evening')+', Key.';
+$('themeBtn').onclick=()=>{S.theme=S.theme==='night'?'royal':'night';applyTheme();save()};
+function applyTheme(){if(S.theme==='night'){document.documentElement.style.setProperty('--ivory','#171512');document.documentElement.style.setProperty('--cream','#221e18');document.documentElement.style.setProperty('--paper','#27231d');document.documentElement.style.setProperty('--ink','#f6eedf');document.documentElement.style.setProperty('--muted','#c1b7a6');document.documentElement.style.setProperty('--line','#51483b')}else if(S.theme==='sage'){document.documentElement.style.setProperty('--ivory','#eef1e9');document.documentElement.style.setProperty('--cream','#dfe6da');document.documentElement.style.setProperty('--paper','#fbfdf8');document.documentElement.style.setProperty('--ink','#20261f');document.documentElement.style.setProperty('--muted','#657064');document.documentElement.style.setProperty('--line','#cbd5c5')}else{document.documentElement.style.setProperty('--ivory','#fbf6ed');document.documentElement.style.setProperty('--cream','#f4eadc');document.documentElement.style.setProperty('--paper','#fffdf8');document.documentElement.style.setProperty('--ink','#191714');document.documentElement.style.setProperty('--muted','#736b61');document.documentElement.style.setProperty('--line','#dfd2bd')}}
+applyTheme();document.querySelectorAll('.themeChoice').forEach(b=>b.onclick=()=>{S.theme=b.dataset.theme;applyTheme();save();toast('Design updated.')});
 
-        <article class="card badges-card span-2">
-          <div class="card-header"><div class="mini-title">ACHIEVEMENT BADGES</div><button class="text-link">See All</button></div>
-          <div class="badge-row">
-            <div><span>☆</span><small>Consistency<br>Champion</small></div>
-            <div><span>▣</span><small>Budget<br>Boss</small></div>
-            <div><span>▤</span><small>Book<br>Builder</small></div>
-            <div><span>◉</span><small>Hydration<br>Hero</small></div>
-            <div><span>⚘</span><small>Growth<br>Mindset</small></div>
-            <div><span>✦</span><small>CEO<br>Energy</small></div>
-          </div>
-        </article>
+function renderTop3(){let box=$('top3List');box.innerHTML='';S.top3.forEach((t,i)=>{let lab=document.createElement('label');lab.className='task';lab.innerHTML=`<input type="checkbox" ${S.top3Done[i]?'checked':''}> <span>${t||'Choose priority '+(i+1)}</span>`;lab.querySelector('input').onchange=e=>{S.top3Done[i]=e.target.checked;save();renderAll()};box.appendChild(lab)});$('top3Count').textContent=S.top3Done.filter(Boolean).length+'/3'}
+$('editTop3').onclick=()=>{$$('.top3input');document.querySelectorAll('.top3input').forEach((x,i)=>x.value=S.top3[i]||'');openModal('top3Modal')};
+$('saveTop3').onclick=()=>{S.top3=[...document.querySelectorAll('.top3input')].map(x=>x.value.trim());S.top3Done=[false,false,false];save();renderTop3();$('top3Modal').classList.remove('show');toast('Today’s checklist is ready.')};
+$('dayClose').value=S.dayClose;$('saveClose').onclick=()=>{S.dayClose=$('dayClose').value;S.wins.unshift({date:new Date().toLocaleDateString(),text:S.dayClose||'Closed the loop'});save();toast('Day reflection saved.')};
 
-        <article class="card quote-card">
-          <div class="watercolor-cloud"></div>
-          <em>Every small step<br>creates big changes.</em>
-        </article>
+let calDate=new Date(now.getFullYear(),now.getMonth(),1),selectedDayKey='';
+function renderCalendar(){let y=calDate.getFullYear(),m=calDate.getMonth();$('monthLabel').textContent=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric'}).format(calDate);let g=$('calendarGrid');g.innerHTML='';['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(x=>{let d=document.createElement('div');d.className='dow';d.textContent=x;g.appendChild(d)});for(let i=0;i<new Date(y,m,1).getDay();i++)g.appendChild(document.createElement('div'));let days=new Date(y,m+1,0).getDate();for(let d=1;d<=days;d++){let key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,b=document.createElement('button');b.className='day';if(key===new Date().toISOString().slice(0,10))b.classList.add('today');if(S.calendar[key])b.classList.add('hasdata');b.innerHTML=`<b>${d}</b><div class="mini">${S.calendar[key]?.subject||''}</div>`;b.onclick=()=>openDay(key);g.appendChild(b)}}
+$('prevMonth').onclick=()=>{calDate.setMonth(calDate.getMonth()-1);renderCalendar()};$('nextMonth').onclick=()=>{calDate.setMonth(calDate.getMonth()+1);renderCalendar()};
+function openDay(key){selectedDayKey=key;let d=S.calendar[key]||{};$('dayModalTitle').textContent=new Date(key+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});$('daySubject').value=d.subject||'';$('dayEvents').value=d.events||'';$('dayTasks').value=d.tasks||'';$('dayNotes').value=d.notes||'';openModal('dayModal')}
+$('saveDay').onclick=()=>{S.calendar[selectedDayKey]={subject:$('daySubject').value,events:$('dayEvents').value,tasks:$('dayTasks').value,notes:$('dayNotes').value};save();renderCalendar();$('dayModal').classList.remove('show');toast('Day saved.')};
 
-        <article class="card reflection-card">
-          <div class="mini-title">REFLECTION</div>
-          <label>What went well today?<textarea data-text="reflectionGood" rows="2"></textarea></label>
-          <label>What can I improve tomorrow?<textarea data-text="reflectionImprove" rows="2"></textarea></label>
-        </article>
+$('quickBill').onclick=$('addBillBtn').onclick=()=>openModal('billModal');
+$('saveBill').onclick=()=>{let n=$('billName').value.trim(),a=+$('billAmount').value,d=$('billDue').value;if(!n||!a||!d)return toast('Add a name, amount, and due date.');S.bills.push({id:Date.now(),name:n,amount:a,due:d});save();renderMoney();$('billModal').classList.remove('show');toast('Bill added.')};
+$('checking').value=S.checking;$('savings').value=S.savings;['checking','savings'].forEach(id=>$(id).oninput=()=>{S[id]=+$(id).value||0;save();renderMoney()});
+function renderMoney(){let list=$('billList');list.innerHTML='';S.bills.sort((a,b)=>a.due.localeCompare(b.due)).forEach(b=>{let r=document.createElement('div');r.className='billrow';r.innerHTML=`<div><b>${b.name}</b><div class="mini">${b.due}</div></div><b>${money(b.amount)}</b><button class="btn danger">Delete</button>`;r.querySelector('button').onclick=()=>{S.bills=S.bills.filter(x=>x.id!==b.id);save();renderMoney()};list.appendChild(r)});let bills=S.bills.reduce((s,b)=>s+b.amount,0),cash=(+S.checking||0)+(+S.savings||0),proj=cash-bills;$('moneyBills').textContent=money(bills);$('moneyStatus').textContent=money(proj);$('surplusLabel').textContent=proj<0?'Deficit':'Surplus';$('dashCash').textContent=money(cash);$('dashBills').textContent=money(bills);$('dashProjected').textContent=money(proj)}
+$('addSaving').onclick=()=>{let name=$('savingName').value.trim(),target=+$('savingTarget').value,current=+$('savingCurrent').value;if(!name||!target)return;S.savingsGoals.push({id:Date.now(),name,target,current});save();renderSavings()};
+function renderSavings(){let b=$('savingList');b.innerHTML='';S.savingsGoals.forEach(g=>{let p=Math.min(100,Math.round(g.current/g.target*100));let d=document.createElement('div');d.className='entryrow';d.innerHTML=`<div class="row"><b>${g.name}</b><span>${money(g.current)} / ${money(g.target)}</span></div><div class="bar"><span style="width:${p}%"></span></div>`;b.appendChild(d)})}
 
-        <article class="card notes-card">
-          <div class="card-header"><div class="mini-title">NOTES</div><button class="text-link" id="addNote">+</button></div>
-          <textarea data-text="dashboardNotes" rows="7" placeholder="Quick notes..."></textarea>
-        </article>
-      </div>
-    </section>
+$('waterPlus').onclick=()=>{S.water=Math.min(8,S.water+1);save();renderWellness()};$('waterReset').onclick=()=>{S.water=0;save();renderWellness()};
+$('gymMinutes').value=S.gymMinutes;$('saveGym').onclick=()=>{S.gymMinutes=Math.min(120,+$('gymMinutes').value||0);if(S.gymMinutes>=30)S.wins.unshift({date:new Date().toLocaleDateString(),text:`Completed ${S.gymMinutes} minutes at the gym`});save();renderWellness();toast('Workout saved.')};
+$('proteinGoal').checked=S.wellness.protein;$('mealPlanGoal').checked=S.wellness.meal;$('noAlcoholGoal').checked=S.wellness.noAlcohol;
+[['proteinGoal','protein'],['mealPlanGoal','meal'],['noAlcoholGoal','noAlcohol']].forEach(([id,k])=>$(id).onchange=e=>{S.wellness[k]=e.target.checked;save();renderWellness()});
+function renderWellness(){$('waterCount').textContent=S.water;$('dashWater').textContent=S.water;$('dashWaterBar').style.width=(S.water/8*100)+'%';let b=$('wellnessBadges');b.innerHTML='';let badges=[];if(S.water>=8)badges.push('Hydrated');if(S.gymMinutes>=30)badges.push('30 Min');if(S.gymMinutes>=60)badges.push('1 Hour');if(S.gymMinutes>=120)badges.push('2 Hours');if(S.wellness.noAlcohol)badges.push('Clear Day');(badges.length?badges:['First Step']).forEach(x=>{let d=document.createElement('div');d.className='badge';d.textContent=x;b.appendChild(d)})}
 
-    <section class="view" id="calendar"><div class="page-shell"><h1>Calendar</h1><textarea data-text="calendarNotes" rows="18" placeholder="Appointments, deadlines, events..."></textarea></div></section>
-    <section class="view" id="lani"><div class="page-shell"><h1>Lani's Corner</h1><div class="photo-upload"><div class="lani-avatar large" id="laniAvatarLarge">L</div><div><strong>Jelani’s profile photo</strong><p>Upload her photo in this chat for the next build. The random AI child has been removed.</p></div></div><textarea data-text="laniPage" rows="18" placeholder="School, swim, meals, outfits, memories..."></textarea></div></section>
-    <section class="view" id="career"><div class="page-shell"><h1>Career HQ</h1><textarea data-text="careerPage" rows="18" placeholder="Training, wins, goals, certifications..."></textarea></div></section>
-    <section class="view" id="business"><div class="page-shell"><h1>Business HQ</h1><textarea data-text="businessPage" rows="18" placeholder="Products, content, revenue, launches..."></textarea></div></section>
-    <section class="view" id="money"><div class="page-shell"><h1>Money Center</h1><div id="moneyPageBills" class="simple-list"></div><textarea data-text="moneyPage" rows="12" placeholder="Budget notes and paycheck plans..."></textarea></div></section>
-    <section class="view" id="wellness"><div class="page-shell"><h1>Wellness</h1><p class="affirmation">You do not need alcohol to celebrate, cope, relax, or have fun. Choosing yourself is worth celebrating.</p><textarea data-text="wellnessPage" rows="16" placeholder="Mood, sleep, movement, hydration, reflections..."></textarea></div></section>
-    <section class="view" id="home"><div class="page-shell"><h1>Home</h1><textarea data-text="homePage" rows="18" placeholder="Cleaning, laundry, groceries, meal prep..."></textarea></div></section>
-    <section class="view" id="journal"><div class="page-shell"><h1>Journal</h1><textarea data-text="journalPage" rows="22" placeholder="Write what you need to say..."></textarea></div></section>
-    <section class="view" id="goals"><div class="page-shell"><h1>Goals</h1><textarea data-text="goalsPage" rows="18" placeholder="90-day goals, annual goals, milestones..."></textarea></div></section>
-    <section class="view" id="progress"><div class="page-shell"><h1>Progress</h1><textarea data-text="progressPage" rows="18" placeholder="Wins, lessons, before and after..."></textarea></div></section>
-    <section class="view" id="vision"><div class="page-shell"><h1>Vision Board</h1><textarea data-text="visionPage" rows="18" placeholder="Dreams, inspiration links, visual direction..."></textarea></div></section>
-    <section class="view" id="jay">
-      <div class="page-shell smart-hub">
-        <div class="page-heading-row"><div><h1>Jay Smart Hub</h1><p>Your private, on-device planning intelligence. It reads the information saved inside your OS and turns it into practical next steps.</p></div><span class="smart-status">● Ready</span></div>
-        <div class="smart-metrics">
-          <div class="metric-box"><small>Today’s priority</small><strong id="hubPriority">—</strong></div>
-          <div class="metric-box"><small>Upcoming pressure</small><strong id="hubPressure">—</strong></div>
-          <div class="metric-box"><small>Wellness signal</small><strong id="hubWellness">—</strong></div>
-        </div>
-        <div class="smart-command-card">
-          <label for="smartCommand">Ask your OS</label>
-          <div class="smart-command-row"><input id="smartCommand" placeholder="Try: What should I focus on today?"><button type="button" class="pill-button" id="runSmartCommand">Analyze</button></div>
-          <div class="smart-prompts">
-            <button type="button" data-smart-prompt="plan today">Plan today</button>
-            <button type="button" data-smart-prompt="money check">Money check</button>
-            <button type="button" data-smart-prompt="wellness check">Wellness check</button>
-            <button type="button" data-smart-prompt="business next step">Business next step</button>
-          </div>
-          <div id="smartResponse" class="smart-response" aria-live="polite">Your recommendation will appear here.</div>
-        </div>
-        <div class="smart-two-col">
-          <article class="smart-panel"><div class="mini-title">AUTOMATIC RECOMMENDATIONS</div><div id="recommendationList"></div></article>
-          <article class="smart-panel"><div class="mini-title">JAY NOTES</div><textarea data-text="jayWorkspace" rows="12" placeholder="Ideas, build queue, next conversation notes..."></textarea></article>
-        </div>
-      </div>
-    </section>
+const swimDays=[20,21,22,23,24,27,28,29,30,31];function renderSwim(){let box=$('swimChecklist');box.innerHTML='';swimDays.forEach(d=>{let k='2026-07-'+d,lab=document.createElement('label');lab.className='task';lab.innerHTML=`<input type="checkbox" ${S.swim[k]?'checked':''}> July ${d} swim ready`;lab.querySelector('input').onchange=e=>{S.swim[k]=e.target.checked;save()};box.appendChild(lab)})}
+document.querySelectorAll('[data-lani-check]').forEach(x=>{x.checked=!!S.laniChecks[x.dataset.laniCheck];x.onchange=()=>{S.laniChecks[x.dataset.laniCheck]=x.checked;save()}});
+$('laniUpload').onchange=e=>{[...e.target.files].forEach(f=>{let r=new FileReader();r.onload=()=>{S.laniPhotos.push(r.result);save();renderLani()};r.readAsDataURL(f)})};
+$('saveLaniMemory').onclick=()=>{let title=$('laniMemoryTitle').value.trim(),text=$('laniMemory').value.trim();if(!text)return;S.laniMemories.unshift({id:Date.now(),title:title||'Sweet memory',text,date:new Date().toLocaleDateString()});save();renderLani();$('laniMemoryTitle').value='';$('laniMemory').value=''};
+function renderLani(){let g=$('laniGallery');g.innerHTML='';if(!S.laniPhotos.length)g.innerHTML='<p class="sub">Add Lani’s photos to begin the collage.</p>';S.laniPhotos.forEach(src=>{let i=document.createElement('img');i.src=src;g.appendChild(i)});let m=$('laniMemories');m.innerHTML='';S.laniMemories.forEach(x=>{let d=document.createElement('div');d.className='entryrow';d.innerHTML=`<b>${x.title}</b><div class="mini">${x.date}</div><p>${x.text}</p>`;m.appendChild(d)})}
 
-    <section class="view" id="premium">
-      <div class="page-shell premium-page">
-        <div class="page-heading-row"><div><h1>Premium Control Center</h1><p>Customize your OS, protect your data, run focused work sessions, and reset your week with intention.</p></div><span class="smart-status">SPRINT 4 · PREMIUM</span></div>
-        <div class="premium-grid">
-          <article class="panel premium-theme-panel"><h2>Design Studio</h2><p class="page-intro">Choose the mood of your OS.</p><div class="theme-picks" id="themePicks"><button type="button" data-premium-theme="coastal">Modern Coastal</button><button type="button" data-premium-theme="luxury">Dark Luxury</button><button type="button" data-premium-theme="rose">Soft Rose</button><button type="button" data-premium-theme="mint">Mint Focus</button></div><label class="field">Compact dashboard <select id="densitySelect"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label></article>
-          <article class="panel"><h2>Focus Studio</h2><div class="focus-display" id="focusTimerDisplay">25:00</div><div class="timer-presets"><button type="button" data-minutes="15">15 min</button><button type="button" data-minutes="25">25 min</button><button type="button" data-minutes="45">45 min</button><button type="button" data-minutes="60">60 min</button></div><div class="smart-action-row"><button class="primary" type="button" id="startFocusTimer">Start</button><button class="secondary" type="button" id="pauseFocusTimer">Pause</button><button class="secondary" type="button" id="resetFocusTimer">Reset</button></div><small id="focusTimerMessage">Protect one clear block for what matters most.</small></article>
-          <article class="panel"><h2>Weekly Reset</h2><p class="page-intro">Clear daily checkmarks, water, and temporary notes while keeping your long-term records.</p><div class="check-stack"><label><input type="checkbox" id="resetTasks" checked> Daily tasks</label><label><input type="checkbox" id="resetWater" checked> Water count</label><label><input type="checkbox" id="resetReflection" checked> Reflection fields</label><label><input type="checkbox" id="resetGym"> This week’s gym checkmarks</label></div><button class="primary" type="button" id="runWeeklyReset">Run weekly reset</button></article>
-          <article class="panel"><h2>Data Vault</h2><p class="page-intro">Download a private backup or restore your OS on another device.</p><div class="smart-action-row"><button class="primary" type="button" id="exportData">Download backup</button><label class="secondary file-button">Restore backup<input type="file" id="importData" accept="application/json"></label></div><small id="backupStatus">Your data stays in this browser unless you export it.</small></article>
-          <article class="panel span-premium"><div class="card-header"><div><h2>Recurring Routines</h2><p class="page-intro">Create repeatable rituals without rebuilding your checklist every week.</p></div></div><div class="routine-form"><input id="routineName" placeholder="Routine name, e.g. Sunday reset"><select id="routineDay"><option>Sunday</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option></select><input id="routineTime" type="time"><button class="primary" id="addRoutine" type="button">Add routine</button></div><div id="routineList" class="data-list"></div></article>
-          <article class="panel span-premium"><h2>Achievement Cabinet</h2><div class="premium-badges" id="premiumBadges"></div></article>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
+const lessons={
+'Authorization vs Capture':'Authorization asks whether funds or credit are available. Capture tells the processor to complete the charge. They may happen together or separately.',
+'Settlement & Reconciliation':'Settlement moves funds through the payment chain. Reconciliation proves internal records match processor, bank, and ledger records.',
+'Pay-In Operations':'Pay-In covers money entering the business: checkout, authorization, capture, retries, fraud controls, acceptance, and settlement.',
+'Pay-Out Operations':'Pay-Out covers money leaving the business: beneficiary validation, funding, rails, release timing, returns, exceptions, and reconciliation.',
+'Chargebacks & Disputes':'Disputes require evidence, deadlines, reason-code knowledge, clear audit trails, and pattern recognition.',
+'Payment Rails':'Cards, ACH, RTP, wires, wallets, and local methods differ in speed, cost, reversibility, availability, and operational risk.',
+'Risk & Fraud Controls':'Strong controls balance customer approval with loss prevention through velocity checks, identity signals, rules, and human review.'
+};
+function renderLesson(){$('paymentLesson').textContent=lessons[$('paymentTopic').value]}$('paymentTopic').onchange=renderLesson;renderLesson();
+$('addGloss').onclick=()=>{let term=$('glossTerm').value.trim(),meaning=$('glossMeaning').value.trim();if(!term||!meaning)return;S.glossary.unshift({term,meaning});save();renderCareer()};
+$('addCase').onclick=()=>{let subject=$('caseSubject').value.trim(),notes=$('caseNotes').value.trim();if(!notes)return;S.cases.unshift({subject:subject||'Case note',notes});save();renderCareer()};
+function renderCareer(){$('glossList').innerHTML=S.glossary.map(x=>`<div class="entryrow"><b>${x.term}</b><p>${x.meaning}</p></div>`).join('');$('caseList').innerHTML=S.cases.map(x=>`<div class="entryrow"><b>${x.subject}</b><p>${x.notes}</p></div>`).join('');let c=$('careerSkills');c.innerHTML='';Object.entries(S.careerSkills).forEach(([k,v])=>{let d=document.createElement('div');d.innerHTML=`<div class="row"><b>${k}</b><span>${v}%</span></div><input type="range" min="0" max="100" value="${v}"><div class="bar"><span style="width:${v}%"></span></div>`;d.querySelector('input').oninput=e=>{S.careerSkills[k]=+e.target.value;save();renderAll()};c.appendChild(d)})}
 
-<div class="mobile-drawer" id="mobileDrawer">
-  <button id="closeDrawer">×</button>
-  <div id="drawerLinks"></div>
-</div>
-<div class="drawer-backdrop" id="drawerBackdrop"></div>
+$('addNews').onclick=()=>{let scope=$('newsScope').value,title=$('newsTitle').value.trim(),notes=$('newsNotes').value.trim();if(!title)return;S.news.unshift({scope,title,notes,date:new Date().toLocaleDateString()});save();renderNews()};
+function renderNews(){$('newsBoard').innerHTML=S.news.length?S.news.map(x=>`<div class="newsrow"><span class="pill">${x.scope}</span><b style="display:block;margin-top:7px">${x.title}</b><p>${x.notes}</p><div class="mini">${x.date}</div></div>`).join(''):'<p class="sub">Add important market, creator, policy, or industry updates here.</p>'}
 
-<div class="modal-backdrop" id="goalModal" hidden>
-  <form class="modal" id="goalForm">
-    <div class="modal-head"><h3>Add goal</h3><button type="button" id="closeGoalModal">×</button></div>
-    <label>Goal<input id="goalTitle" required></label>
-    <label>Progress<input id="goalProgress" type="number" min="0" max="100" value="0"></label>
-    <button type="submit" class="pill-button">Save goal</button>
-  </form>
-</div>
+const prompts={
+'Self-Love':['What part of yourself deserves more tenderness this week?','Where are you already enough, even before the next achievement?'],
+'Growth':['What are you outgrowing—and what are you ready to choose instead?','What did a hard season teach you about your own capacity?'],
+'Motherhood':['What does your child need most from the version of you that already exists today?','Where can “good enough” motherhood make room for more joy?'],
+'Gratitude':['What ordinary thing quietly made your life better this week?','Who or what helped carry you recently?'],
+'Dreams':['What would you pursue if you trusted yourself ten percent more?','Describe the life you are unlocking in vivid detail.']
+};let currentPromptCategory='Self-Love';
+function weeklyPrompt(){let week=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,1))/604800000);let arr=prompts[currentPromptCategory];return arr[week%arr.length]}
+function renderJournal(){$('weeklyPrompt').textContent=weeklyPrompt();let p=$('promptButtons');p.innerHTML='';Object.keys(prompts).forEach(k=>{let b=document.createElement('button');b.className='btn ghost';b.textContent=k;b.onclick=()=>{currentPromptCategory=k;renderJournal()};p.appendChild(b)});$('journalEntries').innerHTML=S.journalEntries.slice(0,8).map(x=>`<div class="entryrow"><div class="mini">${x.date} · ${x.category}</div><b>${x.prompt}</b><p>${x.text}</p></div>`).join('')}
+$('saveJournal').onclick=()=>{let text=$('journalText').value.trim();if(!text)return;S.journalEntries.unshift({date:new Date().toLocaleDateString(),category:currentPromptCategory,prompt:weeklyPrompt(),text});S.wins.unshift({date:new Date().toLocaleDateString(),text:'Completed a journal reflection'});$('journalText').value='';save();renderJournal();toast('Journal entry saved.')};
 
-<script src="app.js"></script>
-</body>
-</html>
+$('addGoal').onclick=()=>{let name=$('goalName').value.trim();if(!name||S.goals.length>=25)return;S.goals.push({id:Date.now(),name,category:$('goalCategory').value,progress:0,done:false});$('goalName').value='';save();renderGoals()};
+function renderGoals(){let b=$('goalBoard');b.innerHTML='';$('goalCount').textContent=S.goals.length+'/25';S.goals.forEach(g=>{let d=document.createElement('article');d.className='card';d.innerHTML=`<div class="row"><div><span class="pill">${g.category}</span><h3 style="margin-top:10px">${g.name}</h3></div><label><input type="checkbox" ${g.done?'checked':''}> Done</label></div><input type="range" min="0" max="100" value="${g.progress}"><div class="row"><div class="bar" style="flex:1"><span style="width:${g.progress}%"></span></div><b>${g.progress}%</b></div>`;let inputs=d.querySelectorAll('input');inputs[0].onchange=e=>{g.done=e.target.checked;if(g.done)g.progress=100;save();renderAll()};inputs[1].oninput=e=>{g.progress=+e.target.value;g.done=g.progress===100;save();renderAll()};b.appendChild(d)})}
+
+const homeItems=['Kitchen reset','Living room reset','Laundry check','Prepare tomorrow','Ten-minute tidy'];function renderHome(){let b=$('homeChecks');b.innerHTML='';homeItems.forEach(k=>{let l=document.createElement('label');l.className='task';l.innerHTML=`<input type="checkbox" ${S.homeChecks[k]?'checked':''}> ${k}`;l.querySelector('input').onchange=e=>{S.homeChecks[k]=e.target.checked;save();renderAll()};b.appendChild(l)});$('routineList').innerHTML=S.routines.map(x=>`<div class="entryrow">${x}</div>`).join('');$('homeNotes').value=S.homeNotes}
+$('addRoutine').onclick=()=>{let v=$('routineName').value.trim();if(v){S.routines.push(v);$('routineName').value='';save();renderHome()}};$('homeNotes').oninput=()=>{S.homeNotes=$('homeNotes').value;save()};
+
+function progressData(){let goals=S.goals.length?Math.round(S.goals.reduce((s,g)=>s+g.progress,0)/S.goals.length):0,well=Math.round(((S.water/8)*50)+(Math.min(S.gymMinutes,60)/60*30)+([S.wellness.protein,S.wellness.meal,S.wellness.noAlcohol].filter(Boolean).length/3*20)),career=Math.round(Object.values(S.careerSkills).reduce((a,b)=>a+b,0)/Object.values(S.careerSkills).length),home=Math.round(Object.values(S.homeChecks).filter(Boolean).length/homeItems.length*100),moneyP=Math.max(0,Math.min(100,Math.round(((+S.checking+ +S.savings)-S.bills.reduce((s,b)=>s+b.amount,0))/Math.max(1,+S.checking+ +S.savings)*100)));return {Goals:goals,Wellness:well,Career:career,Home:home,Money:moneyP}}
+function renderProgress(){let data=progressData(),cards=$('progressCards');cards.innerHTML='';Object.entries(data).forEach(([k,v])=>{let d=document.createElement('article');d.className='card';d.innerHTML=`<div class="mini">${k}</div><div class="metric">${v}%</div><div class="bar"><span style="width:${v}%"></span></div>`;cards.appendChild(d)});$('recentWins').innerHTML=S.wins.slice(0,10).map(x=>`<div class="entryrow"><b>${x.text}</b><div class="mini">${x.date}</div></div>`).join('')||'<p class="sub">Your wins will appear here as you use the OS.</p>';drawChart(data);let avg=Math.round(Object.values(data).reduce((a,b)=>a+b,0)/Object.values(data).length);$('dashProgress').textContent=avg+'%';$('dashProgressBar').style.width=avg+'%'}
+function drawChart(data){let c=$('progressChart'),r=c.getBoundingClientRect(),dpr=devicePixelRatio||1;c.width=r.width*dpr;c.height=r.height*dpr;let x=c.getContext('2d');x.scale(dpr,dpr);x.clearRect(0,0,r.width,r.height);let vals=Object.entries(data),w=r.width/(vals.length*1.5),max=100;vals.forEach(([k,v],i)=>{let bx=(i*1.5+.3)*w,bh=(v/max)*(r.height-45);let grad=x.createLinearGradient(0,r.height-bh,0,r.height);grad.addColorStop(0,'#e2c675');grad.addColorStop(1,'#7f5f20');x.fillStyle=grad;x.fillRect(bx,r.height-bh-24,w,bh);x.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--ink');x.font='12px sans-serif';x.fillText(k,bx,r.height-7);x.fillText(v+'%',bx,r.height-bh-30)})}
+
+$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='key-collective-data.json';a.click();URL.revokeObjectURL(a.href)};
+$('importData').onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{S=Object.assign({},defaults,JSON.parse(r.result));save();location.reload()}catch{toast('That file could not be imported.')}};r.readAsText(f)};
+let focusInterval=null,focusSecs=0;$('startFocus').onclick=()=>{clearInterval(focusInterval);focusSecs=+$('focusLength').value*60;focusInterval=setInterval(()=>{focusSecs--;let m=Math.floor(focusSecs/60),s=focusSecs%60;$('focusTimer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(focusSecs<=0){clearInterval(focusInterval);toast('Focus session complete. Beautiful work.')}},1000)};
+
+function renderAll(){renderTop3();renderCalendar();renderMoney();renderSavings();renderWellness();renderSwim();renderLani();renderCareer();renderNews();renderJournal();renderGoals();renderHome();renderProgress()}
+renderAll();
+</script>
+</body></html>

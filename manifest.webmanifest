@@ -1,20 +1,14 @@
 {
   "name": "The Key Collective OS",
-  "short_name": "Key OS",
-  "description": "Reference-first redesign of The Key Collective OS.",
-  "start_url": "./",
+  "short_name": "Key Collective",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f7f1e7",
-  "theme_color": "#f7f1e7",
+  "background_color": "#fbf6ed",
+  "theme_color": "#b89242",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
+      "src": "apple-touch-icon.png",
+      "sizes": "1024x1024",
       "type": "image/png"
     }
   ]
