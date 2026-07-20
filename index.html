@@ -10,7 +10,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
-  <title>The Key Collective OS — Reference Design Rebuild</title>
+  <title>The Key Collective OS — Sprint 4 Premium Edition</title>
 </head>
 <body>
 <div class="app">
@@ -57,7 +57,7 @@
         <button class="nav-link" data-view="goals"><span>◎</span><small>GOALS</small></button>
         <button class="nav-link" data-view="progress"><span>▥</span><small>PROGRESS</small></button>
         <button class="nav-link" data-view="vision"><span>☆</span><small>VISION BOARD</small></button>
-        <button class="nav-link" data-view="jay"><span>J</span><small>JAY</small></button>
+        <button class="nav-link" data-view="jay"><span>J</span><small>JAY</small></button><button class="nav-link" data-view="premium"><span>⚙</span><small>PREMIUM</small></button>
       </div>
     </header>
 
@@ -70,6 +70,22 @@
             <em>Let’s make it count.</em>
           </div>
           <div class="leaf-stem"></div>
+        </article>
+
+        <article class="card smart-briefing-card span-2">
+          <div class="card-header">
+            <div>
+              <div class="mini-title">✦ SMART EXECUTIVE BRIEFING</div>
+              <h2 id="smartHeadline">Your day is being analyzed…</h2>
+            </div>
+            <button class="text-link" id="refreshBriefing">Refresh</button>
+          </div>
+          <p id="smartSummary" class="smart-summary"></p>
+          <div class="smart-grid" id="smartInsights"></div>
+          <div class="smart-action-row">
+            <button class="pill-button" id="acceptSmartPriority">Use suggested priority</button>
+            <button class="pill-button blue-btn" data-view="jay">Open Smart Hub</button>
+          </div>
         </article>
 
         <article class="card focus-card">
@@ -232,7 +248,45 @@
     <section class="view" id="goals"><div class="page-shell"><h1>Goals</h1><textarea data-text="goalsPage" rows="18" placeholder="90-day goals, annual goals, milestones..."></textarea></div></section>
     <section class="view" id="progress"><div class="page-shell"><h1>Progress</h1><textarea data-text="progressPage" rows="18" placeholder="Wins, lessons, before and after..."></textarea></div></section>
     <section class="view" id="vision"><div class="page-shell"><h1>Vision Board</h1><textarea data-text="visionPage" rows="18" placeholder="Dreams, inspiration links, visual direction..."></textarea></div></section>
-    <section class="view" id="jay"><div class="page-shell"><h1>Jay's Workspace</h1><textarea data-text="jayWorkspace" rows="18" placeholder="Ideas, build queue, next conversation notes..."></textarea></div></section>
+    <section class="view" id="jay">
+      <div class="page-shell smart-hub">
+        <div class="page-heading-row"><div><h1>Jay Smart Hub</h1><p>Your private, on-device planning intelligence. It reads the information saved inside your OS and turns it into practical next steps.</p></div><span class="smart-status">● Ready</span></div>
+        <div class="smart-metrics">
+          <div class="metric-box"><small>Today’s priority</small><strong id="hubPriority">—</strong></div>
+          <div class="metric-box"><small>Upcoming pressure</small><strong id="hubPressure">—</strong></div>
+          <div class="metric-box"><small>Wellness signal</small><strong id="hubWellness">—</strong></div>
+        </div>
+        <div class="smart-command-card">
+          <label for="smartCommand">Ask your OS</label>
+          <div class="smart-command-row"><input id="smartCommand" placeholder="Try: What should I focus on today?"><button type="button" class="pill-button" id="runSmartCommand">Analyze</button></div>
+          <div class="smart-prompts">
+            <button type="button" data-smart-prompt="plan today">Plan today</button>
+            <button type="button" data-smart-prompt="money check">Money check</button>
+            <button type="button" data-smart-prompt="wellness check">Wellness check</button>
+            <button type="button" data-smart-prompt="business next step">Business next step</button>
+          </div>
+          <div id="smartResponse" class="smart-response" aria-live="polite">Your recommendation will appear here.</div>
+        </div>
+        <div class="smart-two-col">
+          <article class="smart-panel"><div class="mini-title">AUTOMATIC RECOMMENDATIONS</div><div id="recommendationList"></div></article>
+          <article class="smart-panel"><div class="mini-title">JAY NOTES</div><textarea data-text="jayWorkspace" rows="12" placeholder="Ideas, build queue, next conversation notes..."></textarea></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="premium">
+      <div class="page-shell premium-page">
+        <div class="page-heading-row"><div><h1>Premium Control Center</h1><p>Customize your OS, protect your data, run focused work sessions, and reset your week with intention.</p></div><span class="smart-status">SPRINT 4 · PREMIUM</span></div>
+        <div class="premium-grid">
+          <article class="panel premium-theme-panel"><h2>Design Studio</h2><p class="page-intro">Choose the mood of your OS.</p><div class="theme-picks" id="themePicks"><button type="button" data-premium-theme="coastal">Modern Coastal</button><button type="button" data-premium-theme="luxury">Dark Luxury</button><button type="button" data-premium-theme="rose">Soft Rose</button><button type="button" data-premium-theme="mint">Mint Focus</button></div><label class="field">Compact dashboard <select id="densitySelect"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label></article>
+          <article class="panel"><h2>Focus Studio</h2><div class="focus-display" id="focusTimerDisplay">25:00</div><div class="timer-presets"><button type="button" data-minutes="15">15 min</button><button type="button" data-minutes="25">25 min</button><button type="button" data-minutes="45">45 min</button><button type="button" data-minutes="60">60 min</button></div><div class="smart-action-row"><button class="primary" type="button" id="startFocusTimer">Start</button><button class="secondary" type="button" id="pauseFocusTimer">Pause</button><button class="secondary" type="button" id="resetFocusTimer">Reset</button></div><small id="focusTimerMessage">Protect one clear block for what matters most.</small></article>
+          <article class="panel"><h2>Weekly Reset</h2><p class="page-intro">Clear daily checkmarks, water, and temporary notes while keeping your long-term records.</p><div class="check-stack"><label><input type="checkbox" id="resetTasks" checked> Daily tasks</label><label><input type="checkbox" id="resetWater" checked> Water count</label><label><input type="checkbox" id="resetReflection" checked> Reflection fields</label><label><input type="checkbox" id="resetGym"> This week’s gym checkmarks</label></div><button class="primary" type="button" id="runWeeklyReset">Run weekly reset</button></article>
+          <article class="panel"><h2>Data Vault</h2><p class="page-intro">Download a private backup or restore your OS on another device.</p><div class="smart-action-row"><button class="primary" type="button" id="exportData">Download backup</button><label class="secondary file-button">Restore backup<input type="file" id="importData" accept="application/json"></label></div><small id="backupStatus">Your data stays in this browser unless you export it.</small></article>
+          <article class="panel span-premium"><div class="card-header"><div><h2>Recurring Routines</h2><p class="page-intro">Create repeatable rituals without rebuilding your checklist every week.</p></div></div><div class="routine-form"><input id="routineName" placeholder="Routine name, e.g. Sunday reset"><select id="routineDay"><option>Sunday</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option></select><input id="routineTime" type="time"><button class="primary" id="addRoutine" type="button">Add routine</button></div><div id="routineList" class="data-list"></div></article>
+          <article class="panel span-premium"><h2>Achievement Cabinet</h2><div class="premium-badges" id="premiumBadges"></div></article>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
